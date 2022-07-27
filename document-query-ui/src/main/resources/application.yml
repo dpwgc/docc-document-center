@@ -1,0 +1,32 @@
+server:
+  # http端口号
+  port: 8000
+
+spring:
+  application:
+    # 中台名称
+    name: document-query-center
+
+  # 数据源配置（默认使用mariadb，也可换成mysql，两者通用）
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/imc?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password:
+    driver-class-name: org.mariadb.jdbc.Driver
+
+# 集群配置（涉及雪花id生成）
+cluster:
+  # 数据中心id
+  datacenterId: 1
+  # 机器id
+  workerId: 0
+
+# MyBatis-Plus配置
+mybatis-plus:
+  configuration:
+    # 使用jdbc的getGenerateKeys获取数据库自增主键值
+    use-generated-keys: true
+    # 使用列标签替换列别名 默认true
+    use-column-label: true
+    # 开启驼峰命名转换：Table{create_time} -> Entity{createTime}
+    map-underscore-to-camel-case: true
