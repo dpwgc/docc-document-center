@@ -217,6 +217,52 @@ public class ESClient {
     }
 
     /**
+     * 根据分类id与文档类型type检索文档
+     * @param indexName 索引名称
+     * @param categoryId 分类id
+     * @param type 文档类型
+     * @param sortField 选用排序字段 例：update_time
+     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
+     * @param pageIndex 分页开始
+     * @param pageSize 分页大小
+     * @return List<Hit<Object>>
+     */
+    public List<Hit<Object>> searchDocumentByCategoryIdAndType(String indexName, String categoryId, Integer type, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+
+        try {
+            // 检索分类id(精准查询)
+            SearchResponse<Object> search = client.search(s -> s
+                    .index(indexName)
+                    .query(query -> query
+                            .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("category_id")
+                                                    .query(categoryId)
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("type")
+                                                    .query(type)
+                                            )
+                                    )
+                            )
+                    )
+                    //分页查询
+                    .from(pageIndex)
+                    .size(pageSize)
+                    //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
+                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+            );
+            return search.hits().hits();
+        } catch (Exception e) {
+            LogUtil.error("es search document by categoryId error: "+e);
+            return null;
+        }
+    }
+
+    /**
      * 根据标签检索文档
      * @param indexName 索引名称
      * @param tags 标签
