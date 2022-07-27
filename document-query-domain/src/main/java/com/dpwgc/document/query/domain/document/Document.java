@@ -79,4 +79,25 @@ public class Document {
      * 文档更新时间
      */
     private Long updateTime;
+
+    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Integer type) {
+
+        this.createTime = System.currentTimeMillis();
+        this.updateTime = System.currentTimeMillis();
+
+        this.status = 1;
+
+        this.appId = appId;
+        this.categoryId = categoryId;
+        this.authorId = authorId;
+        this.documentId = documentId;
+        this.title = title;
+        this.content = content;
+        this.summary = summary;
+        this.tags = tags;
+        this.authLevel = authLevel;
+        this.type = type;
+
+        return this;
+    }
 }

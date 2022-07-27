@@ -1,5 +1,6 @@
 package com.dpwgc.document.query.domain.category;
 
+import com.dpwgc.document.query.domain.document.Document;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,4 +50,19 @@ public class Category {
      * 分类更新时间
      */
     private Long updateTime;
+
+    protected Category create(String appId, String categoryId, String parentId, String categoryName) {
+
+        this.createTime = System.currentTimeMillis();
+        this.updateTime = System.currentTimeMillis();
+
+        this.status = 1;
+
+        this.appId = appId;
+        this.categoryId = categoryId;
+        this.parentId = parentId;
+        this.categoryName = categoryName;
+
+        return this;
+    }
 }

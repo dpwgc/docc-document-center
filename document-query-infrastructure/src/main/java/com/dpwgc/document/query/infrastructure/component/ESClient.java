@@ -5,6 +5,7 @@ import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch.core.*;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
+import co.elastic.clients.json.JsonData;
 import co.elastic.clients.transport.endpoints.BooleanResponse;
 import com.dpwgc.document.query.infrastructure.util.FieldUtil;
 import com.dpwgc.document.query.infrastructure.util.LogUtil;
@@ -124,13 +125,14 @@ public class ESClient {
      * 根据关键词检索文档
      * @param indexName 索引名称
      * @param keyword 关键词
+     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
      * @param sortField 选用排序字段 例：update_time
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByKeyword(String indexName, String keyword, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public List<Hit<Object>> searchDocumentByKeyword(String indexName, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             SearchResponse<Object> search = client.search(s -> s
@@ -166,6 +168,13 @@ public class ESClient {
                                                     .fuzziness("0")
                                             )
                                     )
+                                    .must(must -> must
+                                            .range(range -> range
+                                                    //返回的文档权限等级要<=用户权限等级
+                                                    .field("auth_level")
+                                                    .lte(JsonData.of(authLevel))
+                                            )
+                                    )
                             )
                     )
                     //分页查询
@@ -185,22 +194,34 @@ public class ESClient {
      * 根据分类id检索文档
      * @param indexName 索引名称
      * @param categoryId 分类id
+     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
      * @param sortField 选用排序字段 例：update_time
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByCategoryId(String indexName, String categoryId, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public List<Hit<Object>> searchDocumentByCategoryId(String indexName, String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             // 检索分类id(精准查询)
             SearchResponse<Object> search = client.search(s -> s
                     .index(indexName)
                     .query(query -> query
-                            .match(match -> match
-                                    .field("category_id")
-                                    .query(categoryId)
+                            .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("category_id")
+                                                    .query(categoryId)
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .range(range -> range
+                                                    //返回的文档权限等级要<=用户权限等级
+                                                    .field("auth_level")
+                                                    .lte(JsonData.of(authLevel))
+                                            )
+                                    )
                             )
                     )
                     //分页查询
@@ -221,13 +242,14 @@ public class ESClient {
      * @param indexName 索引名称
      * @param categoryId 分类id
      * @param type 文档类型
+     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
      * @param sortField 选用排序字段 例：update_time
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByCategoryIdAndType(String indexName, String categoryId, Integer type, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public List<Hit<Object>> searchDocumentByCategoryIdAndType(String indexName, String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             // 检索分类id(精准查询)
@@ -245,6 +267,13 @@ public class ESClient {
                                             .match(match -> match
                                                     .field("type")
                                                     .query(type)
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .range(range -> range
+                                                    //返回的文档权限等级要<=用户权限等级
+                                                    .field("auth_level")
+                                                    .lte(JsonData.of(authLevel))
                                             )
                                     )
                             )
@@ -266,23 +295,35 @@ public class ESClient {
      * 根据标签检索文档
      * @param indexName 索引名称
      * @param tags 标签
+     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
      * @param sortField 选用排序字段 例：update_time
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByTags(String indexName, String tags, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public List<Hit<Object>> searchDocumentByTags(String indexName, String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             // 检索标签 (模糊查询，不允许错字)
             SearchResponse<Object> search = client.search(s -> s
                     .index(indexName)
                     .query(query -> query
-                            .fuzzy(fuzzy -> fuzzy
-                                    .field("tags")
-                                    .value(tags)
-                                    .fuzziness("0")
+                            .bool(bool -> bool
+                                    .must(must -> must
+                                            .fuzzy(fuzzy -> fuzzy
+                                                    .field("tags")
+                                                    .value(tags)
+                                                    .fuzziness("0")
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .range(range -> range
+                                                    //返回的文档权限等级要<=用户权限等级
+                                                    .field("auth_level")
+                                                    .lte(JsonData.of(authLevel))
+                                            )
+                                    )
                             )
                     )
                     //分页查询

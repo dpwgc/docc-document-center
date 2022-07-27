@@ -34,18 +34,23 @@ public class DocumentController {
         return ResultDTO.getSuccessResult(null);
     }
 
+    @GetMapping("queryDocumentByKeyword")
+    public ResultDTO<Object> queryDocumentByKeyword(String keyword, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        return ResultDTO.getSuccessResult(null);
+    }
+
     @GetMapping("queryDocumentByCategoryId")
     public ResultDTO<Object> queryDocumentByCategoryId(String categoryId, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         return ResultDTO.getSuccessResult(null);
     }
 
-    @GetMapping("queryDocumentByTags")
-    public ResultDTO<Object> queryDocumentByTags(String tags, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    @GetMapping("queryDocumentByCategoryIdAndType")
+    public ResultDTO<Object> queryDocumentByCategoryIdAndType(String categoryId, Integer type, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         return ResultDTO.getSuccessResult(null);
     }
 
-    @GetMapping("queryDocumentByKeyword")
-    public ResultDTO<Object> queryDocumentByKeyword(String keyword, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    @GetMapping("queryDocumentByTags")
+    public ResultDTO<Object> queryDocumentByTags(String tags, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         return ResultDTO.getSuccessResult(null);
     }
 }

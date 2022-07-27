@@ -18,6 +18,24 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.dpwgc</groupId>
+            <artifactId>document-query-sdk</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.dpwgc</groupId>
+            <artifactId>document-query-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.dpwgc</groupId>
+            <artifactId>document-query-infrastructure</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>
