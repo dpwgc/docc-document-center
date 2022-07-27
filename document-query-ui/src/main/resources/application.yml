@@ -14,6 +14,13 @@ spring:
     password:
     driver-class-name: org.mariadb.jdbc.Driver
 
+# elasticsearch配置
+elasticsearch:
+  scheme: http
+  hostname: 127.0.0.1
+  port: 9200
+  indexName: document-query-center-product
+
 # 集群配置（涉及雪花id生成）
 cluster:
   # 数据中心id
