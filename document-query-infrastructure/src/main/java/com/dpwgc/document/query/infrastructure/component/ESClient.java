@@ -161,7 +161,7 @@ public class ESClient {
                                     )
                                     .should(should -> should
                                             .fuzzy(fuzzy -> fuzzy
-                                                    .field("abstract")
+                                                    .field("summary")
                                                     .value(keyword)
                                                     .fuzziness("0")
                                             )

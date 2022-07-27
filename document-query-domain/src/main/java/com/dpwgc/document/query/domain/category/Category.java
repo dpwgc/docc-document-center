@@ -1,11 +1,24 @@
-package com.dpwgc.document.query.sdk.model.category;
+package com.dpwgc.document.query.domain.category;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
+/**
+ * 文档分类
+ */
 @Setter
-public class CategoryDTO {
+@Getter
+public class Category {
+
+    /**
+     * 主键id
+     */
+    private String id;
+
+    /**
+     * 所属应用id
+     */
+    private String appId;
 
     /**
      * 分类id
@@ -21,6 +34,11 @@ public class CategoryDTO {
      * 分类名称
      */
     private String categoryName;
+
+    /**
+     * 分类状态（0-删除，1-正常）
+     */
+    private Integer status;
 
     /**
      * 分类创建时间

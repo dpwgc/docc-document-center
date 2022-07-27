@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DocumentDTO {
+public class UpdateDocumentCommand {
 
     /**
      * ES主键id
@@ -13,24 +13,9 @@ public class DocumentDTO {
     private String id;
 
     /**
-     * 应用id
-     */
-    private String appId;
-
-    /**
      * 分类id
      */
     private String categoryId;
-
-    /**
-     * 作者id
-     */
-    private String authorId;
-
-    /**
-     * 文档id
-     */
-    private String documentId;
 
     /**
      * 文档标题
@@ -61,14 +46,4 @@ public class DocumentDTO {
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
      */
     private Integer type;
-
-    /**
-     * 文档创建时间
-     */
-    private Long createTime;
-
-    /**
-     * 文档更新时间
-     */
-    private Long updateTime;
 }

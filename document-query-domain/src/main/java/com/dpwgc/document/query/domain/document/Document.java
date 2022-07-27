@@ -1,11 +1,14 @@
-package com.dpwgc.document.query.sdk.model.document;
+package com.dpwgc.document.query.domain.document;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
+/**
+ * 文档
+ */
 @Setter
-public class DocumentDTO {
+@Getter
+public class Document {
 
     /**
      * ES主键id
@@ -61,6 +64,11 @@ public class DocumentDTO {
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
      */
     private Integer type;
+
+    /**
+     * 文档状态（0-删除，1-正常）
+     */
+    private Integer status;
 
     /**
      * 文档创建时间

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CategoryDTO {
+public class UpdateCategoryCommand {
 
     /**
      * 分类id
@@ -21,14 +21,4 @@ public class CategoryDTO {
      * 分类名称
      */
     private String categoryName;
-
-    /**
-     * 分类创建时间
-     */
-    private Long createTime;
-
-    /**
-     * 分类更新时间
-     */
-    private Long updateTime;
 }
