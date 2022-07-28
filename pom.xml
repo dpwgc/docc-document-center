@@ -98,7 +98,7 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-            <version>1.5.2.Final</version>
+            <version>${org.mapstruct.version}</version>
         </dependency>
         <!--mapstruct编译-->
         <dependency>
