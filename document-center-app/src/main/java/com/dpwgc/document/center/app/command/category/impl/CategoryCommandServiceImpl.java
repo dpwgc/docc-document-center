@@ -40,7 +40,13 @@ public class CategoryCommandServiceImpl implements CategoryCommandService {
 
     @Override
     public Boolean updateCategory(UpdateCategoryCommand updateCategoryCommand) {
-        return false;
+
+        Category category = categoryRepository.queryCategoryByCategoryId(updateCategoryCommand.getCategoryId());
+        category.setParentId(updateCategoryCommand.getParentId());
+        category.setCategoryName(updateCategoryCommand.getCategoryName());
+        category.setSummary(updateCategoryCommand.getSummary());
+        category.setScore(updateCategoryCommand.getScore());
+        return categoryRepository.updateCategory(category);
     }
 
     @Override

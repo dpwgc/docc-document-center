@@ -1,23 +1,15 @@
-package com.dpwgc.document.center.infrastructure.dal.category.entity;
+package com.dpwgc.document.center.sdk.model.category;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
-@TableName("category")
-public class CategoryPO {
-
-    /**
-     * 主键id
-     */
-    private String id;
-
-    /**
-     * 所属应用id
-     */
-    private String appId;
+public class CategoryTreeDTO {
 
     /**
      * 分类id
@@ -45,11 +37,6 @@ public class CategoryPO {
     private Long score;
 
     /**
-     * 分类状态（0-删除，1-正常）
-     */
-    private Integer status;
-
-    /**
      * 分类创建时间
      */
     private Long createTime;
@@ -58,4 +45,10 @@ public class CategoryPO {
      * 分类更新时间
      */
     private Long updateTime;
+
+    /**
+     * 子类别对象
+     */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<CategoryTreeDTO> children;
 }
