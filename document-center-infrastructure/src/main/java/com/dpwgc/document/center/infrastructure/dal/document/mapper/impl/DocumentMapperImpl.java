@@ -2,6 +2,8 @@ package com.dpwgc.document.center.infrastructure.dal.document.mapper.impl;
 
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import com.dpwgc.document.center.domain.document.Document;
+import com.dpwgc.document.center.infrastructure.assembler.DocumentPOAssembler;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.assembler.HitToDocumentPOAssembler;
 import com.dpwgc.document.center.infrastructure.component.ESClient;
@@ -24,6 +26,26 @@ public class DocumentMapperImpl implements DocumentMapper {
 
     @Value("${elasticsearch.indexName}")
     private String indexName;
+
+    @Override
+    public String createDocument(DocumentPO documentPO) {
+        return esClient.insertDocument(indexName,documentPO);
+    }
+
+    @Override
+    public DocumentPO queryDocumentById(String id) {
+        return hitToDocumentPOAssembler.assemblerDocumentPO(esClient.searchDocumentById(indexName,id).get(0));
+    }
+
+    @Override
+    public Boolean updateDocument(DocumentPO documentPO) {
+        return esClient.updateDocument(indexName,documentPO.getId(),documentPO);
+    }
+
+    @Override
+    public Boolean deleteDocument(String id) {
+        return esClient.deleteDocument(indexName,id);
+    }
 
     /**
      * 根据关键词检索文档

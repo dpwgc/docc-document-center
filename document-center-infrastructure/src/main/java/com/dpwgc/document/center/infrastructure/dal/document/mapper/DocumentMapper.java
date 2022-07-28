@@ -9,6 +9,14 @@ import java.util.List;
 @Mapper
 public interface DocumentMapper {
 
+    String createDocument(DocumentPO documentPO);
+
+    DocumentPO queryDocumentById(String id);
+
+    Boolean updateDocument(DocumentPO documentPO);
+
+    Boolean deleteDocument(String id);
+
     /**
      * 根据关键词检索文档
      * @param keyword 关键词

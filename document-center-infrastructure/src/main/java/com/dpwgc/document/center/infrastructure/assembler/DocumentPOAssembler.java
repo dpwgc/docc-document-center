@@ -9,4 +9,6 @@ public interface DocumentPOAssembler {
     DocumentPOAssembler INSTANCE = Mappers.getMapper(DocumentPOAssembler.class);
 
     Document assembleDocument(DocumentPO documentPO);
+
+    DocumentPO assembleDocumentPO(Document document);
 }

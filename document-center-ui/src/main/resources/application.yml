@@ -9,7 +9,7 @@ spring:
 
   # 数据源配置（默认使用mariadb，也可换成mysql，两者通用）
   datasource:
-    url: jdbc:mariadb://127.0.0.1:3306/docc_document_center?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://127.0.0.1:3306/docc_document_center_product?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password:
     driver-class-name: org.mariadb.jdbc.Driver

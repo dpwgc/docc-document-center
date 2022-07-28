@@ -23,6 +23,16 @@ public class CategoryDTO {
     private String categoryName;
 
     /**
+     * 分类概要
+     */
+    private String summary;
+
+    /**
+     * 分类推荐分值（可按此字段对分类进行排序）
+     */
+    private Long score;
+
+    /**
      * 分类创建时间
      */
     private Long createTime;

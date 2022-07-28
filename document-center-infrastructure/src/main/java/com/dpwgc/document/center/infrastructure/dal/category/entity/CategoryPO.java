@@ -33,6 +33,16 @@ public class CategoryPO {
     private String categoryName;
 
     /**
+     * 分类概要
+     */
+    private String summary;
+
+    /**
+     * 分类推荐分值（可按此字段对分类进行排序）
+     */
+    private Long score;
+
+    /**
      * 分类状态（0-删除，1-正常）
      */
     private Integer status;

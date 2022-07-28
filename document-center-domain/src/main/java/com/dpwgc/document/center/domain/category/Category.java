@@ -36,6 +36,16 @@ public class Category {
     private String categoryName;
 
     /**
+     * 分类概要
+     */
+    private String summary;
+
+    /**
+     * 分类推荐分值（可按此字段对分类进行排序）
+     */
+    private Long score;
+
+    /**
      * 分类状态（0-删除，1-正常）
      */
     private Integer status;
@@ -50,10 +60,7 @@ public class Category {
      */
     private Long updateTime;
 
-    protected Category create(String appId, String categoryId, String parentId, String categoryName) {
-
-        this.createTime = System.currentTimeMillis();
-        this.updateTime = System.currentTimeMillis();
+    protected Category create(String appId, String categoryId, String parentId, String categoryName, String summary, Long score, Long createTime, Long updateTime) {
 
         this.status = 1;
 
@@ -61,6 +68,11 @@ public class Category {
         this.categoryId = categoryId;
         this.parentId = parentId;
         this.categoryName = categoryName;
+        this.summary = summary;
+        this.score = score;
+
+        this.createTime = createTime;
+        this.updateTime = updateTime;
 
         return this;
     }

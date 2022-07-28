@@ -29,7 +29,11 @@ public class CategoryCommandServiceImpl implements CategoryCommandService {
                 createCategoryCommand.getAppId(),
                 idGenUtil.nextIdString(),
                 createCategoryCommand.getParentId(),
-                createCategoryCommand.getCategoryName()
+                createCategoryCommand.getCategoryName(),
+                createCategoryCommand.getSummary(),
+                createCategoryCommand.getScore(),
+                System.currentTimeMillis(),
+                System.currentTimeMillis()
         );
         return categoryRepository.createCategory(category);
     }

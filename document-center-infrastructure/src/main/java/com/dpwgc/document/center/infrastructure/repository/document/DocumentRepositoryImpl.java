@@ -3,9 +3,7 @@ package com.dpwgc.document.center.infrastructure.repository.document;
 import com.dpwgc.document.center.domain.document.Document;
 import com.dpwgc.document.center.domain.document.DocumentRepository;
 import com.dpwgc.document.center.infrastructure.assembler.DocumentPOAssembler;
-import com.dpwgc.document.center.infrastructure.assembler.HitToDocumentPOAssembler;
-import com.dpwgc.document.center.infrastructure.component.ESClient;
-import org.springframework.beans.factory.annotation.Value;
+import com.dpwgc.document.center.infrastructure.dal.document.mapper.DocumentMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -14,31 +12,25 @@ import javax.annotation.Resource;
 public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Resource
-    ESClient esClient;
-
-    @Resource
-    HitToDocumentPOAssembler hitToDocumentPOAssembler;
-
-    @Value("${elasticsearch.indexName}")
-    private String indexName;
+    DocumentMapper documentMapper;
 
     @Override
     public String createDocument(Document document) {
-        return esClient.insertDocument(indexName,document);
+        return documentMapper.createDocument(DocumentPOAssembler.INSTANCE.assembleDocumentPO(document));
     }
 
     @Override
     public Document queryDocumentById(String id) {
-        return DocumentPOAssembler.INSTANCE.assembleDocument(hitToDocumentPOAssembler.assemblerDocumentPO(esClient.searchDocumentById(indexName,id).get(0)));
+        return DocumentPOAssembler.INSTANCE.assembleDocument(documentMapper.queryDocumentById(id));
     }
 
     @Override
     public Boolean updateDocument(Document document) {
-        return esClient.updateDocument(indexName,document.getId(),document);
+        return documentMapper.updateDocument(DocumentPOAssembler.INSTANCE.assembleDocumentPO(document));
     }
 
     @Override
     public Boolean deleteDocument(String id) {
-        return false;
+        return documentMapper.deleteDocument(id);
     }
 }
