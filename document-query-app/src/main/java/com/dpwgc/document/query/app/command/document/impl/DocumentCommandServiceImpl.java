@@ -35,15 +35,28 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
                 createDocumentCommand.getTags(),
                 createDocumentCommand.getSummary(),
                 createDocumentCommand.getAuthLevel(),
-                createDocumentCommand.getType()
+                createDocumentCommand.getScore(),
+                createDocumentCommand.getType(),
+                System.currentTimeMillis(),
+                System.currentTimeMillis()
         );
-
         return documentRepository.createDocument(document);
     }
 
     @Override
     public Boolean updateDocument(UpdateDocumentCommand updateDocumentCommand) {
-        return false;
+
+        Document document = documentRepository.queryDocumentById(updateDocumentCommand.getId());
+        document.setCategoryId(updateDocumentCommand.getCategoryId());
+        document.setTitle(updateDocumentCommand.getTitle());
+        document.setContent(updateDocumentCommand.getContent());
+        document.setSummary(updateDocumentCommand.getSummary());
+        document.setTags(updateDocumentCommand.getTags());
+        document.setAuthLevel(updateDocumentCommand.getAuthLevel());
+        document.setScore(updateDocumentCommand.getScore());
+        document.setType(updateDocumentCommand.getType());
+
+        return documentRepository.updateDocument(document);
     }
 
     @Override

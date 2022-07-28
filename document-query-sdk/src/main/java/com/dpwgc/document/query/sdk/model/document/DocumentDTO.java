@@ -58,6 +58,11 @@ public class DocumentDTO {
     private Integer authLevel;
 
     /**
+     * 文档推荐分值（可按此字段对文档进行排序，用于热门文档推荐）
+     */
+    private Long score;
+
+    /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
      */
     private Integer type;

@@ -238,6 +238,82 @@ public class ESClient {
     }
 
     /**
+     * 根据分类id与关键词检索文档
+     * @param indexName 索引名称
+     * @param categoryId 分类id
+     * @param keyword 关键词
+     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
+     * @param sortField 选用排序字段 例：update_time
+     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
+     * @param pageIndex 分页开始
+     * @param pageSize 分页大小
+     * @return List<Hit<Object>>
+     */
+    public List<Hit<Object>> searchDocumentByCategoryIdAndKeyword(String indexName, String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+
+        try {
+            // 检索分类id(精准查询)
+            SearchResponse<Object> search = client.search(s -> s
+                    .index(indexName)
+                    .query(query -> query
+                            .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("category_id")
+                                                    .query(categoryId)
+                                            )
+                                    )
+                                    .should(should -> should
+                                            .fuzzy(fuzzy -> fuzzy
+                                                    .field("title")
+                                                    .value(keyword)
+                                                    .fuzziness("0")
+                                            )
+                                    )
+                                    .should(should -> should
+                                            .fuzzy(fuzzy -> fuzzy
+                                                    .field("content")
+                                                    .value(keyword)
+                                                    .fuzziness("0")
+                                            )
+                                    )
+                                    .should(should -> should
+                                            .fuzzy(fuzzy -> fuzzy
+                                                    .field("tags")
+                                                    .value(keyword)
+                                                    .fuzziness("0")
+                                            )
+                                    )
+                                    .should(should -> should
+                                            .fuzzy(fuzzy -> fuzzy
+                                                    .field("summary")
+                                                    .value(keyword)
+                                                    .fuzziness("0")
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .range(range -> range
+                                                    //返回的文档权限等级要<=用户权限等级
+                                                    .field("auth_level")
+                                                    .lte(JsonData.of(authLevel))
+                                            )
+                                    )
+                            )
+                    )
+                    //分页查询
+                    .from(pageIndex)
+                    .size(pageSize)
+                    //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
+                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+            );
+            return search.hits().hits();
+        } catch (Exception e) {
+            LogUtil.error("es search document by categoryId and keyword error: "+e);
+            return null;
+        }
+    }
+
+    /**
      * 根据分类id与文档类型type检索文档
      * @param indexName 索引名称
      * @param categoryId 分类id
@@ -286,7 +362,130 @@ public class ESClient {
             );
             return search.hits().hits();
         } catch (Exception e) {
-            LogUtil.error("es search document by categoryId error: "+e);
+            LogUtil.error("es search document by categoryId and type error: "+e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据作者id检索文档
+     * @param indexName 索引名称
+     * @param authorId 作者id
+     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
+     * @param sortField 选用排序字段 例：update_time
+     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
+     * @param pageIndex 分页开始
+     * @param pageSize 分页大小
+     * @return List<Hit<Object>>
+     */
+    public List<Hit<Object>> searchDocumentByAuthorId(String indexName, String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+
+        try {
+            // 检索作者id(精准查询)
+            SearchResponse<Object> search = client.search(s -> s
+                    .index(indexName)
+                    .query(query -> query
+                            .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("author_id")
+                                                    .query(authorId)
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .range(range -> range
+                                                    //返回的文档权限等级要<=用户权限等级
+                                                    .field("auth_level")
+                                                    .lte(JsonData.of(authLevel))
+                                            )
+                                    )
+                            )
+                    )
+                    //分页查询
+                    .from(pageIndex)
+                    .size(pageSize)
+                    //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
+                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+            );
+            return search.hits().hits();
+        } catch (Exception e) {
+            LogUtil.error("es search document by authorId error: "+e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据作者id与关键词检索文档
+     * @param indexName 索引名称
+     * @param authorId 作者id
+     * @param keyword 关键词
+     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
+     * @param sortField 选用排序字段 例：update_time
+     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
+     * @param pageIndex 分页开始
+     * @param pageSize 分页大小
+     * @return List<Hit<Object>>
+     */
+    public List<Hit<Object>> searchDocumentByAuthorIdAndKeyword(String indexName, String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+
+        try {
+            // 检索分类id(精准查询)
+            SearchResponse<Object> search = client.search(s -> s
+                    .index(indexName)
+                    .query(query -> query
+                            .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("author_id")
+                                                    .query(authorId)
+                                            )
+                                    )
+                                    .should(should -> should
+                                            .fuzzy(fuzzy -> fuzzy
+                                                    .field("title")
+                                                    .value(keyword)
+                                                    .fuzziness("0")
+                                            )
+                                    )
+                                    .should(should -> should
+                                            .fuzzy(fuzzy -> fuzzy
+                                                    .field("content")
+                                                    .value(keyword)
+                                                    .fuzziness("0")
+                                            )
+                                    )
+                                    .should(should -> should
+                                            .fuzzy(fuzzy -> fuzzy
+                                                    .field("tags")
+                                                    .value(keyword)
+                                                    .fuzziness("0")
+                                            )
+                                    )
+                                    .should(should -> should
+                                            .fuzzy(fuzzy -> fuzzy
+                                                    .field("summary")
+                                                    .value(keyword)
+                                                    .fuzziness("0")
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .range(range -> range
+                                                    //返回的文档权限等级要<=用户权限等级
+                                                    .field("auth_level")
+                                                    .lte(JsonData.of(authLevel))
+                                            )
+                                    )
+                            )
+                    )
+                    //分页查询
+                    .from(pageIndex)
+                    .size(pageSize)
+                    //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
+                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+            );
+            return search.hits().hits();
+        } catch (Exception e) {
+            LogUtil.error("es search document by authorId and keyword error: "+e);
             return null;
         }
     }
@@ -334,7 +533,7 @@ public class ESClient {
             );
             return search.hits().hits();
         } catch (Exception e) {
-            LogUtil.error("es search document by categoryId error: "+e);
+            LogUtil.error("es search document by tags error: "+e);
             return null;
         }
     }

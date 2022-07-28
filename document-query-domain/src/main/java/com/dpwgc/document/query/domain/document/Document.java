@@ -61,6 +61,11 @@ public class Document {
     private Integer authLevel;
 
     /**
+     * 文档推荐分值（可按此字段对文档进行排序，用于热门文档推荐）
+     */
+    private Long score;
+
+    /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
      */
     private Integer type;
@@ -80,10 +85,7 @@ public class Document {
      */
     private Long updateTime;
 
-    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Integer type) {
-
-        this.createTime = System.currentTimeMillis();
-        this.updateTime = System.currentTimeMillis();
+    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Long score, Integer type, Long createTime, Long updateTime) {
 
         this.status = 1;
 
@@ -96,7 +98,11 @@ public class Document {
         this.summary = summary;
         this.tags = tags;
         this.authLevel = authLevel;
+        this.score = score;
         this.type = type;
+
+        this.createTime = createTime;
+        this.updateTime = updateTime;
 
         return this;
     }

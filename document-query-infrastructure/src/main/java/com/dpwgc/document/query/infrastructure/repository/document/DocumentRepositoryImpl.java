@@ -13,6 +13,11 @@ public class DocumentRepositoryImpl implements DocumentRepository {
     }
 
     @Override
+    public Document queryDocumentById(String id) {
+        return null;
+    }
+
+    @Override
     public Boolean updateDocument(Document document) {
         return false;
     }
