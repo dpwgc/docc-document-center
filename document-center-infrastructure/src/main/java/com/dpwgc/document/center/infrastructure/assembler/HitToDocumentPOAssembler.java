@@ -22,7 +22,12 @@ public class HitToDocumentPOAssembler {
         documentPO.setTags(hit.fields().get("tags").to(String.class));
         documentPO.setSummary(hit.fields().get("summary").to(String.class));
         documentPO.setAuthLevel(hit.fields().get("auth_level").to(Integer.class));
+
         documentPO.setScore(hit.fields().get("score").to(Long.class));
+        documentPO.setLove(hit.fields().get("love").to(Long.class));
+        documentPO.setLike(hit.fields().get("like").to(Long.class));
+        documentPO.setRead(hit.fields().get("read").to(Long.class));
+
         documentPO.setType(hit.fields().get("type").to(Integer.class));
         documentPO.setStatus(hit.fields().get("status").to(Integer.class));
         documentPO.setCreateTime(hit.fields().get("create_time").to(Long.class));

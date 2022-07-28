@@ -66,6 +66,21 @@ public class Document {
     private Long score;
 
     /**
+     * 文档收藏数（可按此字段对文档进行排序）
+     */
+    private Long love;
+
+    /**
+     * 文档点赞数（可按此字段对文档进行排序）
+     */
+    private Long like;
+
+    /**
+     * 文档阅读数（可按此字段对文档进行排序）
+     */
+    private Long read;
+
+    /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
      */
     private Integer type;
@@ -85,7 +100,7 @@ public class Document {
      */
     private Long updateTime;
 
-    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Long score, Integer type, Long createTime, Long updateTime) {
+    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Long score, Long love, Long like, Long read, Integer type, Long createTime, Long updateTime) {
 
         this.status = 1;
 
@@ -98,7 +113,12 @@ public class Document {
         this.summary = summary;
         this.tags = tags;
         this.authLevel = authLevel;
+
         this.score = score;
+        this.love = love;
+        this.like = like;
+        this.read = read;
+
         this.type = type;
 
         this.createTime = createTime;

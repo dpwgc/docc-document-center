@@ -63,6 +63,21 @@ public class DocumentPO {
     private Long score;
 
     /**
+     * 文档收藏数（可按此字段对文档进行排序）
+     */
+    private Long love;
+
+    /**
+     * 文档点赞数（可按此字段对文档进行排序）
+     */
+    private Long like;
+
+    /**
+     * 文档阅读数（可按此字段对文档进行排序）
+     */
+    private Long read;
+
+    /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
      */
     private Integer type;
