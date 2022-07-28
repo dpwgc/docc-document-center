@@ -14,6 +14,9 @@ public class BaseConfig implements InitializingBean {
     @Value("${spring.application.name}")
     private String applicationName;
 
+    @Value("${server.port}")
+    private String serverPort;
+
     @Value("${spring.datasource.url}")
     private String datasourceUrl;
 
@@ -43,16 +46,18 @@ public class BaseConfig implements InitializingBean {
 
         LogUtil.info("\n");
 
-        LogUtil.info("==================== load configuration ====================");
+        LogUtil.info("==================== configuration ====================");
 
         LogUtil.info("<application> [name]: "+applicationName);
 
         LogUtil.info("<datasource> [url]: "+datasourceUrl);
 
-        LogUtil.info("<elasticsearch> [url]: "+elasticsearchScheme+"://"+elasticsearchHostname+":"+elasticsearchPort+" | [index]: "+elasticsearchIndexName);
+        LogUtil.info("<elasticsearch> [url]: "+elasticsearchScheme+"://"+elasticsearchHostname+":"+elasticsearchPort+"    [index]: "+elasticsearchIndexName);
 
-        LogUtil.info("<cluster> [datacenter id]: "+datacenterId+" | [worker id]: "+workerId);
+        LogUtil.info("<cluster> [datacenter id]: "+datacenterId+"    [worker id]: "+workerId);
 
-        LogUtil.info("==================== load successful ====================");
+        LogUtil.info("<monitor> [url]: http://localhost:"+serverPort+"/monitor.html");
+
+        LogUtil.info("==================== configuration ====================");
     }
 }

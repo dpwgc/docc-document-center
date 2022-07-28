@@ -140,6 +140,12 @@ public class ESClient {
                                                     .query(id)
                                             )
                                     )
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("status")
+                                                    .query(1)
+                                            )
+                                    )
                             )
                     )
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
@@ -206,6 +212,12 @@ public class ESClient {
                                                     .lte(JsonData.of(authLevel))
                                             )
                                     )
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("status")
+                                                    .query(1)
+                                            )
+                                    )
                             )
                     )
                     //分页查询
@@ -251,6 +263,12 @@ public class ESClient {
                                                     //返回的文档权限等级要<=用户权限等级
                                                     .field("auth_level")
                                                     .lte(JsonData.of(authLevel))
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("status")
+                                                    .query(1)
                                             )
                                     )
                             )
@@ -329,6 +347,12 @@ public class ESClient {
                                                     .lte(JsonData.of(authLevel))
                                             )
                                     )
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("status")
+                                                    .query(1)
+                                            )
+                                    )
                             )
                     )
                     //分页查询
@@ -383,6 +407,12 @@ public class ESClient {
                                                     .lte(JsonData.of(authLevel))
                                             )
                                     )
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("status")
+                                                    .query(1)
+                                            )
+                                    )
                             )
                     )
                     //分页查询
@@ -428,6 +458,12 @@ public class ESClient {
                                                     //返回的文档权限等级要<=用户权限等级
                                                     .field("auth_level")
                                                     .lte(JsonData.of(authLevel))
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("status")
+                                                    .query(1)
                                             )
                                     )
                             )
@@ -506,6 +542,12 @@ public class ESClient {
                                                     .lte(JsonData.of(authLevel))
                                             )
                                     )
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("status")
+                                                    .query(1)
+                                            )
+                                    )
                             )
                     )
                     //分页查询
@@ -552,6 +594,12 @@ public class ESClient {
                                                     //返回的文档权限等级要<=用户权限等级
                                                     .field("auth_level")
                                                     .lte(JsonData.of(authLevel))
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("status")
+                                                    .query(1)
                                             )
                                     )
                             )

@@ -8,5 +8,5 @@ public interface DocumentRepository {
 
     Boolean updateDocument(Document document);
 
-    Boolean deleteDocument(String id);
+    Boolean deleteDocument(Document document);
 }

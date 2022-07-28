@@ -64,6 +64,9 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
 
     @Override
     public Boolean deleteDocument(DeleteDocumentCommand deleteDocumentCommand) {
-        return documentRepository.deleteDocument(deleteDocumentCommand.getId());
+
+        Document document = documentRepository.queryDocumentById(deleteDocumentCommand.getId());
+
+        return documentRepository.deleteDocument(document);
     }
 }

@@ -15,7 +15,7 @@ public interface DocumentMapper {
 
     Boolean updateDocument(DocumentPO documentPO);
 
-    Boolean deleteDocument(String id);
+    Boolean deleteDocument(DocumentPO documentPO);
 
     /**
      * 根据关键词检索文档

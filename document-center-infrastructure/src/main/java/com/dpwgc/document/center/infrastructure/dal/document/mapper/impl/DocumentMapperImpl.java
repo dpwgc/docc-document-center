@@ -43,8 +43,8 @@ public class DocumentMapperImpl implements DocumentMapper {
     }
 
     @Override
-    public Boolean deleteDocument(String id) {
-        return esClient.deleteDocument(indexName,id);
+    public Boolean deleteDocument(DocumentPO documentPO) {
+        return esClient.updateDocument(indexName,documentPO.getId(),documentPO);
     }
 
     /**
