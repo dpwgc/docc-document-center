@@ -35,7 +35,6 @@ public interface DocumentMapper {
 
     /**
      * 根据分类id与关键词检索文档
-     * @param indexName 索引名称
      * @param categoryId 分类id
      * @param keyword 关键词
      * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
@@ -45,7 +44,7 @@ public interface DocumentMapper {
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    List<DocumentPO> queryDocumentByCategoryIdAndKeyword(String indexName, String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
+    List<DocumentPO> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
 
     /**
      * 根据分类id与文档类型type检索文档
@@ -62,7 +61,6 @@ public interface DocumentMapper {
 
     /**
      * 根据作者id检索文档
-     * @param indexName 索引名称
      * @param authorId 作者id
      * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
      * @param sortField 选用排序字段 例：update_time
@@ -71,11 +69,10 @@ public interface DocumentMapper {
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    List<DocumentPO> queryDocumentByAuthorId(String indexName, String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
+    List<DocumentPO> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
 
     /**
      * 根据作者id与关键词检索文档
-     * @param indexName 索引名称
      * @param authorId 作者id
      * @param keyword 关键词
      * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
@@ -85,7 +82,7 @@ public interface DocumentMapper {
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    List<DocumentPO> queryDocumentByAuthorIdAndKeyword(String indexName, String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
+    List<DocumentPO> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
 
     /**
      * 根据标签检索文档

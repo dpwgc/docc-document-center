@@ -67,7 +67,6 @@ public class DocumentMapperImpl implements DocumentMapper {
 
     /**
      * 根据分类id与关键词检索文档
-     * @param indexName 索引名称
      * @param categoryId 分类id
      * @param keyword 关键词
      * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
@@ -78,7 +77,7 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @return List<Hit<Object>>
      */
     @Override
-    public List<DocumentPO> queryDocumentByCategoryIdAndKeyword(String indexName, String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public List<DocumentPO> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         List<Hit<Object>> hits = esClient.searchDocumentByCategoryIdAndKeyword(indexName,categoryId,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
         List<DocumentPO> documentPOS = new ArrayList<>();
         for (Hit<Object> hit : hits) {
@@ -110,7 +109,6 @@ public class DocumentMapperImpl implements DocumentMapper {
 
     /**
      * 根据作者id检索文档
-     * @param indexName 索引名称
      * @param authorId 作者id
      * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
      * @param sortField 选用排序字段 例：update_time
@@ -120,7 +118,7 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @return List<Hit<Object>>
      */
     @Override
-    public List<DocumentPO> queryDocumentByAuthorId(String indexName, String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public List<DocumentPO> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         List<Hit<Object>> hits = esClient.searchDocumentByAuthorId(indexName,authorId,authLevel,sortField,sortOrder,pageIndex,pageSize);
         List<DocumentPO> documentPOS = new ArrayList<>();
         for (Hit<Object> hit : hits) {
@@ -131,7 +129,6 @@ public class DocumentMapperImpl implements DocumentMapper {
 
     /**
      * 根据作者id与关键词检索文档
-     * @param indexName 索引名称
      * @param authorId 作者id
      * @param keyword 关键词
      * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
@@ -142,7 +139,7 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @return List<Hit<Object>>
      */
     @Override
-    public List<DocumentPO> queryDocumentByAuthorIdAndKeyword(String indexName, String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public List<DocumentPO> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         List<Hit<Object>> hits = esClient.searchDocumentByAuthorIdAndKeyword(indexName,authorId,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
         List<DocumentPO> documentPOS = new ArrayList<>();
         for (Hit<Object> hit : hits) {
