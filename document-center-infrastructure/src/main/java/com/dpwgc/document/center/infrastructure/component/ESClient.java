@@ -122,6 +122,37 @@ public class ESClient {
     // ============ 检索操作 ============
 
     /**
+     * 根据ES主键id检索文档
+     * @param indexName 索引名称
+     * @param id 主键id
+     * @return List<Hit<Object>>
+     */
+    public List<Hit<Object>> searchDocumentById(String indexName, String id) {
+
+        try {
+            SearchResponse<Object> search = client.search(s -> s
+                    .index(indexName)
+                    .query(query -> query
+                            .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("id")
+                                                    .query(id)
+                                            )
+                                    )
+                            )
+                    )
+                    //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
+                    .sort(sort -> sort.field(field -> field.field("id").order(SortOrder.Desc))),Object.class
+            );
+            return search.hits().hits();
+        } catch (Exception e) {
+            LogUtil.error("es search document by id error: "+e);
+            return null;
+        }
+    }
+
+    /**
      * 根据关键词检索文档
      * @param indexName 索引名称
      * @param keyword 关键词

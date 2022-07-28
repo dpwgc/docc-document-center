@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan("com.dpwgc.document.center.app")
+@ComponentScan("com.dpwgc.document.center.infrastructure.assembler")
 @ComponentScan("com.dpwgc.document.center.infrastructure.util")
 @ComponentScan("com.dpwgc.document.center.infrastructure.util")
 @ComponentScan("com.dpwgc.document.center.infrastructure.component")
