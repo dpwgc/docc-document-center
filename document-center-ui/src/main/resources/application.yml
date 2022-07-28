@@ -5,11 +5,11 @@ server:
 spring:
   application:
     # 中台名称
-    name: document-query-center
+    name: docc-document-center
 
   # 数据源配置（默认使用mariadb，也可换成mysql，两者通用）
   datasource:
-    url: jdbc:mariadb://127.0.0.1:3306/document_query_center?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://127.0.0.1:3306/docc_document_center?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -19,7 +19,7 @@ elasticsearch:
   scheme: http
   hostname: 127.0.0.1
   port: 9200
-  indexName: document-query-center-product
+  indexName: docc-document-center-product
 
 # 集群配置（涉及雪花id生成）
 cluster:
