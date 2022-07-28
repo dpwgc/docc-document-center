@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.dpwgc</groupId>
-    <artifactId>document-query-center</artifactId>
+    <artifactId>docc-document-center</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>document-query-center</name>
-    <description>document-query-center</description>
+    <name>docc-document-center</name>
+    <description>docc-document-center</description>
 
     <packaging>pom</packaging>
 
@@ -19,11 +19,11 @@
     </properties>
 
     <modules>
-        <module>document-query-sdk</module>
-        <module>document-query-ui</module>
-        <module>document-query-app</module>
-        <module>document-query-domain</module>
-        <module>document-query-infrastructure</module>
+        <module>document-center-sdk</module>
+        <module>document-center-ui</module>
+        <module>document-center-app</module>
+        <module>document-center-domain</module>
+        <module>document-center-infrastructure</module>
     </modules>
 
     <dependencies>
