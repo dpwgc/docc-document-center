@@ -36,14 +36,4 @@ public class UpdateDocumentMainCommand {
      * 文档总结摘要
      */
     private String summary;
-
-    /**
-     * 文档查看权限级别（0～99自定义，用户权限等级如果低于authLevel，则不能查看该文章）
-     */
-    private Integer authLevel;
-
-    /**
-     * 文档类型（自定义，例：0-普通文档，1-置顶文档）
-     */
-    private Integer type;
 }

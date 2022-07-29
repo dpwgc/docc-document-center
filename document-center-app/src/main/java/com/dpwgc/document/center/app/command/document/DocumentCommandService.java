@@ -8,6 +8,10 @@ public interface DocumentCommandService {
 
     Boolean updateDocumentMain(UpdateDocumentMainCommand updateDocumentMainCommand);
 
+    Boolean updateDocumentAuthLevel(UpdateDocumentAuthLevelCommand updateDocumentAuthLevelCommand);
+
+    Boolean updateDocumentType(UpdateDocumentTypeCommand updateDocumentTypeCommand);
+
     Boolean updateDocumentScore(UpdateDocumentScoreCommand updateDocumentScoreCommand);
 
     Boolean updateDocumentLove(UpdateDocumentLoveCommand updateDocumentLoveCommand);

@@ -7,7 +7,6 @@ import com.dpwgc.document.center.domain.document.DocumentRepository;
 import com.dpwgc.document.center.infrastructure.util.IdGenUtil;
 import com.dpwgc.document.center.sdk.model.document.*;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 
 @Service
@@ -54,8 +53,32 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
         document.setContent(updateDocumentMainCommand.getContent());
         document.setSummary(updateDocumentMainCommand.getSummary());
         document.setTags(updateDocumentMainCommand.getTags());
-        document.setAuthLevel(updateDocumentMainCommand.getAuthLevel());
-        document.setType(updateDocumentMainCommand.getType());
+
+        //更新时间
+        document.setUpdateTime(System.currentTimeMillis());
+
+        return documentRepository.updateDocument(document);
+    }
+
+    @Override
+    public Boolean updateDocumentAuthLevel(UpdateDocumentAuthLevelCommand updateDocumentAuthLevelCommand) {
+
+        Document document = new Document();
+        document.setId(updateDocumentAuthLevelCommand.getId());
+        document.setAuthLevel(updateDocumentAuthLevelCommand.getAuthLevel());
+
+        //更新时间
+        document.setUpdateTime(System.currentTimeMillis());
+
+        return documentRepository.updateDocument(document);
+    }
+
+    @Override
+    public Boolean updateDocumentType(UpdateDocumentTypeCommand updateDocumentTypeCommand) {
+
+        Document document = new Document();
+        document.setId(updateDocumentTypeCommand.getId());
+        document.setType(updateDocumentTypeCommand.getType());
 
         //更新时间
         document.setUpdateTime(System.currentTimeMillis());

@@ -38,6 +38,22 @@ public class DocumentController {
     }
 
     /**
+     * 更新文档权限等级（匹配ES主键id）
+     */
+    @PostMapping("updateDocumentAuthLevel")
+    public ResultDTO<Object> updateDocumentAuthLevel(@RequestBody UpdateDocumentAuthLevelCommand updateDocumentAuthLevelCommand) {
+        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentAuthLevel(updateDocumentAuthLevelCommand));
+    }
+
+    /**
+     * 更新文档类型（匹配ES主键id）
+     */
+    @PostMapping("updateDocumentType")
+    public ResultDTO<Object> updateDocumentType(@RequestBody UpdateDocumentTypeCommand updateDocumentTypeCommand) {
+        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentType(updateDocumentTypeCommand));
+    }
+
+    /**
      * 更新文档推荐评分（匹配ES主键id）
      */
     @PostMapping("updateDocumentScore")

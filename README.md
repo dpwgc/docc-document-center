@@ -1,12 +1,23 @@
 # DOCC-Document-Center
 ## 基于Elasticsearch的文档检索中心（文档中台系统）
+`在写`
 
-* 在写
+***
+
+### 项目架构
+* 基于领域驱动与CQRS架构设计，四层架构（ui -> app -> domain -> infrastructure），代码层面读写分类。
+* 数据存储：Elasticsearch与MariaDB，Elasticsearch存储文档数据，MariaDB存储分类数据。
+
+***
+
+### 实现功能
+文档插入、文档更新、文档检索、分类查询
 
 ***
 
 ### Elasticsearch索引
 #### 索引名称：docc-document-center-product
+#### 如果没有创建该索引，项目启动时会自动创建索引，但是mapping要自行用kibana创建
 * id `ES主键id` `keyword`
 * app_id `文档所属应用id` `keyword`
 * category_id `文档所属分类id` `keyword`
