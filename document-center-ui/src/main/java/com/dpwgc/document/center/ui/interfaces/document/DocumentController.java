@@ -88,8 +88,14 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @GetMapping("queryDocumentByKeyword")
-    public ResultDTO<Object> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByKeyword(keyword, authLevel, sortField, sortOrder, pageIndex, pageSize));
+    public ResultDTO<Object> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
+        SortOrder so = null;
+        if (sortOrder.equals("Asc")) {
+            so = SortOrder.Asc;
+        } else {
+            so = SortOrder.Desc;
+        }
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByKeyword(keyword, authLevel, sortField, so, pageIndex, pageSize));
     }
 
     /**
@@ -103,8 +109,14 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @GetMapping("queryDocumentByCategoryId")
-    public ResultDTO<Object> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryId(categoryId, authLevel, sortField, sortOrder, pageIndex, pageSize));
+    public ResultDTO<Object> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
+        SortOrder so = null;
+        if (sortOrder.equals("Asc")) {
+            so = SortOrder.Asc;
+        } else {
+            so = SortOrder.Desc;
+        }
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryId(categoryId, authLevel, sortField, so, pageIndex, pageSize));
     }
 
     /**
@@ -119,8 +131,14 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @GetMapping("queryDocumentByCategoryIdAndKeyword")
-    public ResultDTO<Object> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndKeyword(categoryId, keyword, authLevel, sortField, sortOrder, pageIndex, pageSize));
+    public ResultDTO<Object> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
+        SortOrder so = null;
+        if (sortOrder.equals("Asc")) {
+            so = SortOrder.Asc;
+        } else {
+            so = SortOrder.Desc;
+        }
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndKeyword(categoryId, keyword, authLevel, sortField, so, pageIndex, pageSize));
     }
 
     /**
@@ -135,8 +153,14 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @GetMapping("queryDocumentByCategoryIdAndType")
-    public ResultDTO<Object> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndType(categoryId, type, authLevel, sortField, sortOrder, pageIndex, pageSize));
+    public ResultDTO<Object> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
+        SortOrder so = null;
+        if (sortOrder.equals("Asc")) {
+            so = SortOrder.Asc;
+        } else {
+            so = SortOrder.Desc;
+        }
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndType(categoryId, type, authLevel, sortField, so, pageIndex, pageSize));
     }
 
     /**
@@ -150,8 +174,14 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @GetMapping("queryDocumentByAuthorId")
-    public ResultDTO<Object> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorId(authorId, authLevel, sortField, sortOrder, pageIndex, pageSize));
+    public ResultDTO<Object> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
+        SortOrder so = null;
+        if (sortOrder.equals("Asc")) {
+            so = SortOrder.Asc;
+        } else {
+            so = SortOrder.Desc;
+        }
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorId(authorId, authLevel, sortField, so, pageIndex, pageSize));
     }
 
     /**
@@ -166,8 +196,14 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @GetMapping("queryDocumentByAuthorIdAndKeyword")
-    public ResultDTO<Object> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorIdAndKeyword(authorId, keyword, authLevel, sortField, sortOrder, pageIndex, pageSize));
+    public ResultDTO<Object> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
+        SortOrder so = null;
+        if (sortOrder.equals("Asc")) {
+            so = SortOrder.Asc;
+        } else {
+            so = SortOrder.Desc;
+        }
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorIdAndKeyword(authorId, keyword, authLevel, sortField, so, pageIndex, pageSize));
     }
 
     /**
@@ -181,7 +217,13 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @GetMapping("queryDocumentByTags")
-    public ResultDTO<Object> queryDocumentByTags(String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByTags(tags, authLevel, sortField, sortOrder, pageIndex, pageSize));
+    public ResultDTO<Object> queryDocumentByTags(String tags, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
+        SortOrder so = null;
+        if (sortOrder.equals("Asc")) {
+            so = SortOrder.Asc;
+        } else {
+            so = SortOrder.Desc;
+        }
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByTags(tags, authLevel, sortField, so, pageIndex, pageSize));
     }
 }
