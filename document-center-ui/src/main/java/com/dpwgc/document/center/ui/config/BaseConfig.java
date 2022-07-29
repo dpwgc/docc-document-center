@@ -20,14 +20,8 @@ public class BaseConfig implements InitializingBean {
     @Value("${spring.datasource.url}")
     private String datasourceUrl;
 
-    @Value("${elasticsearch.scheme}")
-    private String elasticsearchScheme;
-
-    @Value("${elasticsearch.hostname}")
-    private String elasticsearchHostname;
-
-    @Value("${elasticsearch.port}")
-    private String elasticsearchPort;
+    @Value("${elasticsearch.url}")
+    private String elasticsearchUrl;
 
     @Value("${elasticsearch.indexName}")
     private String elasticsearchIndexName;
@@ -52,9 +46,9 @@ public class BaseConfig implements InitializingBean {
 
         LogUtil.info("<datasource> [url]: "+datasourceUrl);
 
-        LogUtil.info("<elasticsearch> [url]: "+elasticsearchScheme+"://"+elasticsearchHostname+":"+elasticsearchPort+"    [index]: "+elasticsearchIndexName);
+        LogUtil.info("<elasticsearch> [url]: "+elasticsearchUrl+"    [index]: "+elasticsearchIndexName);
 
-        LogUtil.info("<cluster> [datacenter id]: "+datacenterId+"    [worker id]: "+workerId);
+        LogUtil.info("<cluster> [datacenter_id]: "+datacenterId+"    [worker_id]: "+workerId);
 
         LogUtil.info("<monitor> [url]: http://localhost:"+serverPort+"/monitor.html");
 
