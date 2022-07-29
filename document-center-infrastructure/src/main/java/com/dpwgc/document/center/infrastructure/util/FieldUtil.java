@@ -28,8 +28,11 @@ public class FieldUtil {
             field.setAccessible(true);
             String keyName = aBc2a_bc(field.getName()); //key驼峰转下划线
             Object value = field.get(obj);
-            if (value == null)
-                value = "";
+            //如果该字段值为null
+            if (value == null) {
+                //跳过，不添加进map
+                continue;
+            }
             map.put(keyName, value);
         }
         return map;

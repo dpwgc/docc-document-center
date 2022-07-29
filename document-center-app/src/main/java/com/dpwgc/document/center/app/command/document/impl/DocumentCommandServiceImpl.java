@@ -5,9 +5,7 @@ import com.dpwgc.document.center.domain.document.Document;
 import com.dpwgc.document.center.domain.document.DocumentFactory;
 import com.dpwgc.document.center.domain.document.DocumentRepository;
 import com.dpwgc.document.center.infrastructure.util.IdGenUtil;
-import com.dpwgc.document.center.sdk.model.document.CreateDocumentCommand;
-import com.dpwgc.document.center.sdk.model.document.DeleteDocumentCommand;
-import com.dpwgc.document.center.sdk.model.document.UpdateDocumentCommand;
+import com.dpwgc.document.center.sdk.model.document.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -47,17 +45,72 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
     }
 
     @Override
-    public Boolean updateDocument(UpdateDocumentCommand updateDocumentCommand) {
+    public Boolean updateDocumentMain(UpdateDocumentMainCommand updateDocumentMainCommand) {
 
-        Document document = documentRepository.queryDocumentById(updateDocumentCommand.getId());
-        document.setCategoryId(updateDocumentCommand.getCategoryId());
-        document.setTitle(updateDocumentCommand.getTitle());
-        document.setContent(updateDocumentCommand.getContent());
-        document.setSummary(updateDocumentCommand.getSummary());
-        document.setTags(updateDocumentCommand.getTags());
-        document.setAuthLevel(updateDocumentCommand.getAuthLevel());
-        document.setScore(updateDocumentCommand.getScore());
-        document.setType(updateDocumentCommand.getType());
+        Document document = new Document();
+        document.setId(updateDocumentMainCommand.getId());
+        document.setCategoryId(updateDocumentMainCommand.getCategoryId());
+        document.setTitle(updateDocumentMainCommand.getTitle());
+        document.setContent(updateDocumentMainCommand.getContent());
+        document.setSummary(updateDocumentMainCommand.getSummary());
+        document.setTags(updateDocumentMainCommand.getTags());
+        document.setAuthLevel(updateDocumentMainCommand.getAuthLevel());
+        document.setType(updateDocumentMainCommand.getType());
+
+        //更新时间
+        document.setUpdateTime(System.currentTimeMillis());
+
+        return documentRepository.updateDocument(document);
+    }
+
+    @Override
+    public Boolean updateDocumentScore(UpdateDocumentScoreCommand updateDocumentScoreCommand) {
+
+        Document document = new Document();
+        document.setId(updateDocumentScoreCommand.getId());
+        document.setScore(updateDocumentScoreCommand.getScore());
+
+        //更新时间
+        document.setUpdateTime(System.currentTimeMillis());
+
+        return documentRepository.updateDocument(document);
+    }
+
+    @Override
+    public Boolean updateDocumentLove(UpdateDocumentLoveCommand updateDocumentLoveCommand) {
+
+        Document document = new Document();
+        document.setId(updateDocumentLoveCommand.getId());
+        document.setLove(updateDocumentLoveCommand.getLove());
+
+        //更新时间
+        document.setUpdateTime(System.currentTimeMillis());
+
+        return documentRepository.updateDocument(document);
+    }
+
+    @Override
+    public Boolean updateDocumentLike(UpdateDocumentLikeCommand updateDocumentLikeCommand) {
+
+        Document document = new Document();
+        document.setId(updateDocumentLikeCommand.getId());
+        document.setLike(updateDocumentLikeCommand.getLike());
+
+        //更新时间
+        document.setUpdateTime(System.currentTimeMillis());
+
+        return documentRepository.updateDocument(document);
+    }
+
+    @Override
+    public Boolean updateDocumentRead(UpdateDocumentReadCommand updateDocumentReadCommand) {
+
+        Document document = new Document();
+        document.setId(updateDocumentReadCommand.getId());
+        document.setRead(updateDocumentReadCommand.getRead());
+
+        //更新时间
+        document.setUpdateTime(System.currentTimeMillis());
 
         return documentRepository.updateDocument(document);
     }
@@ -65,7 +118,10 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
     @Override
     public Boolean deleteDocument(DeleteDocumentCommand deleteDocumentCommand) {
 
-        Document document = documentRepository.queryDocumentById(deleteDocumentCommand.getId());
+        Document document = new Document();
+        document.setId(deleteDocumentCommand.getId());
+        document.setStatus(0);
+        document.setUpdateTime(System.currentTimeMillis());
 
         return documentRepository.deleteDocument(document);
     }

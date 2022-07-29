@@ -3,10 +3,9 @@ package com.dpwgc.document.center.ui.interfaces.document;
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import com.dpwgc.document.center.app.command.document.DocumentCommandService;
 import com.dpwgc.document.center.app.query.document.DocumentQueryService;
+import com.dpwgc.document.center.domain.document.Document;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
-import com.dpwgc.document.center.sdk.model.document.CreateDocumentCommand;
-import com.dpwgc.document.center.sdk.model.document.DeleteDocumentCommand;
-import com.dpwgc.document.center.sdk.model.document.UpdateDocumentCommand;
+import com.dpwgc.document.center.sdk.model.document.*;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
@@ -32,11 +31,43 @@ public class DocumentController {
     }
 
     /**
-     * 更新文档（匹配ES主键id）
+     * 更新文档主体内容（匹配ES主键id）
      */
-    @PostMapping("updateDocument")
-    public ResultDTO<Object> updateDocument(@RequestBody UpdateDocumentCommand updateDocumentCommand) {
-        return ResultDTO.getSuccessResult(documentCommandService.updateDocument(updateDocumentCommand));
+    @PostMapping("updateDocumentMain")
+    public ResultDTO<Object> updateDocumentMain(@RequestBody UpdateDocumentMainCommand updateDocumentMainCommand) {
+        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentMain(updateDocumentMainCommand));
+    }
+
+    /**
+     * 更新文档推荐评分（匹配ES主键id）
+     */
+    @PostMapping("updateDocumentScore")
+    public ResultDTO<Object> updateDocumentScore(UpdateDocumentScoreCommand updateDocumentScoreCommand) {
+        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentScore(updateDocumentScoreCommand));
+    }
+
+    /**
+     * 更新文档收藏数（匹配ES主键id）
+     */
+    @PostMapping("updateDocumentLove")
+    public ResultDTO<Object> updateDocumentLove(UpdateDocumentLoveCommand updateDocumentLoveCommand) {
+        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentLove(updateDocumentLoveCommand));
+    }
+
+    /**
+     * 更新文档点赞数（匹配ES主键id）
+     */
+    @PostMapping("updateDocumentLike")
+    public ResultDTO<Object> updateDocumentLike(UpdateDocumentLikeCommand updateDocumentLikeCommand) {
+        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentLike(updateDocumentLikeCommand));
+    }
+
+    /**
+     * 更新文档阅读数（匹配ES主键id）
+     */
+    @PostMapping("updateDocumentRead")
+    public ResultDTO<Object> updateDocumentRead(UpdateDocumentReadCommand updateDocumentReadCommand) {
+        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentRead(updateDocumentReadCommand));
     }
 
     /**

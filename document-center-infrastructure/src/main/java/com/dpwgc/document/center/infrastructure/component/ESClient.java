@@ -7,6 +7,7 @@ import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
 import co.elastic.clients.json.JsonData;
 import co.elastic.clients.transport.endpoints.BooleanResponse;
+import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.util.FieldUtil;
 import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import org.springframework.stereotype.Component;
@@ -59,7 +60,7 @@ public class ESClient {
      * @param document 文档对象
      * @return 主键id
      */
-    public String insertDocument(String indexName,Object document) {
+    public String insertDocument(String indexName,DocumentPO document) {
 
         try {
             //驼峰转下划线
@@ -82,7 +83,7 @@ public class ESClient {
      * @param document 文档对象
      * @return Boolean
      */
-    public Boolean updateDocument(String indexName,String id,Object document) {
+    public Boolean updateDocument(String indexName, String id, DocumentPO document) {
 
         try {
             //驼峰转下划线

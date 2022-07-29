@@ -2,8 +2,6 @@ package com.dpwgc.document.center.infrastructure.dal.document.mapper.impl;
 
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch.core.search.Hit;
-import com.dpwgc.document.center.domain.document.Document;
-import com.dpwgc.document.center.infrastructure.assembler.DocumentPOAssembler;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.assembler.HitToDocumentPOAssembler;
 import com.dpwgc.document.center.infrastructure.component.ESClient;
