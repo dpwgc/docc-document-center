@@ -40,7 +40,10 @@ public class ESConfig {
         HttpHost[] httpHosts = new HttpHost[urls.length];
         //转换成HttpHost数组
         for (int i=0;i<urls.length;i++) {
-            httpHosts[i] = new HttpHost(urls[i]);
+            String scheme = urls[i].split("://")[0];
+            String hostname = urls[i].split("://")[1].split(":")[0];
+            int port = Integer.parseInt(urls[i].split(":")[2]);
+            httpHosts[i] = new HttpHost(hostname,port,scheme);
         }
 
         //配置客户端密码验证

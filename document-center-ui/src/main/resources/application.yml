@@ -19,7 +19,7 @@ elasticsearch:
   # 集群配置：http://127.0.0.1:9200,http://127.0.0.2:9200,http://127.0.0.3:9200 逗号间隔
   url: http://127.0.0.1:9200
   username: elastic
-  password:
+  password: 123456
   # 索引名称
   indexName: docc-document-center-product
 

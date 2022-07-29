@@ -2,11 +2,8 @@ package com.dpwgc.document.center.infrastructure.dal.document.mapper;
 
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
-import org.apache.ibatis.annotations.Mapper;
-
 import java.util.List;
 
-@Mapper
 public interface DocumentMapper {
 
     String createDocument(DocumentPO documentPO);

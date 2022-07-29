@@ -3,7 +3,6 @@ package com.dpwgc.document.center.ui.interfaces.document;
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import com.dpwgc.document.center.app.command.document.DocumentCommandService;
 import com.dpwgc.document.center.app.query.document.DocumentQueryService;
-import com.dpwgc.document.center.domain.document.Document;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.document.*;
 import org.springframework.web.bind.annotation.*;
