@@ -16,9 +16,9 @@
 ***
 ### 项目结构
 #### 水平结构
-* Command `写入模块`
-* Query `查询模块`
-  * Document `文档模块`
+* command `写入模块`
+* query `查询模块`
+  * document `文档模块`
   * category `分类模块`
   * tag `标签模块`
 
