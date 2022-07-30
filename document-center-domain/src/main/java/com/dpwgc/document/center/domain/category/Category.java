@@ -41,7 +41,7 @@ public class Category {
     private String summary;
 
     /**
-     * 分类推荐分值（可按此字段对分类进行排序）
+     * 分类推荐分值（自定义，可按此字段对分类进行排序）
      */
     private Long score;
 
@@ -60,7 +60,7 @@ public class Category {
      */
     private Long updateTime;
 
-    protected Category create(String appId, String categoryId, String parentId, String categoryName, String summary, Long score, Long createTime, Long updateTime) {
+    protected Category create(String appId, String categoryId, String parentId, String categoryName, String summary, Long score) {
 
         this.status = 1;
 
@@ -71,8 +71,8 @@ public class Category {
         this.summary = summary;
         this.score = score;
 
-        this.createTime = createTime;
-        this.updateTime = updateTime;
+        this.createTime = System.currentTimeMillis();
+        this.updateTime = System.currentTimeMillis();
 
         return this;
     }

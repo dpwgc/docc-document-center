@@ -4,10 +4,16 @@ import com.dpwgc.document.center.app.command.document.DocumentCommandService;
 import com.dpwgc.document.center.domain.document.Document;
 import com.dpwgc.document.center.domain.document.DocumentFactory;
 import com.dpwgc.document.center.domain.document.DocumentRepository;
+import com.dpwgc.document.center.domain.tag.TagFactory;
+import com.dpwgc.document.center.domain.tag.TagRepository;
 import com.dpwgc.document.center.infrastructure.util.IdGenUtil;
+import com.dpwgc.document.center.infrastructure.util.JsonUtil;
+import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.model.document.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class DocumentCommandServiceImpl implements DocumentCommandService {
@@ -17,6 +23,9 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
 
     @Resource
     DocumentRepository documentRepository;
+
+    @Resource
+    TagRepository tagRepository;
 
     @Override
     public String createDocument(CreateDocumentCommand createDocumentCommand) {
@@ -36,10 +45,25 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
                 createDocumentCommand.getLove(),
                 createDocumentCommand.getLike(),
                 createDocumentCommand.getRead(),
-                createDocumentCommand.getType(),
-                System.currentTimeMillis(),
-                System.currentTimeMillis()
+                createDocumentCommand.getType()
         );
+
+        List<String> tags = null;
+        try {
+            //用json工具解析出tag列表：["tag1","tag2","tag3"]
+            tags = JsonUtil.fromJson(createDocumentCommand.getTags(),List.class);
+        } catch (JsonProcessingException e) {
+            LogUtil.error(e.toString());
+            return null;
+        }
+
+        //将该文档的标签更新至DB
+        for (String tag : tags) {
+            TagFactory tagFactory = new TagFactory();
+            tagRepository.createTag(tagFactory.create(createDocumentCommand.getAppId(), tag));
+        }
+
+        //创建文档
         return documentRepository.createDocument(document);
     }
 

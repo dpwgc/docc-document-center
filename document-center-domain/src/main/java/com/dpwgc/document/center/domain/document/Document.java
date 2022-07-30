@@ -100,7 +100,7 @@ public class Document {
      */
     private Long updateTime;
 
-    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Long score, Long love, Long like, Long read, Integer type, Long createTime, Long updateTime) {
+    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Long score, Long love, Long like, Long read, Integer type) {
 
         this.status = 1;
 
@@ -121,8 +121,8 @@ public class Document {
 
         this.type = type;
 
-        this.createTime = createTime;
-        this.updateTime = updateTime;
+        this.createTime = System.currentTimeMillis();
+        this.updateTime = System.currentTimeMillis();
 
         return this;
     }

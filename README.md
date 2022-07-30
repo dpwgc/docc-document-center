@@ -6,13 +6,28 @@
 
 ### 项目架构
 * 基于领域驱动与CQRS架构设计，四层架构（ui -> app -> domain -> infrastructure），代码层面读写分类。
-* 数据存储：Elasticsearch与MariaDB，Elasticsearch存储文档数据，MariaDB存储分类数据。
+* 数据存储：Elasticsearch与MariaDB，Elasticsearch存储文档数据，MariaDB存储分类与标签数据。
 
 ***
 
 ### 实现功能
-文档插入、文档更新、文档检索、分类查询
+文档插入、文档更新、文档检索、标签查询、分类查询
 
+***
+### 项目结构
+#### 水平结构
+* Command `写入模块`
+* Query `查询模块`
+  * Document `文档模块`
+  * category `分类模块`
+  * tag `标签模块`
+
+#### 垂直结构
+* sdk `sdk：提供表示层所需的传输对象`
+* ui `表现层：提供对外接口服务以及配置服务`
+* app `应用层：处理业务逻辑`
+* domain `领域层：提供仓储服务，封装底层数据`
+* infrastructure `基础服务层：提供DB、ES、以及常用工具服务`
 ***
 
 ### Elasticsearch索引

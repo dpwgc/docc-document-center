@@ -20,9 +20,13 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
     CategoryMapper categoryMapper;
 
     public List<CategoryTreeDTO> getCategoryTreeByAppId(String appId) {
+
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
+
         queryWrapper.eq("app_id",appId);
         queryWrapper.eq("status",1);
+        queryWrapper.orderByDesc("score");  //类别树的各级将按照score字段降序排序
+
         List<CategoryPO> categoryPOS = categoryMapper.selectList(queryWrapper);
         List<CategoryTreeDTO> categoryTreeDTOS = new ArrayList<>();
         for (CategoryPO categoryPO : categoryPOS) {

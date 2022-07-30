@@ -57,7 +57,7 @@ public class DocumentController {
      * 更新文档推荐评分（匹配ES主键id）
      */
     @PostMapping("updateDocumentScore")
-    public ResultDTO<Object> updateDocumentScore(UpdateDocumentScoreCommand updateDocumentScoreCommand) {
+    public ResultDTO<Object> updateDocumentScore(@RequestBody UpdateDocumentScoreCommand updateDocumentScoreCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentScore(updateDocumentScoreCommand));
     }
 
@@ -65,7 +65,7 @@ public class DocumentController {
      * 更新文档收藏数（匹配ES主键id）
      */
     @PostMapping("updateDocumentLove")
-    public ResultDTO<Object> updateDocumentLove(UpdateDocumentLoveCommand updateDocumentLoveCommand) {
+    public ResultDTO<Object> updateDocumentLove(@RequestBody UpdateDocumentLoveCommand updateDocumentLoveCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentLove(updateDocumentLoveCommand));
     }
 
@@ -73,7 +73,7 @@ public class DocumentController {
      * 更新文档点赞数（匹配ES主键id）
      */
     @PostMapping("updateDocumentLike")
-    public ResultDTO<Object> updateDocumentLike(UpdateDocumentLikeCommand updateDocumentLikeCommand) {
+    public ResultDTO<Object> updateDocumentLike(@RequestBody UpdateDocumentLikeCommand updateDocumentLikeCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentLike(updateDocumentLikeCommand));
     }
 
@@ -81,7 +81,7 @@ public class DocumentController {
      * 更新文档阅读数（匹配ES主键id）
      */
     @PostMapping("updateDocumentRead")
-    public ResultDTO<Object> updateDocumentRead(UpdateDocumentReadCommand updateDocumentReadCommand) {
+    public ResultDTO<Object> updateDocumentRead(@RequestBody UpdateDocumentReadCommand updateDocumentReadCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentRead(updateDocumentReadCommand));
     }
 
