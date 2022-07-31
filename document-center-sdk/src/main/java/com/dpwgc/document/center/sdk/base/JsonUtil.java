@@ -10,9 +10,4 @@ public class JsonUtil {
         //将对象转为json字符串
         return jsonMapper.writeValueAsString(object);
     }
-
-    public static <T> T fromJson(String json,Class<T> tClass) throws JsonProcessingException {
-        ObjectMapper jsonMapper = new ObjectMapper();
-        return jsonMapper.readValue(json, tClass);
-    }
 }
