@@ -7,6 +7,7 @@ import com.dpwgc.document.center.sdk.model.tag.DeleteTagCommand;
 import com.dpwgc.document.center.sdk.model.tag.UpdateTagNumberCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
@@ -47,12 +48,16 @@ public class TagController {
      * @param appId 应用id
      * @param startUpdateTime 标签更新时间区间的起始位置
      * @param endUpdateTime 标签更新时间区间的结束位置
-     * @param pageSize 最多返回几个标签
+     * @param pageSize 返回标签数量上限
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "获取在指定时间区间内活跃的标签列表（按number文档数量降序排序）")
     @GetMapping("listTagsByNumberDesc")
-    public ResultDTO<Object> listTagsByNumberDesc(String appId, Long startUpdateTime, Long endUpdateTime, Integer pageSize) {
+    public ResultDTO<Object> listTagsByNumberDesc(@ApiParam(value = "应用id") String appId,
+                                                  @ApiParam(value = "标签更新时间区间的起始位置") Long startUpdateTime,
+                                                  @ApiParam(value = "标签更新时间区间的结束位置") Long endUpdateTime,
+                                                  @ApiParam(value = "返回标签数量上限") Integer pageSize) {
+
         return ResultDTO.getSuccessResult(tagQueryService.listTagsByNumberDesc(appId,startUpdateTime,endUpdateTime,pageSize));
     }
 }

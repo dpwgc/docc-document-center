@@ -8,6 +8,7 @@ import com.dpwgc.document.center.sdk.model.category.DeleteCategoryCommand;
 import com.dpwgc.document.center.sdk.model.category.UpdateCategoryCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
@@ -45,13 +46,13 @@ public class CategoryController {
 
     @ApiOperation(value = "获取分类树")
     @GetMapping("getCategoryTreeByAppId")
-    public ResultDTO<Object> getCategoryTreeByAppId(String appId) {
+    public ResultDTO<Object> getCategoryTreeByAppId(@ApiParam(value = "应用id") String appId) {
         return ResultDTO.getSuccessResult(categoryQueryService.getCategoryTreeByAppId(appId));
     }
 
     @ApiOperation(value = "根据分类id获取分类详情")
     @GetMapping("queryDetailByCategoryId")
-    public ResultDTO<Object> queryDetailByCategoryId(String categoryId) {
+    public ResultDTO<Object> queryDetailByCategoryId(@ApiParam(value = "分类id") String categoryId) {
         return ResultDTO.getSuccessResult(categoryQueryService.queryDetailByCategoryId(categoryId));
     }
 }
