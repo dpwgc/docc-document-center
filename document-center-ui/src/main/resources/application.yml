@@ -3,6 +3,11 @@ server:
   port: 8000
 
 spring:
+  mvc:
+    # 兼容Swagger3
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
   application:
     # 中台名称
     name: docc-document-center

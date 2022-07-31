@@ -58,6 +58,8 @@ public class BaseConfig implements InitializingBean {
 
         LogUtil.info("<monitor> [url]: http://localhost:"+serverPort+"/monitor.html");
 
+        LogUtil.info("<swagger api doc> [url]: http://localhost:"+serverPort+"/doc.html");
+
         LogUtil.info("==================== elasticsearch index ====================");
 
         if (!esClient.existsIndex(elasticsearchIndexName)) {

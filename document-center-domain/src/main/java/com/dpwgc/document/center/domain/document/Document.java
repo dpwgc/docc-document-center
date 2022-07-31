@@ -100,7 +100,7 @@ public class Document {
      */
     private Long updateTime;
 
-    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Long score, Long love, Long like, Long read, Integer type) {
+    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Long score, Integer type) {
 
         this.status = 1;
 
@@ -115,9 +115,10 @@ public class Document {
         this.authLevel = authLevel;
 
         this.score = score;
-        this.love = love;
-        this.like = like;
-        this.read = read;
+
+        this.love = 0L;
+        this.like = 0L;
+        this.read = 0L;
 
         this.type = type;
 

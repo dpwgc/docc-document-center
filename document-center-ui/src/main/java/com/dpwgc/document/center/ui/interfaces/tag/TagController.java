@@ -5,12 +5,15 @@ import com.dpwgc.document.center.app.query.tag.TagQueryService;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.tag.DeleteTagCommand;
 import com.dpwgc.document.center.sdk.model.tag.UpdateTagNumberCommand;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 /**
- * 文档标签-接口
+ * 文档标签相关接口
  */
+@Api(value = "文档标签相关接口")
 @RestController
 @RequestMapping("/tag")
 public class TagController {
@@ -24,6 +27,7 @@ public class TagController {
     /**
      * 后台修改标签数量
      */
+    @ApiOperation(value = "后台修改标签数量")
     @PostMapping("updateTagNumber")
     public ResultDTO<Object> updateTagNumber(UpdateTagNumberCommand updateTagNumberCommand) {
         return ResultDTO.getSuccessResult(tagCommandService.updateTagNumber(updateTagNumberCommand));
@@ -32,6 +36,7 @@ public class TagController {
     /**
      * 删除（隐藏）标签
      */
+    @ApiOperation(value = "删除（隐藏）标签")
     @PostMapping("deleteTag")
     public ResultDTO<Object> deleteTag(DeleteTagCommand deleteTagCommand) {
         return ResultDTO.getSuccessResult(tagCommandService.deleteTag(deleteTagCommand));
@@ -45,6 +50,7 @@ public class TagController {
      * @param pageSize 最多返回几个标签
      * @return ResultDTO<Object>
      */
+    @ApiOperation(value = "获取在指定时间区间内活跃的标签列表（按number文档数量降序排序）")
     @GetMapping("listTagsByNumberDesc")
     public ResultDTO<Object> listTagsByNumberDesc(String appId, Long startUpdateTime, Long endUpdateTime, Integer pageSize) {
         return ResultDTO.getSuccessResult(tagQueryService.listTagsByNumberDesc(appId,startUpdateTime,endUpdateTime,pageSize));
