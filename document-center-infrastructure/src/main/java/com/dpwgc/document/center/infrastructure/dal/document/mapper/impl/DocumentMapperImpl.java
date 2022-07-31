@@ -9,9 +9,7 @@ import com.dpwgc.document.center.infrastructure.dal.document.mapper.DocumentMapp
 import com.dpwgc.document.center.sdk.base.PageBase;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,11 +57,7 @@ public class DocumentMapperImpl implements DocumentMapper {
     @Override
     public PageBase<List<DocumentPO>> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByKeyword(indexName,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
-        List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : pageBase.getList()) {
-            documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
+        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
     /**
@@ -79,11 +73,7 @@ public class DocumentMapperImpl implements DocumentMapper {
     @Override
     public PageBase<List<DocumentPO>> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryId(indexName,categoryId,authLevel,sortField,sortOrder,pageIndex,pageSize);
-        List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : pageBase.getList()) {
-            documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
+        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
     /**
@@ -100,11 +90,7 @@ public class DocumentMapperImpl implements DocumentMapper {
     @Override
     public PageBase<List<DocumentPO>> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryIdAndKeyword(indexName,categoryId,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
-        List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : pageBase.getList()) {
-            documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
+        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
     /**
@@ -121,11 +107,7 @@ public class DocumentMapperImpl implements DocumentMapper {
     @Override
     public PageBase<List<DocumentPO>> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryIdAndType(indexName,categoryId,type,authLevel,sortField,sortOrder,pageIndex,pageSize);
-        List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : pageBase.getList()) {
-            documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
+        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
     /**
@@ -141,11 +123,7 @@ public class DocumentMapperImpl implements DocumentMapper {
     @Override
     public PageBase<List<DocumentPO>> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByAuthorId(indexName,authorId,authLevel,sortField,sortOrder,pageIndex,pageSize);
-        List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : pageBase.getList()) {
-            documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
+        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
     /**
@@ -162,11 +140,7 @@ public class DocumentMapperImpl implements DocumentMapper {
     @Override
     public PageBase<List<DocumentPO>> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByAuthorIdAndKeyword(indexName,authorId,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
-        List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : pageBase.getList()) {
-            documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
+        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
     /**
@@ -182,10 +156,6 @@ public class DocumentMapperImpl implements DocumentMapper {
     @Override
     public PageBase<List<DocumentPO>> queryDocumentByTags(String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
         PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByTags(indexName,tags,authLevel,sortField,sortOrder,pageIndex,pageSize);
-        List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : pageBase.getList()) {
-            documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
+        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 }

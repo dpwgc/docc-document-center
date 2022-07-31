@@ -4,6 +4,8 @@ import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -35,5 +37,16 @@ public class HitToDocumentPOAssembler {
         documentPO.setCreateTime(Long.parseLong(((Map)hit.source()).get("create_time").toString()));
         documentPO.setUpdateTime(Long.parseLong(((Map)hit.source()).get("update_time").toString()));
         return documentPO;
+    }
+
+    /**
+     * elasticsearch的Hit列表转DocumentPO列表
+     */
+    public List<DocumentPO> assemblerDocumentPOList(List<Hit<Object>> hits) {
+        List<DocumentPO> documentPOS = new ArrayList<>();
+        for (Hit<Object> hit : hits) {
+            documentPOS.add(assemblerDocumentPO(hit));
+        }
+        return documentPOS;
     }
 }
