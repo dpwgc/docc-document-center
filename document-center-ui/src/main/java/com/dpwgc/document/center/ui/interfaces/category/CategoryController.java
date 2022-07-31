@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Api(value = "文档分类相关接口")
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/docc/category")
 public class CategoryController {
 
     @Resource
@@ -29,31 +29,31 @@ public class CategoryController {
     CategoryQueryService categoryQueryService;
 
     @ApiOperation(value = "创建分类")
-    @PostMapping("createCategory")
+    @PostMapping("/createCategory")
     public ResultDTO<String> createCategory(@RequestBody CreateCategoryCommand createCategoryCommand) {
         return ResultDTO.getSuccessResult(categoryCommandService.createCategory(createCategoryCommand));
     }
 
     @ApiOperation(value = "更新分类信息")
-    @PostMapping("updateCategory")
+    @PostMapping("/updateCategory")
     public ResultDTO<Boolean> updateCategory(@RequestBody UpdateCategoryCommand updateCategoryCommand) {
         return ResultDTO.getSuccessResult(categoryCommandService.updateCategory(updateCategoryCommand));
     }
 
     @ApiOperation(value = "删除（隐藏）分类")
-    @PostMapping("deleteCategory")
+    @PostMapping("/deleteCategory")
     public ResultDTO<Boolean> deleteCategory(@RequestBody DeleteCategoryCommand deleteCategoryCommand) {
         return ResultDTO.getSuccessResult(categoryCommandService.deleteCategory(deleteCategoryCommand));
     }
 
     @ApiOperation(value = "获取分类树")
-    @GetMapping("getCategoryTreeByAppId")
+    @GetMapping("/getCategoryTreeByAppId")
     public ResultDTO<List<CategoryTreeDTO>> getCategoryTreeByAppId(@ApiParam(value = "应用id") String appId) {
         return ResultDTO.getSuccessResult(categoryQueryService.getCategoryTreeByAppId(appId));
     }
 
     @ApiOperation(value = "根据分类id获取分类详情")
-    @GetMapping("queryDetailByCategoryId")
+    @GetMapping("/queryDetailByCategoryId")
     public ResultDTO<String> queryDetailByCategoryId(@ApiParam(value = "分类id") String categoryId) {
         return ResultDTO.getSuccessResult(categoryQueryService.queryDetailByCategoryId(categoryId));
     }

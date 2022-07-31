@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Api(value = "文档标签相关接口")
 @RestController
-@RequestMapping("/tag")
+@RequestMapping("/docc/tag")
 public class TagController {
 
     @Resource
@@ -31,7 +31,7 @@ public class TagController {
      * 后台修改标签数量
      */
     @ApiOperation(value = "后台修改标签数量")
-    @PostMapping("updateTagNumber")
+    @PostMapping("/updateTagNumber")
     public ResultDTO<Boolean> updateTagNumber(UpdateTagNumberCommand updateTagNumberCommand) {
         return ResultDTO.getSuccessResult(tagCommandService.updateTagNumber(updateTagNumberCommand));
     }
@@ -40,7 +40,7 @@ public class TagController {
      * 删除（隐藏）标签
      */
     @ApiOperation(value = "删除（隐藏）标签")
-    @PostMapping("deleteTag")
+    @PostMapping("/deleteTag")
     public ResultDTO<Boolean> deleteTag(DeleteTagCommand deleteTagCommand) {
         return ResultDTO.getSuccessResult(tagCommandService.deleteTag(deleteTagCommand));
     }
@@ -54,7 +54,7 @@ public class TagController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "获取在指定时间区间内活跃的标签列表（按number文档数量降序排序）")
-    @GetMapping("listTagsByNumberDesc")
+    @GetMapping("/listTagsByNumberDesc")
     public ResultDTO<List<TagDTO>> listTagsByNumberDesc(@ApiParam(value = "应用id") String appId,
                                                         @ApiParam(value = "标签更新时间区间的起始位置") Long startUpdateTime,
                                                         @ApiParam(value = "标签更新时间区间的结束位置") Long endUpdateTime,

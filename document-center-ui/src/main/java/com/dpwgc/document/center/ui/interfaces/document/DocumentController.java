@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Api(value = "文档相关接口")
 @RestController
-@RequestMapping("/document")
+@RequestMapping("/docc/document")
 public class DocumentController {
 
     @Resource
@@ -31,7 +31,7 @@ public class DocumentController {
      * 新建文档
      */
     @ApiOperation(value = "新建文档")
-    @PostMapping("createDocument")
+    @PostMapping("/createDocument")
     public ResultDTO<String> createDocument(@RequestBody CreateDocumentCommand createDocumentCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.createDocument(createDocumentCommand));
     }
@@ -40,7 +40,7 @@ public class DocumentController {
      * 更新文档主体内容（匹配ES主键id）
      */
     @ApiOperation(value = "更新文档主体内容（匹配ES主键id）")
-    @PostMapping("updateDocumentMain")
+    @PostMapping("/updateDocumentMain")
     public ResultDTO<Boolean> updateDocumentMain(@RequestBody UpdateDocumentMainCommand updateDocumentMainCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentMain(updateDocumentMainCommand));
     }
@@ -49,7 +49,7 @@ public class DocumentController {
      * 更新文档权限等级（匹配ES主键id）
      */
     @ApiOperation(value = "更新文档权限等级（匹配ES主键id）")
-    @PostMapping("updateDocumentAuthLevel")
+    @PostMapping("/updateDocumentAuthLevel")
     public ResultDTO<Boolean> updateDocumentAuthLevel(@RequestBody UpdateDocumentAuthLevelCommand updateDocumentAuthLevelCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentAuthLevel(updateDocumentAuthLevelCommand));
     }
@@ -58,7 +58,7 @@ public class DocumentController {
      * 更新文档类型（匹配ES主键id）
      */
     @ApiOperation(value = "更新文档类型（匹配ES主键id）")
-    @PostMapping("updateDocumentType")
+    @PostMapping("/updateDocumentType")
     public ResultDTO<Boolean> updateDocumentType(@RequestBody UpdateDocumentTypeCommand updateDocumentTypeCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentType(updateDocumentTypeCommand));
     }
@@ -67,7 +67,7 @@ public class DocumentController {
      * 更新文档推荐评分（匹配ES主键id）
      */
     @ApiOperation(value = "更新文档推荐评分（匹配ES主键id）")
-    @PostMapping("updateDocumentScore")
+    @PostMapping("/updateDocumentScore")
     public ResultDTO<Boolean> updateDocumentScore(@RequestBody UpdateDocumentScoreCommand updateDocumentScoreCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentScore(updateDocumentScoreCommand));
     }
@@ -76,7 +76,7 @@ public class DocumentController {
      * 更新文档收藏数（匹配ES主键id）
      */
     @ApiOperation(value = "更新文档收藏数（匹配ES主键id）")
-    @PostMapping("updateDocumentLove")
+    @PostMapping("/updateDocumentLove")
     public ResultDTO<Boolean> updateDocumentLove(@RequestBody UpdateDocumentLoveCommand updateDocumentLoveCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentLove(updateDocumentLoveCommand));
     }
@@ -85,7 +85,7 @@ public class DocumentController {
      * 更新文档点赞数（匹配ES主键id）
      */
     @ApiOperation(value = "更新文档点赞数（匹配ES主键id）")
-    @PostMapping("updateDocumentLike")
+    @PostMapping("/updateDocumentLike")
     public ResultDTO<Boolean> updateDocumentLike(@RequestBody UpdateDocumentLikeCommand updateDocumentLikeCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentLike(updateDocumentLikeCommand));
     }
@@ -94,7 +94,7 @@ public class DocumentController {
      * 更新文档阅读数（匹配ES主键id）
      */
     @ApiOperation(value = "更新文档阅读数（匹配ES主键id）")
-    @PostMapping("updateDocumentRead")
+    @PostMapping("/updateDocumentRead")
     public ResultDTO<Boolean> updateDocumentRead(@RequestBody UpdateDocumentReadCommand updateDocumentReadCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocumentRead(updateDocumentReadCommand));
     }
@@ -103,7 +103,7 @@ public class DocumentController {
      * 删除文档（匹配ES主键id）
      */
     @ApiOperation(value = "删除文档（匹配ES主键id）")
-    @PostMapping("deleteDocument")
+    @PostMapping("/deleteDocument")
     public ResultDTO<Boolean> deleteDocument(@RequestBody DeleteDocumentCommand deleteDocumentCommand) {
         return ResultDTO.getSuccessResult(documentCommandService.deleteDocument(deleteDocumentCommand));
     }
@@ -119,7 +119,7 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "返回应用内的文档列表")
-    @GetMapping("listDocument")
+    @GetMapping("/listDocument")
     public ResultDTO<PageBase<List<DocumentDTO>>> listDocument(@ApiParam(value = "应用id") String appId,
                                                                @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
                                                                @ApiParam(value = "选用排序字段 例：update_time") String sortField,
@@ -144,7 +144,7 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据关键词检索应用内的所有文档")
-    @GetMapping("queryDocumentByKeyword")
+    @GetMapping("/queryDocumentByKeyword")
     public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByKeyword(@ApiParam(value = "应用id") String appId,
                                                                          @ApiParam(value = "关键词") String keyword,
                                                                          @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
@@ -170,7 +170,7 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据分类id检索文档")
-    @GetMapping("queryDocumentByCategoryId")
+    @GetMapping("/queryDocumentByCategoryId")
     public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryId(@ApiParam(value = "应用id") String appId,
                                                                             @ApiParam(value = "分类id") String categoryId,
                                                                             @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
@@ -197,7 +197,7 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据分类id与关键词检索文档")
-    @GetMapping("queryDocumentByCategoryIdAndKeyword")
+    @GetMapping("/queryDocumentByCategoryIdAndKeyword")
     public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryIdAndKeyword(@ApiParam(value = "应用id") String appId,
                                                                                       @ApiParam(value = "分类id") String categoryId,
                                                                                       @ApiParam(value = "关键词") String keyword,
@@ -225,7 +225,7 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据分类id与文档类型type检索文档")
-    @GetMapping("queryDocumentByCategoryIdAndType")
+    @GetMapping("/queryDocumentByCategoryIdAndType")
     public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryIdAndType(@ApiParam(value = "应用id") String appId,
                                                                                    @ApiParam(value = "分类id") String categoryId,
                                                                                    @ApiParam(value = "文档类型") Integer type,
@@ -252,7 +252,7 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据作者id检索文档")
-    @GetMapping("queryDocumentByAuthorId")
+    @GetMapping("/queryDocumentByAuthorId")
     public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByAuthorId(@ApiParam(value = "应用id") String appId,
                                                                           @ApiParam(value = "作者id") String authorId,
                                                                           @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
@@ -279,7 +279,7 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据作者id与关键词检索文档")
-    @GetMapping("queryDocumentByAuthorIdAndKeyword")
+    @GetMapping("/queryDocumentByAuthorIdAndKeyword")
     public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByAuthorIdAndKeyword(@ApiParam(value = "应用id") String appId,
                                                                                     @ApiParam(value = "作者id") String authorId,
                                                                                     @ApiParam(value = "关键词") String keyword,
@@ -306,7 +306,7 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据标签检索文档")
-    @GetMapping("queryDocumentByTags")
+    @GetMapping("/queryDocumentByTags")
     public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByTags(@ApiParam(value = "应用id") String appId,
                                                                       @ApiParam(value = "标签") String tags,
                                                                       @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
