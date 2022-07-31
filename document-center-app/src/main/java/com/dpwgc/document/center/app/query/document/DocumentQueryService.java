@@ -1,6 +1,7 @@
 package com.dpwgc.document.center.app.query.document;
 
 import co.elastic.clients.elasticsearch._types.SortOrder;
+import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.model.document.DocumentDTO;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface DocumentQueryService {
      * @param pageSize 分页大小
      * @return List<DocumentDTO>
      */
-    List<DocumentDTO> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
+    PageBase<List<DocumentDTO>> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
 
     /**
      * 根据分类id检索文档
@@ -28,7 +29,7 @@ public interface DocumentQueryService {
      * @param pageSize 分页大小
      * @return List<DocumentDTO>
      */
-    List<DocumentDTO> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
+    PageBase<List<DocumentDTO>> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
 
     /**
      * 根据分类id与关键词检索文档
@@ -41,7 +42,7 @@ public interface DocumentQueryService {
      * @param pageSize 分页大小
      * @return List<DocumentDTO>
      */
-    List<DocumentDTO> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
+    PageBase<List<DocumentDTO>> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
 
     /**
      * 根据分类id与文档类型type检索文档
@@ -54,7 +55,7 @@ public interface DocumentQueryService {
      * @param pageSize 分页大小
      * @return List<DocumentDTO>
      */
-    List<DocumentDTO> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
+    PageBase<List<DocumentDTO>> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
 
     /**
      * 根据作者id检索文档
@@ -66,7 +67,7 @@ public interface DocumentQueryService {
      * @param pageSize 分页大小
      * @return List<DocumentDTO>
      */
-    List<DocumentDTO> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
+    PageBase<List<DocumentDTO>> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
 
     /**
      * 根据作者id与关键词检索文档
@@ -79,7 +80,7 @@ public interface DocumentQueryService {
      * @param pageSize 分页大小
      * @return List<DocumentDTO>
      */
-    List<DocumentDTO> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
+    PageBase<List<DocumentDTO>> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
 
     /**
      * 根据标签检索文档
@@ -91,5 +92,5 @@ public interface DocumentQueryService {
      * @param pageSize 分页大小
      * @return List<DocumentDTO>
      */
-    List<DocumentDTO> queryDocumentByTags(String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
+    PageBase<List<DocumentDTO>> queryDocumentByTags(String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize);
 }

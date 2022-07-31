@@ -25,7 +25,7 @@ public class TreadPoolConfig {
         // 设置线程活跃时间（秒）
         executor.setKeepAliveSeconds(300);
         // 设置默认线程名称
-        executor.setThreadNamePrefix("document-query-center-");
+        executor.setThreadNamePrefix("docc-document-center-");
         // 设置拒绝策略
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         // 等待所有任务结束后再关闭线程池

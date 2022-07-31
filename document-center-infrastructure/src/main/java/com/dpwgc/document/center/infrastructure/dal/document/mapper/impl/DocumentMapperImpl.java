@@ -6,6 +6,7 @@ import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.assembler.HitToDocumentPOAssembler;
 import com.dpwgc.document.center.infrastructure.component.ESClient;
 import com.dpwgc.document.center.infrastructure.dal.document.mapper.DocumentMapper;
+import com.dpwgc.document.center.sdk.base.PageBase;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -53,16 +54,16 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<DocumentPO>
+     * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public List<DocumentPO> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<Hit<Object>> hits = esClient.searchDocumentByKeyword(indexName,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByKeyword(indexName,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
         List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : hits) {
+        for (Hit<Object> hit : pageBase.getList()) {
             documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
         }
-        return documentPOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
     }
 
     /**
@@ -73,16 +74,16 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<DocumentPO>
+     * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public List<DocumentPO> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<Hit<Object>> hits = esClient.searchDocumentByCategoryId(indexName,categoryId,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryId(indexName,categoryId,authLevel,sortField,sortOrder,pageIndex,pageSize);
         List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : hits) {
+        for (Hit<Object> hit : pageBase.getList()) {
             documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
         }
-        return documentPOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
     }
 
     /**
@@ -94,16 +95,16 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<Hit<Object>>
+     * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public List<DocumentPO> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<Hit<Object>> hits = esClient.searchDocumentByCategoryIdAndKeyword(indexName,categoryId,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryIdAndKeyword(indexName,categoryId,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
         List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : hits) {
+        for (Hit<Object> hit : pageBase.getList()) {
             documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
         }
-        return documentPOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
     }
 
     /**
@@ -115,16 +116,16 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<DocumentPO>
+     * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public List<DocumentPO> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<Hit<Object>> hits = esClient.searchDocumentByCategoryIdAndType(indexName,categoryId,type,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryIdAndType(indexName,categoryId,type,authLevel,sortField,sortOrder,pageIndex,pageSize);
         List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : hits) {
+        for (Hit<Object> hit : pageBase.getList()) {
             documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
         }
-        return documentPOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
     }
 
     /**
@@ -135,16 +136,16 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<Hit<Object>>
+     * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public List<DocumentPO> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<Hit<Object>> hits = esClient.searchDocumentByAuthorId(indexName,authorId,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByAuthorId(indexName,authorId,authLevel,sortField,sortOrder,pageIndex,pageSize);
         List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : hits) {
+        for (Hit<Object> hit : pageBase.getList()) {
             documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
         }
-        return documentPOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
     }
 
     /**
@@ -156,16 +157,16 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<Hit<Object>>
+     * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public List<DocumentPO> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<Hit<Object>> hits = esClient.searchDocumentByAuthorIdAndKeyword(indexName,authorId,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByAuthorIdAndKeyword(indexName,authorId,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
         List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : hits) {
+        for (Hit<Object> hit : pageBase.getList()) {
             documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
         }
-        return documentPOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
     }
 
     /**
@@ -176,15 +177,15 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<DocumentPO>
+     * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public List<DocumentPO> queryDocumentByTags(String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<Hit<Object>> hits = esClient.searchDocumentByTags(indexName,tags,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByTags(String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByTags(indexName,tags,authLevel,sortField,sortOrder,pageIndex,pageSize);
         List<DocumentPO> documentPOS = new ArrayList<>();
-        for (Hit<Object> hit : hits) {
+        for (Hit<Object> hit : pageBase.getList()) {
             documentPOS.add(hitToDocumentPOAssembler.assemblerDocumentPO(hit));
         }
-        return documentPOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentPOS);
     }
 }

@@ -10,6 +10,7 @@ import co.elastic.clients.transport.endpoints.BooleanResponse;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.util.FieldUtil;
 import com.dpwgc.document.center.infrastructure.util.LogUtil;
+import com.dpwgc.document.center.sdk.base.PageBase;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -170,7 +171,7 @@ public class ESClient {
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByKeyword(String indexName, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByKeyword(String indexName, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             SearchResponse<Object> search = client.search(s -> s
@@ -227,7 +228,7 @@ public class ESClient {
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
             );
-            return search.hits().hits();
+            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by keyword error: "+e);
             return null;
@@ -245,7 +246,7 @@ public class ESClient {
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByCategoryId(String indexName, String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByCategoryId(String indexName, String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             // 检索分类id(精准查询)
@@ -280,7 +281,7 @@ public class ESClient {
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
             );
-            return search.hits().hits();
+            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by categoryId error: "+e);
             return null;
@@ -299,7 +300,7 @@ public class ESClient {
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByCategoryIdAndKeyword(String indexName, String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByCategoryIdAndKeyword(String indexName, String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             // 检索分类id(精准查询)
@@ -362,7 +363,7 @@ public class ESClient {
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
             );
-            return search.hits().hits();
+            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by categoryId and keyword error: "+e);
             return null;
@@ -381,7 +382,7 @@ public class ESClient {
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByCategoryIdAndType(String indexName, String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByCategoryIdAndType(String indexName, String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             // 检索分类id(精准查询)
@@ -422,7 +423,7 @@ public class ESClient {
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
             );
-            return search.hits().hits();
+            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by categoryId and type error: "+e);
             return null;
@@ -440,7 +441,7 @@ public class ESClient {
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByAuthorId(String indexName, String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByAuthorId(String indexName, String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             // 检索作者id(精准查询)
@@ -475,7 +476,7 @@ public class ESClient {
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
             );
-            return search.hits().hits();
+            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by authorId error: "+e);
             return null;
@@ -494,7 +495,7 @@ public class ESClient {
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByAuthorIdAndKeyword(String indexName, String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByAuthorIdAndKeyword(String indexName, String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             // 检索分类id(精准查询)
@@ -557,7 +558,7 @@ public class ESClient {
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
             );
-            return search.hits().hits();
+            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by authorId and keyword error: "+e);
             return null;
@@ -575,7 +576,7 @@ public class ESClient {
      * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public List<Hit<Object>> searchDocumentByTags(String indexName, String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByTags(String indexName, String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
 
         try {
             // 检索标签 (模糊查询，不允许错字)
@@ -611,7 +612,7 @@ public class ESClient {
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
             );
-            return search.hits().hits();
+            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by tags error: "+e);
             return null;

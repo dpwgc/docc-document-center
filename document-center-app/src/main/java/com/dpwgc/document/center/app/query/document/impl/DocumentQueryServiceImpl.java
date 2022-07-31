@@ -5,6 +5,7 @@ import com.dpwgc.document.center.app.assembler.DocumentAssembler;
 import com.dpwgc.document.center.app.query.document.DocumentQueryService;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.dal.document.mapper.DocumentMapper;
+import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.model.document.DocumentDTO;
 import org.springframework.stereotype.Service;
 
@@ -26,16 +27,16 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<DocumentPO>
+     * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public List<DocumentDTO> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<DocumentPO> documentPOS = documentMapper.queryDocumentByKeyword(keyword, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public PageBase<List<DocumentDTO>> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByKeyword(keyword, authLevel, sortField, sortOrder, pageIndex, pageSize);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : documentPOS) {
+        for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
         }
-        return documentDTOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
     }
 
     /**
@@ -46,16 +47,16 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<DocumentPO>
+     * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public List<DocumentDTO> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<DocumentPO> documentPOS = documentMapper.queryDocumentByCategoryId(categoryId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public PageBase<List<DocumentDTO>> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByCategoryId(categoryId, authLevel, sortField, sortOrder, pageIndex, pageSize);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : documentPOS) {
+        for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
         }
-        return documentDTOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
     }
 
     /**
@@ -67,16 +68,16 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<Hit<Object>>
+     * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public List<DocumentDTO> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<DocumentPO> documentPOS = documentMapper.queryDocumentByCategoryIdAndKeyword(categoryId, keyword, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public PageBase<List<DocumentDTO>> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByCategoryIdAndKeyword(categoryId, keyword, authLevel, sortField, sortOrder, pageIndex, pageSize);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : documentPOS) {
+        for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
         }
-        return documentDTOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
     }
 
     /**
@@ -88,16 +89,16 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<DocumentPO>
+     * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public List<DocumentDTO> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<DocumentPO> documentPOS = documentMapper.queryDocumentByCategoryIdAndType(categoryId, type, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public PageBase<List<DocumentDTO>> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByCategoryIdAndType(categoryId, type, authLevel, sortField, sortOrder, pageIndex, pageSize);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : documentPOS) {
+        for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
         }
-        return documentDTOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
     }
 
     /**
@@ -108,16 +109,16 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<Hit<Object>>
+     * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public List<DocumentDTO> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<DocumentPO> documentPOS = documentMapper.queryDocumentByAuthorId(authorId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public PageBase<List<DocumentDTO>> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByAuthorId(authorId, authLevel, sortField, sortOrder, pageIndex, pageSize);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : documentPOS) {
+        for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
         }
-        return documentDTOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
     }
 
     /**
@@ -129,16 +130,16 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<Hit<Object>>
+     * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public List<DocumentDTO> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<DocumentPO> documentPOS = documentMapper.queryDocumentByAuthorIdAndKeyword(authorId, keyword, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public PageBase<List<DocumentDTO>> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByAuthorIdAndKeyword(authorId, keyword, authLevel, sortField, sortOrder, pageIndex, pageSize);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : documentPOS) {
+        for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
         }
-        return documentDTOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
     }
 
     /**
@@ -149,15 +150,15 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
      * @param pageIndex 分页开始
      * @param pageSize 分页大小
-     * @return List<DocumentPO>
+     * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public List<DocumentDTO> queryDocumentByTags(String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        List<DocumentPO> documentPOS = documentMapper.queryDocumentByTags(tags, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public PageBase<List<DocumentDTO>> queryDocumentByTags(String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByTags(tags, authLevel, sortField, sortOrder, pageIndex, pageSize);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : documentPOS) {
+        for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
         }
-        return documentDTOS;
+        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
     }
 }
