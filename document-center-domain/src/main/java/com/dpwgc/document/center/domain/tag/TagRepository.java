@@ -4,5 +4,7 @@ public interface TagRepository {
 
     Boolean createTag(Tag tag);
 
-    Boolean updateTag(Tag tag);
+    Boolean updateTagNumber(Tag tag);
+
+    Boolean deleteTag(Tag tag);
 }

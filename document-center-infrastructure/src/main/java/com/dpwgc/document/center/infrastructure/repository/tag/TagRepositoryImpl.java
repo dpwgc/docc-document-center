@@ -39,7 +39,7 @@ public class TagRepositoryImpl implements TagRepository {
     }
 
     @Override
-    public Boolean updateTag(Tag tag) {
+    public Boolean updateTagNumber(Tag tag) {
 
         QueryWrapper<TagPO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("app_id",tag.getAppId());
@@ -47,8 +47,21 @@ public class TagRepositoryImpl implements TagRepository {
 
         TagPO tagPO = tagMapper.selectOne(queryWrapper);
 
-        tagPO.setStatus(tag.getStatus());
         tagPO.setNumber(tagPO.getNumber());
+
+        return tagMapper.update(tagPO,queryWrapper) > 0;
+    }
+
+    @Override
+    public Boolean deleteTag(Tag tag) {
+
+        QueryWrapper<TagPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("app_id",tag.getAppId());
+        queryWrapper.eq("tag_name",tag.getTagName());
+
+        TagPO tagPO = tagMapper.selectOne(queryWrapper);
+
+        tagPO.setStatus(0);
 
         return tagMapper.update(tagPO,queryWrapper) > 0;
     }

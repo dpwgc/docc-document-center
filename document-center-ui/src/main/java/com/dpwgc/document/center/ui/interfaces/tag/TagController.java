@@ -3,7 +3,8 @@ package com.dpwgc.document.center.ui.interfaces.tag;
 import com.dpwgc.document.center.app.command.tag.TagCommandService;
 import com.dpwgc.document.center.app.query.tag.TagQueryService;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
-import com.dpwgc.document.center.sdk.model.tag.UpdateTagCommand;
+import com.dpwgc.document.center.sdk.model.tag.DeleteTagCommand;
+import com.dpwgc.document.center.sdk.model.tag.UpdateTagNumberCommand;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
@@ -21,11 +22,19 @@ public class TagController {
     TagQueryService tagQueryService;
 
     /**
-     * 后台修改标签信息（更改标签数量与标签状态）
+     * 后台修改标签数量
      */
-    @PostMapping("updateTag")
-    public ResultDTO<Object> updateTag(UpdateTagCommand updateTagCommand) {
-        return ResultDTO.getSuccessResult(tagCommandService.updateTag(updateTagCommand));
+    @PostMapping("updateTagNumber")
+    public ResultDTO<Object> updateTagNumber(UpdateTagNumberCommand updateTagNumberCommand) {
+        return ResultDTO.getSuccessResult(tagCommandService.updateTagNumber(updateTagNumberCommand));
+    }
+
+    /**
+     * 删除（隐藏）标签
+     */
+    @PostMapping("deleteTag")
+    public ResultDTO<Object> deleteTag(DeleteTagCommand deleteTagCommand) {
+        return ResultDTO.getSuccessResult(tagCommandService.deleteTag(deleteTagCommand));
     }
 
     /**

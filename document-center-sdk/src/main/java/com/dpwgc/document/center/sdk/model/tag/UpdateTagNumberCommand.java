@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateTagCommand {
+public class UpdateTagNumberCommand {
 
     /**
      * 所属应用id
@@ -21,9 +21,4 @@ public class UpdateTagCommand {
      * 带有该标签的文档数量
      */
     private Long number;
-
-    /**
-     * 标签状态（0-隐藏，1-正常）
-     */
-    private Integer status;
 }
