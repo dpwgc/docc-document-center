@@ -163,6 +163,53 @@ public class ESClient {
     }
 
     /**
+     * 返回应用内的文档列表
+     * @param indexName 索引名称
+     * @return List<Hit<Object>>
+     */
+    public PageBase<List<Hit<Object>>> searchDocument(String indexName, DocumentQueryCommon documentQueryCommon) {
+
+        try {
+            SearchResponse<Object> search = client.search(s -> s
+                    .index(indexName)
+                    //按关键词检索文档标题、内容、标签、摘要(模糊查询，不允许错字)
+                    .query(query -> query
+                            .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("app_id")
+                                                    .query(documentQueryCommon.getAppId())
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .range(range -> range
+                                                    //返回的文档权限等级要<=用户权限等级
+                                                    .field("auth_level")
+                                                    .lte(JsonData.of(documentQueryCommon.getAuthLevel()))
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("status")
+                                                    .query(1)
+                                            )
+                                    )
+                            )
+                    )
+                    //分页查询
+                    .from(documentQueryCommon.getPageIndex())
+                    .size(documentQueryCommon.getPageSize())
+                    //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
+                    .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
+            );
+            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
+        } catch (Exception e) {
+            LogUtil.error("es search document by keyword error: "+e);
+            return null;
+        }
+    }
+
+    /**
      * 根据关键词检索应用内的所有文档
      * @param indexName 索引名称
      * @param keyword 关键词

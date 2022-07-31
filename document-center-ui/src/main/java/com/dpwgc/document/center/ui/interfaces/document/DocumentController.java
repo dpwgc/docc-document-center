@@ -109,6 +109,30 @@ public class DocumentController {
     }
 
     /**
+     * 返回应用内的文档列表
+     * @param appId 应用id
+     * @param authLevel 查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
+     * @param sortField 选用排序字段 例：update_time
+     * @param sortOrder 排序规则 Desc/Asc
+     * @param pageIndex 分页起始
+     * @param pageSize 分页大小
+     * @return ResultDTO<Object>
+     */
+    @ApiOperation(value = "返回应用内的文档列表")
+    @GetMapping("listDocument")
+    public ResultDTO<PageBase<List<DocumentDTO>>> listDocument(@ApiParam(value = "应用id") String appId,
+                                                               @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
+                                                               @ApiParam(value = "选用排序字段 例：update_time") String sortField,
+                                                               @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
+                                                               @ApiParam(value = "分页起始") Integer pageIndex,
+                                                               @ApiParam(value = "分页大小") Integer pageSize) {
+
+        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
+        documentQueryCommon.create(appId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+        return ResultDTO.getSuccessResult(documentQueryService.listDocument(documentQueryCommon));
+    }
+
+    /**
      * 根据关键词检索应用内的所有文档
      * @param appId 应用id
      * @param keyword 关键词

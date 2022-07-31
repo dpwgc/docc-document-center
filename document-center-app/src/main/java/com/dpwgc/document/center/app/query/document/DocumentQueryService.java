@@ -8,6 +8,12 @@ import java.util.List;
 public interface DocumentQueryService {
 
     /**
+     * 返回应用内的文档列表
+     * @return List<Hit<Object>>
+     */
+    PageBase<List<DocumentDTO>> listDocument(DocumentQueryCommon documentQueryCommon);
+
+    /**
      * 根据关键词检索应用内的所有文档
      * @param keyword 关键词
      * @return List<DocumentDTO>
