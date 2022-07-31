@@ -38,4 +38,9 @@ public class CategoryController {
     public ResultDTO<Object> getCategoryTreeByAppId(String appId) {
         return ResultDTO.getSuccessResult(categoryQueryService.getCategoryTreeByAppId(appId));
     }
+
+    @GetMapping("queryDetailByCategoryId")
+    public ResultDTO<Object> queryDetailByCategoryId(String categoryId) {
+        return ResultDTO.getSuccessResult(categoryQueryService.queryDetailByCategoryId(categoryId));
+    }
 }

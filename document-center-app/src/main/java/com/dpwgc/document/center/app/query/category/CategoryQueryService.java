@@ -7,4 +7,6 @@ import java.util.List;
 public interface CategoryQueryService {
 
     List<CategoryTreeDTO> getCategoryTreeByAppId(String appId);
+
+    String queryDetailByCategoryId(String categoryId);
 }

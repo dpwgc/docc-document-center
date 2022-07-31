@@ -23,6 +23,9 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
 
+        //要查询的字段
+        queryWrapper.select("category_id","parent_id","category_name","score","create_time","update_time");
+
         queryWrapper.eq("app_id",appId);
         queryWrapper.eq("status",1);
         queryWrapper.orderByDesc("score");  //类别树的各级将按照score字段降序排序
@@ -69,5 +72,25 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
             }
         });
         return result;
+    }
+
+    /**
+     * 根据分类id获取分类详情
+     * @param categoryId 分类id
+     * @return CategoryDTO
+     */
+    @Override
+    public String queryDetailByCategoryId(String categoryId) {
+
+        QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
+
+        //要查询的字段
+        queryWrapper.select("detail");
+
+        queryWrapper.eq("category_id",categoryId);
+        queryWrapper.eq("status",1);
+
+        CategoryPO categoryPO = categoryMapper.selectOne(queryWrapper);
+        return categoryPO.getDetail();
     }
 }

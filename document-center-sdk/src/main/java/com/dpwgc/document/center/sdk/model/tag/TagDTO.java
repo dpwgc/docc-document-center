@@ -8,11 +8,6 @@ import lombok.Setter;
 public class TagDTO {
 
     /**
-     * 所属应用id
-     */
-    private String appId;
-
-    /**
      * 标签名称
      */
     private String tagName;

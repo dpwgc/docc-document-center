@@ -34,6 +34,9 @@ public class TagQueryServiceImpl implements TagQueryService {
 
         QueryWrapper<TagPO> queryWrapper = new QueryWrapper<>();
 
+        //要查询的字段
+        queryWrapper.select("tag_name","number","create_time","update_time");
+
         //查询指定应用的标签
         queryWrapper.eq("app_id",appId);
         queryWrapper.eq("status",1);

@@ -23,9 +23,9 @@ public class CategoryDTO {
     private String categoryName;
 
     /**
-     * 分类概要
+     * 分类详情
      */
-    private String summary;
+    private String detail;
 
     /**
      * 分类推荐分值（可按此字段对分类进行排序）

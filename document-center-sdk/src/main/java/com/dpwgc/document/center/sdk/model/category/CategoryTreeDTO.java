@@ -27,11 +27,6 @@ public class CategoryTreeDTO {
     private String categoryName;
 
     /**
-     * 分类概要
-     */
-    private String summary;
-
-    /**
      * 分类推荐分值（可按此字段对分类进行排序）
      */
     private Long score;
