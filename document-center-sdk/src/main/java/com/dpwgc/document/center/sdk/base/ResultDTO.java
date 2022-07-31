@@ -2,12 +2,21 @@ package com.dpwgc.document.center.sdk.base;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(value = "统一返回模板-DTO")
 public class ResultDTO<T> {
+
+    @ApiModelProperty(value = "请求处理是否成功")
     protected boolean success;
+
+    @ApiModelProperty(value = "响应代码")
     protected Integer code;
+
+    @ApiModelProperty(value = "响应信息")
     protected String message;
+
+    @ApiModelProperty(value = "响应数据")
     protected T data;
 
     public Integer getCode() {

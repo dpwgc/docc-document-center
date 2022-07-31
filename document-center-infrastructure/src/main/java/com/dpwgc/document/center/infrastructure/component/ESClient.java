@@ -165,11 +165,10 @@ public class ESClient {
     /**
      * 根据关键词检索应用内的所有文档
      * @param indexName 索引名称
-     * @param appId 应用id
      * @param keyword 关键词
      * @return List<Hit<Object>>
      */
-    public PageBase<List<Hit<Object>>> searchDocumentByKeyword(String indexName,String appId, String keyword, DocumentQueryCommon documentQueryCommon) {
+    public PageBase<List<Hit<Object>>> searchDocumentByKeyword(String indexName, String keyword, DocumentQueryCommon documentQueryCommon) {
 
         try {
             SearchResponse<Object> search = client.search(s -> s
@@ -180,7 +179,7 @@ public class ESClient {
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("app_id")
-                                                    .query(appId)
+                                                    .query(documentQueryCommon.getAppId())
                                             )
                                     )
                                     .should(should -> should
@@ -255,6 +254,12 @@ public class ESClient {
                             .bool(bool -> bool
                                     .must(must -> must
                                             .match(match -> match
+                                                    .field("app_id")
+                                                    .query(documentQueryCommon.getAppId())
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .match(match -> match
                                                     .field("category_id")
                                                     .query(categoryId)
                                             )
@@ -302,6 +307,12 @@ public class ESClient {
                     .index(indexName)
                     .query(query -> query
                             .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("app_id")
+                                                    .query(documentQueryCommon.getAppId())
+                                            )
+                                    )
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("category_id")
@@ -381,6 +392,12 @@ public class ESClient {
                             .bool(bool -> bool
                                     .must(must -> must
                                             .match(match -> match
+                                                    .field("app_id")
+                                                    .query(documentQueryCommon.getAppId())
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .match(match -> match
                                                     .field("category_id")
                                                     .query(categoryId)
                                             )
@@ -435,6 +452,12 @@ public class ESClient {
                             .bool(bool -> bool
                                     .must(must -> must
                                             .match(match -> match
+                                                    .field("app_id")
+                                                    .query(documentQueryCommon.getAppId())
+                                            )
+                                    )
+                                    .must(must -> must
+                                            .match(match -> match
                                                     .field("author_id")
                                                     .query(authorId)
                                             )
@@ -482,6 +505,12 @@ public class ESClient {
                     .index(indexName)
                     .query(query -> query
                             .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("app_id")
+                                                    .query(documentQueryCommon.getAppId())
+                                            )
+                                    )
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("author_id")
@@ -558,6 +587,12 @@ public class ESClient {
                     .index(indexName)
                     .query(query -> query
                             .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("app_id")
+                                                    .query(documentQueryCommon.getAppId())
+                                            )
+                                    )
                                     .must(must -> must
                                             .fuzzy(fuzzy -> fuzzy
                                                     .field("tags")

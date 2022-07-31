@@ -18,11 +18,10 @@ public interface DocumentMapper {
 
     /**
      * 根据关键词检索应用内的所有文档
-     * @param appId 应用id
      * @param keyword 关键词
      * @return PageBase<List<DocumentPO>>
      */
-    PageBase<List<DocumentPO>> queryDocumentByKeyword(String appId, String keyword, DocumentQueryCommon documentQueryCommon);
+    PageBase<List<DocumentPO>> queryDocumentByKeyword(String keyword, DocumentQueryCommon documentQueryCommon);
 
     /**
      * 根据分类id检索文档

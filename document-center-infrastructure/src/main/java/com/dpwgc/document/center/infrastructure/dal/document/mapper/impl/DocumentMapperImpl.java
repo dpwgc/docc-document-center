@@ -46,13 +46,12 @@ public class DocumentMapperImpl implements DocumentMapper {
 
     /**
      * 根据关键词检索应用内的所有文档
-     * @param appId 应用id
      * @param keyword 关键词
      * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public PageBase<List<DocumentPO>> queryDocumentByKeyword(String appId, String keyword, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByKeyword(indexName,appId,keyword,documentQueryCommon);
+    public PageBase<List<DocumentPO>> queryDocumentByKeyword(String keyword, DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByKeyword(indexName,keyword,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 

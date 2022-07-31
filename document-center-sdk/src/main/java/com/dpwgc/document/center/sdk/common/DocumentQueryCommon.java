@@ -7,13 +7,17 @@ import lombok.Setter;
 @Setter
 @Getter
 public class DocumentQueryCommon {
+
+    private String appId;
     private Integer authLevel;
     private String sortField;
     private SortOrder sortOrder;
     private Integer pageIndex;
     private Integer pageSize;
 
-    public void create(Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
+    public void create(String appId, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
+
+        this.appId = appId;
 
         this.authLevel = authLevel;
 
