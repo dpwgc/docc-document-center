@@ -1,12 +1,12 @@
 package com.dpwgc.document.center.infrastructure.dal.document.mapper.impl;
 
-import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.assembler.HitToDocumentPOAssembler;
 import com.dpwgc.document.center.infrastructure.component.ESClient;
 import com.dpwgc.document.center.infrastructure.dal.document.mapper.DocumentMapper;
 import com.dpwgc.document.center.sdk.base.PageBase;
+import com.dpwgc.document.center.sdk.common.DocumentQueryCommon;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -47,32 +47,22 @@ public class DocumentMapperImpl implements DocumentMapper {
     /**
      * 根据关键词检索文档
      * @param keyword 关键词
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public PageBase<List<DocumentPO>> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByKeyword(indexName,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByKeyword(String keyword, DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByKeyword(indexName,keyword,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
     /**
      * 根据分类id检索文档
      * @param categoryId 分类id
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public PageBase<List<DocumentPO>> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryId(indexName,categoryId,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByCategoryId(String categoryId, DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryId(indexName,categoryId,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
@@ -80,16 +70,11 @@ public class DocumentMapperImpl implements DocumentMapper {
      * 根据分类id与关键词检索文档
      * @param categoryId 分类id
      * @param keyword 关键词
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public PageBase<List<DocumentPO>> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryIdAndKeyword(indexName,categoryId,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryIdAndKeyword(indexName,categoryId,keyword,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
@@ -97,32 +82,22 @@ public class DocumentMapperImpl implements DocumentMapper {
      * 根据分类id与文档类型type检索文档
      * @param categoryId 分类id
      * @param type 文档类型
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public PageBase<List<DocumentPO>> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryIdAndType(indexName,categoryId,type,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByCategoryIdAndType(String categoryId, Integer type, DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryIdAndType(indexName,categoryId,type,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
     /**
      * 根据作者id检索文档
      * @param authorId 作者id
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public PageBase<List<DocumentPO>> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByAuthorId(indexName,authorId,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByAuthorId(String authorId, DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByAuthorId(indexName,authorId,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
@@ -130,32 +105,22 @@ public class DocumentMapperImpl implements DocumentMapper {
      * 根据作者id与关键词检索文档
      * @param authorId 作者id
      * @param keyword 关键词
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public PageBase<List<DocumentPO>> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByAuthorIdAndKeyword(indexName,authorId,keyword,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByAuthorIdAndKeyword(indexName,authorId,keyword,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 
     /**
      * 根据标签检索文档
      * @param tags 标签
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return PageBase<List<DocumentPO>>
      */
     @Override
-    public PageBase<List<DocumentPO>> queryDocumentByTags(String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByTags(indexName,tags,authLevel,sortField,sortOrder,pageIndex,pageSize);
+    public PageBase<List<DocumentPO>> queryDocumentByTags(String tags, DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByTags(indexName,tags,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 }

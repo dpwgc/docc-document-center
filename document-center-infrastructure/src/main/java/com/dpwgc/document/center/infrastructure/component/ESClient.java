@@ -11,6 +11,7 @@ import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.util.FieldUtil;
 import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
+import com.dpwgc.document.center.sdk.common.DocumentQueryCommon;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -48,6 +49,7 @@ public class ESClient {
     public Boolean createIndex(String indexName) {
         try {
             CreateIndexResponse indexResponse = client.indices().create(create -> create.index(indexName));
+            LogUtil.info("create index: "+indexResponse.index());
             return true;
         } catch (Exception e) {
             LogUtil.error("es create index error: "+e);
@@ -164,14 +166,9 @@ public class ESClient {
      * 根据关键词检索文档
      * @param indexName 索引名称
      * @param keyword 关键词
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public PageBase<List<Hit<Object>>> searchDocumentByKeyword(String indexName, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByKeyword(String indexName, String keyword, DocumentQueryCommon documentQueryCommon) {
 
         try {
             SearchResponse<Object> search = client.search(s -> s
@@ -211,7 +208,7 @@ public class ESClient {
                                             .range(range -> range
                                                     //返回的文档权限等级要<=用户权限等级
                                                     .field("auth_level")
-                                                    .lte(JsonData.of(authLevel))
+                                                    .lte(JsonData.of(documentQueryCommon.getAuthLevel()))
                                             )
                                     )
                                     .must(must -> must
@@ -223,10 +220,10 @@ public class ESClient {
                             )
                     )
                     //分页查询
-                    .from(pageIndex)
-                    .size(pageSize)
+                    .from(documentQueryCommon.getPageIndex())
+                    .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+                    .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
             return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
@@ -239,14 +236,9 @@ public class ESClient {
      * 根据分类id检索文档
      * @param indexName 索引名称
      * @param categoryId 分类id
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public PageBase<List<Hit<Object>>> searchDocumentByCategoryId(String indexName, String categoryId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByCategoryId(String indexName, String categoryId, DocumentQueryCommon documentQueryCommon) {
 
         try {
             // 检索分类id(精准查询)
@@ -264,7 +256,7 @@ public class ESClient {
                                             .range(range -> range
                                                     //返回的文档权限等级要<=用户权限等级
                                                     .field("auth_level")
-                                                    .lte(JsonData.of(authLevel))
+                                                    .lte(JsonData.of(documentQueryCommon.getAuthLevel()))
                                             )
                                     )
                                     .must(must -> must
@@ -276,10 +268,10 @@ public class ESClient {
                             )
                     )
                     //分页查询
-                    .from(pageIndex)
-                    .size(pageSize)
+                    .from(documentQueryCommon.getPageIndex())
+                    .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+                    .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
             return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
@@ -293,14 +285,9 @@ public class ESClient {
      * @param indexName 索引名称
      * @param categoryId 分类id
      * @param keyword 关键词
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public PageBase<List<Hit<Object>>> searchDocumentByCategoryIdAndKeyword(String indexName, String categoryId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByCategoryIdAndKeyword(String indexName, String categoryId, String keyword, DocumentQueryCommon documentQueryCommon) {
 
         try {
             // 检索分类id(精准查询)
@@ -346,7 +333,7 @@ public class ESClient {
                                             .range(range -> range
                                                     //返回的文档权限等级要<=用户权限等级
                                                     .field("auth_level")
-                                                    .lte(JsonData.of(authLevel))
+                                                    .lte(JsonData.of(documentQueryCommon.getAuthLevel()))
                                             )
                                     )
                                     .must(must -> must
@@ -358,10 +345,10 @@ public class ESClient {
                             )
                     )
                     //分页查询
-                    .from(pageIndex)
-                    .size(pageSize)
+                    .from(documentQueryCommon.getPageIndex())
+                    .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+                    .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
             return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
@@ -375,14 +362,9 @@ public class ESClient {
      * @param indexName 索引名称
      * @param categoryId 分类id
      * @param type 文档类型
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public PageBase<List<Hit<Object>>> searchDocumentByCategoryIdAndType(String indexName, String categoryId, Integer type, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByCategoryIdAndType(String indexName, String categoryId, Integer type, DocumentQueryCommon documentQueryCommon) {
 
         try {
             // 检索分类id(精准查询)
@@ -406,7 +388,7 @@ public class ESClient {
                                             .range(range -> range
                                                     //返回的文档权限等级要<=用户权限等级
                                                     .field("auth_level")
-                                                    .lte(JsonData.of(authLevel))
+                                                    .lte(JsonData.of(documentQueryCommon.getAuthLevel()))
                                             )
                                     )
                                     .must(must -> must
@@ -418,10 +400,10 @@ public class ESClient {
                             )
                     )
                     //分页查询
-                    .from(pageIndex)
-                    .size(pageSize)
+                    .from(documentQueryCommon.getPageIndex())
+                    .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+                    .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
             return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
@@ -434,14 +416,9 @@ public class ESClient {
      * 根据作者id检索文档
      * @param indexName 索引名称
      * @param authorId 作者id
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public PageBase<List<Hit<Object>>> searchDocumentByAuthorId(String indexName, String authorId, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByAuthorId(String indexName, String authorId, DocumentQueryCommon documentQueryCommon) {
 
         try {
             // 检索作者id(精准查询)
@@ -459,7 +436,7 @@ public class ESClient {
                                             .range(range -> range
                                                     //返回的文档权限等级要<=用户权限等级
                                                     .field("auth_level")
-                                                    .lte(JsonData.of(authLevel))
+                                                    .lte(JsonData.of(documentQueryCommon.getAuthLevel()))
                                             )
                                     )
                                     .must(must -> must
@@ -471,10 +448,10 @@ public class ESClient {
                             )
                     )
                     //分页查询
-                    .from(pageIndex)
-                    .size(pageSize)
+                    .from(documentQueryCommon.getPageIndex())
+                    .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+                    .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
             return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
@@ -488,14 +465,9 @@ public class ESClient {
      * @param indexName 索引名称
      * @param authorId 作者id
      * @param keyword 关键词
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public PageBase<List<Hit<Object>>> searchDocumentByAuthorIdAndKeyword(String indexName, String authorId, String keyword, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByAuthorIdAndKeyword(String indexName, String authorId, String keyword, DocumentQueryCommon documentQueryCommon) {
 
         try {
             // 检索分类id(精准查询)
@@ -541,7 +513,7 @@ public class ESClient {
                                             .range(range -> range
                                                     //返回的文档权限等级要<=用户权限等级
                                                     .field("auth_level")
-                                                    .lte(JsonData.of(authLevel))
+                                                    .lte(JsonData.of(documentQueryCommon.getAuthLevel()))
                                             )
                                     )
                                     .must(must -> must
@@ -553,10 +525,10 @@ public class ESClient {
                             )
                     )
                     //分页查询
-                    .from(pageIndex)
-                    .size(pageSize)
+                    .from(documentQueryCommon.getPageIndex())
+                    .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+                    .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
             return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {
@@ -569,14 +541,9 @@ public class ESClient {
      * 根据标签检索文档
      * @param indexName 索引名称
      * @param tags 标签
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 SortOrder.Desc/SortOrder.Asc
-     * @param pageIndex 分页开始
-     * @param pageSize 分页大小
      * @return List<Hit<Object>>
      */
-    public PageBase<List<Hit<Object>>> searchDocumentByTags(String indexName, String tags, Integer authLevel, String sortField, SortOrder sortOrder, Integer pageIndex, Integer pageSize) {
+    public PageBase<List<Hit<Object>>> searchDocumentByTags(String indexName, String tags, DocumentQueryCommon documentQueryCommon) {
 
         try {
             // 检索标签 (模糊查询，不允许错字)
@@ -595,7 +562,7 @@ public class ESClient {
                                             .range(range -> range
                                                     //返回的文档权限等级要<=用户权限等级
                                                     .field("auth_level")
-                                                    .lte(JsonData.of(authLevel))
+                                                    .lte(JsonData.of(documentQueryCommon.getAuthLevel()))
                                             )
                                     )
                                     .must(must -> must
@@ -607,10 +574,10 @@ public class ESClient {
                             )
                     )
                     //分页查询
-                    .from(pageIndex)
-                    .size(pageSize)
+                    .from(documentQueryCommon.getPageIndex())
+                    .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                    .sort(sort -> sort.field(field -> field.field(sortField).order(sortOrder))),Object.class
+                    .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
             return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
         } catch (Exception e) {

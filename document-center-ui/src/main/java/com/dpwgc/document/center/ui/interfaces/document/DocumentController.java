@@ -1,9 +1,9 @@
 package com.dpwgc.document.center.ui.interfaces.document;
 
-import co.elastic.clients.elasticsearch._types.SortOrder;
 import com.dpwgc.document.center.app.command.document.DocumentCommandService;
 import com.dpwgc.document.center.app.query.document.DocumentQueryService;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
+import com.dpwgc.document.center.sdk.common.DocumentQueryCommon;
 import com.dpwgc.document.center.sdk.model.document.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -118,13 +118,9 @@ public class DocumentController {
     @ApiOperation(value = "根据关键词检索文档")
     @GetMapping("queryDocumentByKeyword")
     public ResultDTO<Object> queryDocumentByKeyword(String keyword, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
-        SortOrder so = null;
-        if (sortOrder.equals("Asc")) {
-            so = SortOrder.Asc;
-        } else {
-            so = SortOrder.Desc;
-        }
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByKeyword(keyword, authLevel, sortField, so, pageIndex, pageSize));
+        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
+        documentQueryCommon.create(authLevel, sortField, sortOrder, pageIndex, pageSize);
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByKeyword(keyword, documentQueryCommon));
     }
 
     /**
@@ -140,13 +136,9 @@ public class DocumentController {
     @ApiOperation(value = "根据分类id检索文档")
     @GetMapping("queryDocumentByCategoryId")
     public ResultDTO<Object> queryDocumentByCategoryId(String categoryId, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
-        SortOrder so = null;
-        if (sortOrder.equals("Asc")) {
-            so = SortOrder.Asc;
-        } else {
-            so = SortOrder.Desc;
-        }
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryId(categoryId, authLevel, sortField, so, pageIndex, pageSize));
+        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
+        documentQueryCommon.create(authLevel, sortField, sortOrder, pageIndex, pageSize);
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryId(categoryId, documentQueryCommon));
     }
 
     /**
@@ -163,13 +155,9 @@ public class DocumentController {
     @ApiOperation(value = "根据分类id与关键词检索文档")
     @GetMapping("queryDocumentByCategoryIdAndKeyword")
     public ResultDTO<Object> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
-        SortOrder so = null;
-        if (sortOrder.equals("Asc")) {
-            so = SortOrder.Asc;
-        } else {
-            so = SortOrder.Desc;
-        }
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndKeyword(categoryId, keyword, authLevel, sortField, so, pageIndex, pageSize));
+        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
+        documentQueryCommon.create(authLevel, sortField, sortOrder, pageIndex, pageSize);
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndKeyword(categoryId, keyword, documentQueryCommon));
     }
 
     /**
@@ -186,13 +174,9 @@ public class DocumentController {
     @ApiOperation(value = "根据分类id与文档类型type检索文档")
     @GetMapping("queryDocumentByCategoryIdAndType")
     public ResultDTO<Object> queryDocumentByCategoryIdAndType(String categoryId, Integer type, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
-        SortOrder so = null;
-        if (sortOrder.equals("Asc")) {
-            so = SortOrder.Asc;
-        } else {
-            so = SortOrder.Desc;
-        }
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndType(categoryId, type, authLevel, sortField, so, pageIndex, pageSize));
+        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
+        documentQueryCommon.create(authLevel, sortField, sortOrder, pageIndex, pageSize);
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndType(categoryId, type, documentQueryCommon));
     }
 
     /**
@@ -208,13 +192,9 @@ public class DocumentController {
     @ApiOperation(value = "根据作者id检索文档")
     @GetMapping("queryDocumentByAuthorId")
     public ResultDTO<Object> queryDocumentByAuthorId(String authorId, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
-        SortOrder so = null;
-        if (sortOrder.equals("Asc")) {
-            so = SortOrder.Asc;
-        } else {
-            so = SortOrder.Desc;
-        }
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorId(authorId, authLevel, sortField, so, pageIndex, pageSize));
+        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
+        documentQueryCommon.create(authLevel, sortField, sortOrder, pageIndex, pageSize);
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorId(authorId, documentQueryCommon));
     }
 
     /**
@@ -231,13 +211,9 @@ public class DocumentController {
     @ApiOperation(value = "根据作者id与关键词检索文档")
     @GetMapping("queryDocumentByAuthorIdAndKeyword")
     public ResultDTO<Object> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
-        SortOrder so = null;
-        if (sortOrder.equals("Asc")) {
-            so = SortOrder.Asc;
-        } else {
-            so = SortOrder.Desc;
-        }
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorIdAndKeyword(authorId, keyword, authLevel, sortField, so, pageIndex, pageSize));
+        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
+        documentQueryCommon.create(authLevel, sortField, sortOrder, pageIndex, pageSize);
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorIdAndKeyword(authorId, keyword, documentQueryCommon));
     }
 
     /**
@@ -253,12 +229,8 @@ public class DocumentController {
     @ApiOperation(value = "根据标签检索文档")
     @GetMapping("queryDocumentByTags")
     public ResultDTO<Object> queryDocumentByTags(String tags, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
-        SortOrder so = null;
-        if (sortOrder.equals("Asc")) {
-            so = SortOrder.Asc;
-        } else {
-            so = SortOrder.Desc;
-        }
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByTags(tags, authLevel, sortField, so, pageIndex, pageSize));
+        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
+        documentQueryCommon.create(authLevel, sortField, sortOrder, pageIndex, pageSize);
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByTags(tags, documentQueryCommon));
     }
 }
