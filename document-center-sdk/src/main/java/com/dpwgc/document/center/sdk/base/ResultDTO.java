@@ -1,7 +1,9 @@
 package com.dpwgc.document.center.sdk.base;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.annotations.ApiModel;
 
+@ApiModel(value = "统一返回模板-DTO")
 public class ResultDTO<T> {
     protected boolean success;
     protected Integer code;

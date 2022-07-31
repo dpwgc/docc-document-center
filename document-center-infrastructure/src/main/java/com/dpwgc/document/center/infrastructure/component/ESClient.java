@@ -163,12 +163,13 @@ public class ESClient {
     }
 
     /**
-     * 根据关键词检索文档
+     * 根据关键词检索应用内的所有文档
      * @param indexName 索引名称
+     * @param appId 应用id
      * @param keyword 关键词
      * @return List<Hit<Object>>
      */
-    public PageBase<List<Hit<Object>>> searchDocumentByKeyword(String indexName, String keyword, DocumentQueryCommon documentQueryCommon) {
+    public PageBase<List<Hit<Object>>> searchDocumentByKeyword(String indexName,String appId, String keyword, DocumentQueryCommon documentQueryCommon) {
 
         try {
             SearchResponse<Object> search = client.search(s -> s
@@ -176,6 +177,12 @@ public class ESClient {
                     //按关键词检索文档标题、内容、标签、摘要(模糊查询，不允许错字)
                     .query(query -> query
                             .bool(bool -> bool
+                                    .must(must -> must
+                                            .match(match -> match
+                                                    .field("app_id")
+                                                    .query(appId)
+                                            )
+                                    )
                                     .should(should -> should
                                             .fuzzy(fuzzy -> fuzzy
                                                     .field("title")

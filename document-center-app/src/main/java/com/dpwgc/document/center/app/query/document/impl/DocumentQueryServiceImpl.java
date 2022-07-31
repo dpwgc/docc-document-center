@@ -20,13 +20,14 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
     DocumentMapper documentMapper;
 
     /**
-     * 根据关键词检索文档
+     * 根据关键词检索应用内的所有文档
+     * @param appId 应用id
      * @param keyword 关键词
      * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public PageBase<List<DocumentDTO>> queryDocumentByKeyword(String keyword, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByKeyword(keyword, documentQueryCommon);
+    public PageBase<List<DocumentDTO>> queryDocumentByKeyword(String appId, String keyword, DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByKeyword(appId, keyword, documentQueryCommon);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
         for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));

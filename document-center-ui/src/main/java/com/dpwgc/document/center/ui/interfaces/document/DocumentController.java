@@ -107,7 +107,8 @@ public class DocumentController {
     }
 
     /**
-     * 根据关键词检索文档
+     * 根据关键词检索应用内的所有文档
+     * @param appId 应用id
      * @param keyword 关键词
      * @param authLevel 查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
      * @param sortField 选用排序字段 例：update_time
@@ -116,9 +117,10 @@ public class DocumentController {
      * @param pageSize 分页大小
      * @return ResultDTO<Object>
      */
-    @ApiOperation(value = "根据关键词检索文档")
+    @ApiOperation(value = "根据关键词检索应用内的所有文档")
     @GetMapping("queryDocumentByKeyword")
-    public ResultDTO<Object> queryDocumentByKeyword(@ApiParam(value = "关键词") String keyword,
+    public ResultDTO<Object> queryDocumentByKeyword(@ApiParam(value = "应用id") String appId,
+                                                    @ApiParam(value = "关键词") String keyword,
                                                     @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
                                                     @ApiParam(value = "选用排序字段 例：update_time") String sortField,
                                                     @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
@@ -127,7 +129,7 @@ public class DocumentController {
 
         DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
         documentQueryCommon.create(authLevel, sortField, sortOrder, pageIndex, pageSize);
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByKeyword(keyword, documentQueryCommon));
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByKeyword(appId, keyword, documentQueryCommon));
     }
 
     /**

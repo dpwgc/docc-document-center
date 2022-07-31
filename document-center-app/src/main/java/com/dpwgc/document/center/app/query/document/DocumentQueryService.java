@@ -8,11 +8,12 @@ import java.util.List;
 public interface DocumentQueryService {
 
     /**
-     * 根据关键词检索文档
+     * 根据关键词检索应用内的所有文档
+     * @param appId 应用id
      * @param keyword 关键词
      * @return List<DocumentDTO>
      */
-    PageBase<List<DocumentDTO>> queryDocumentByKeyword(String keyword, DocumentQueryCommon documentQueryCommon);
+    PageBase<List<DocumentDTO>> queryDocumentByKeyword(String appId, String keyword, DocumentQueryCommon documentQueryCommon);
 
     /**
      * 根据分类id检索文档
