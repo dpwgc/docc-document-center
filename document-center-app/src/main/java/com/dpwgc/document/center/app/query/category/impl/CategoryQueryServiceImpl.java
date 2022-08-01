@@ -59,16 +59,20 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
 
         //遍历所有类别
         categoryTreeDTOS.forEach(c->{
-            //尝试从哈希表中找到该类的父类别parent
-            CategoryTreeDTO parent = hashMap.get(c.getParentId());
 
-            //如果找着父类别
-            if(parent.getParentId() != null && parent.getParentId().length() > 0){
-                //则将该类别添加进父类别parent的子类别列表中
-                parent.getChildren().add(c);
-            }else{
-                //如果没找着父类别，说明他是最顶层类别，直接将其加入树顶
+            //如果没有父类别id，则说明它是顶层类别，直接加入map
+            if (c.getParentId() == null || c.getParentId().equals("")) {
                 result.add(c);
+            } else {
+                //尝试从哈希表中找到该类的父类别parent
+                CategoryTreeDTO parent = hashMap.get(c.getParentId());
+
+                //如果找着父类别
+                if(parent.getParentId() != null && parent.getParentId().length() > 0){
+                    //则将该类别添加进父类别parent的子类别列表中
+                    parent.getChildren().add(c);
+                }
+                //如果没找着父类别，说明他的父类别已被删除，忽略它
             }
         });
         return result;

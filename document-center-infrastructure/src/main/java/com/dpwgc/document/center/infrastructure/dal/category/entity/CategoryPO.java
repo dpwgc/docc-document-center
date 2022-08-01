@@ -1,5 +1,7 @@
 package com.dpwgc.document.center.infrastructure.dal.category.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +14,7 @@ public class CategoryPO {
     /**
      * 主键id
      */
+    @TableId(value = "id",type = IdType.AUTO)
     private String id;
 
     /**

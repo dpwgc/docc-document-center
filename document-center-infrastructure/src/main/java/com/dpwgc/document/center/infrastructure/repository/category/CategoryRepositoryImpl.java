@@ -28,6 +28,16 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public String createCategory(Category category) {
+
+        //检查分类名称是否已经存在
+        QueryWrapper<CategoryPO> checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("category_name",category.getCategoryName());
+        checkWrapper.eq("app_id",category.getAppId());
+        checkWrapper.eq("status",1);
+        if (categoryMapper.selectOne(checkWrapper) != null) {
+            return null;
+        }
+
         if (categoryMapper.insert(CategoryPOAssembler.INSTANCE.assembleCategoryPO(category))>0) {
             return category.getCategoryId();
         }
@@ -40,6 +50,20 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("category_id",category.getCategoryId());
         queryWrapper.eq("status",1);
+
+        //检查分类名称是否已经存在
+        QueryWrapper<CategoryPO> checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("category_name",category.getCategoryName());
+        checkWrapper.eq("app_id",categoryMapper.selectOne(queryWrapper).getAppId());
+        checkWrapper.eq("status",1);
+        CategoryPO checkPO = categoryMapper.selectOne(checkWrapper);
+        //如果检查到分类名称已存在
+        if (checkPO != null) {
+            //如果不是自己，则说明新分类名称与其他分类名称重复
+            if (!checkPO.getCategoryId().equals(category.getCategoryId())) {
+                return false;
+            }
+        }
 
         CategoryPO categoryPO = CategoryPOAssembler.INSTANCE.assembleCategoryPO(category);
 
