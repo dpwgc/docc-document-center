@@ -38,7 +38,7 @@ public class CategoryCommandServiceImpl implements CategoryCommandService {
     @Override
     public Boolean updateCategory(UpdateCategoryCommand updateCategoryCommand) {
 
-        Category category = categoryRepository.queryCategoryByCategoryId(updateCategoryCommand.getCategoryId());
+        Category category = categoryRepository.queryCategoryByCategoryId(updateCategoryCommand.getAppId(), updateCategoryCommand.getCategoryId());
         category.setParentId(updateCategoryCommand.getParentId());
         category.setCategoryName(updateCategoryCommand.getCategoryName());
         category.setDetail(updateCategoryCommand.getDetail());
@@ -48,6 +48,6 @@ public class CategoryCommandServiceImpl implements CategoryCommandService {
 
     @Override
     public Boolean deleteCategory(DeleteCategoryCommand deleteCategoryCommand) {
-        return categoryRepository.deleteCategory(deleteCategoryCommand.getCategoryId());
+        return categoryRepository.deleteCategory(deleteCategoryCommand.getAppId(), deleteCategoryCommand.getCategoryId());
     }
 }

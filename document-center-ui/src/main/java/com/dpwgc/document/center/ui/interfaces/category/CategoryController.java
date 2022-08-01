@@ -3,10 +3,7 @@ package com.dpwgc.document.center.ui.interfaces.category;
 import com.dpwgc.document.center.app.command.category.CategoryCommandService;
 import com.dpwgc.document.center.app.query.category.CategoryQueryService;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
-import com.dpwgc.document.center.sdk.model.category.CategoryTreeDTO;
-import com.dpwgc.document.center.sdk.model.category.CreateCategoryCommand;
-import com.dpwgc.document.center.sdk.model.category.DeleteCategoryCommand;
-import com.dpwgc.document.center.sdk.model.category.UpdateCategoryCommand;
+import com.dpwgc.document.center.sdk.model.category.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -50,6 +47,13 @@ public class CategoryController {
     @GetMapping("/getCategoryTreeByAppId")
     public ResultDTO<List<CategoryTreeDTO>> getCategoryTreeByAppId(@ApiParam(value = "应用id") String appId) {
         return ResultDTO.getSuccessResult(categoryQueryService.getCategoryTreeByAppId(appId));
+    }
+
+    @ApiOperation(value = "根据父类id获取分类列表")
+    @GetMapping("/queryCategoryByParentId")
+    public ResultDTO<List<CategoryDTO>> queryCategoryByParentId(@ApiParam(value = "应用id") String appId,
+                                                                @ApiParam(value = "父类id") String parentId) {
+        return ResultDTO.getSuccessResult(categoryQueryService.queryCategoryByParentId(appId, parentId));
     }
 
     @ApiOperation(value = "根据分类id获取分类详情")

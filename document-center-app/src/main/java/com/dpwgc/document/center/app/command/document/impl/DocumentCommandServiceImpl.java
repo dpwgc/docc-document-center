@@ -57,7 +57,11 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
         //将该文档的标签更新至DB
         for (String tag : tags) {
             TagFactory tagFactory = new TagFactory();
-            tagRepository.createTag(tagFactory.create(createDocumentCommand.getAppId(), tag));
+            if (!tagRepository.createTag(tagFactory.create(createDocumentCommand.getAppId(), tag))) {
+                //写入失败
+                LogUtil.error("tagRepository.createTag return false "+tag);
+                return null;
+            }
         }
 
         //创建文档

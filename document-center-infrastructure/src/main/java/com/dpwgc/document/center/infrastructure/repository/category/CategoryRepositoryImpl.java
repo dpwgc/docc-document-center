@@ -17,9 +17,10 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     CategoryMapper categoryMapper;
 
     @Override
-    public Category queryCategoryByCategoryId(String categoryId) {
+    public Category queryCategoryByCategoryId(String appId, String categoryId) {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("app_id",appId);
         queryWrapper.eq("category_id",categoryId);
         queryWrapper.eq("status",1);
 
@@ -74,9 +75,10 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public Boolean deleteCategory(String categoryId) {
+    public Boolean deleteCategory(String appId, String categoryId) {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("app_id",appId);
         queryWrapper.eq("category_id",categoryId);
         queryWrapper.eq("status",1);
 

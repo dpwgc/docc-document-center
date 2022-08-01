@@ -13,7 +13,7 @@ public class CategoryDTO {
     /**
      * 分类id
      */
-    @ApiModelProperty(value = "ES主键id")
+    @ApiModelProperty(value = "分类id")
     private String categoryId;
 
     /**
@@ -27,12 +27,6 @@ public class CategoryDTO {
      */
     @ApiModelProperty(value = "分类名称")
     private String categoryName;
-
-    /**
-     * 分类详情
-     */
-    @ApiModelProperty(value = "分类详情")
-    private String detail;
 
     /**
      * 分类推荐分值（自定义，生成分类树时将按此字段对分类进行排序）

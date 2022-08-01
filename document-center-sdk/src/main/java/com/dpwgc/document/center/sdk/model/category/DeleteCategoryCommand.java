@@ -11,6 +11,12 @@ import lombok.Setter;
 public class DeleteCategoryCommand {
 
     /**
+     * 分类所属应用id
+     */
+    @ApiModelProperty(value = "分类所属应用id")
+    private String appId;
+
+    /**
      * 分类id
      */
     @ApiModelProperty(value = "分类id")

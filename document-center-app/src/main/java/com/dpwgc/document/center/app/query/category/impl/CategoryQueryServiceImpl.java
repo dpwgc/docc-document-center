@@ -5,6 +5,7 @@ import com.dpwgc.document.center.app.assembler.CategoryAssembler;
 import com.dpwgc.document.center.app.query.category.CategoryQueryService;
 import com.dpwgc.document.center.infrastructure.dal.category.entity.CategoryPO;
 import com.dpwgc.document.center.infrastructure.dal.category.mapper.CategoryMapper;
+import com.dpwgc.document.center.sdk.model.category.CategoryDTO;
 import com.dpwgc.document.center.sdk.model.category.CategoryTreeDTO;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -36,6 +37,26 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
             categoryTreeDTOS.add(CategoryAssembler.INSTANCE.assemblerCategoryTreeDTO(categoryPO));
         }
         return categoryListToTree(categoryTreeDTOS);
+    }
+
+    public List<CategoryDTO> queryCategoryByParentId(String appId, String parentId) {
+
+        QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
+
+        //要查询的字段
+        queryWrapper.select("category_id","parent_id","category_name","score","create_time","update_time");
+
+        queryWrapper.eq("app_id",appId);
+        queryWrapper.eq("parent_id",parentId);
+        queryWrapper.eq("status",1);
+        queryWrapper.orderByDesc("score");  //类别树的各级将按照score字段降序排序
+
+        List<CategoryPO> categoryPOS = categoryMapper.selectList(queryWrapper);
+        List<CategoryDTO> categoryDTOS = new ArrayList<>();
+        for (CategoryPO categoryPO : categoryPOS) {
+            categoryDTOS.add(CategoryAssembler.INSTANCE.assembleCategoryDTO(categoryPO));
+        }
+        return categoryDTOS;
     }
 
     /**
