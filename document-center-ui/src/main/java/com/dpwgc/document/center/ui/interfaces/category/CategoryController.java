@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Api(value = "文档分类相关接口")
 @RestController
-@RequestMapping("/docc/category")
+@RequestMapping("/category")
 public class CategoryController {
 
     @Resource

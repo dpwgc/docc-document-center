@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Api(value = "文档标签相关接口")
 @RestController
-@RequestMapping("/docc/tag")
+@RequestMapping("/tag")
 public class TagController {
 
     @Resource

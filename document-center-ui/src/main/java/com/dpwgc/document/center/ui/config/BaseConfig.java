@@ -38,6 +38,9 @@ public class BaseConfig implements InitializingBean {
     @Value("${cluster.workerId}")
     private String workerId;
 
+    @Value("${server.servlet.context-path}")
+    private String contextPath;
+
     /**
      * spring boot项目启动后自动执行
      */
@@ -56,9 +59,9 @@ public class BaseConfig implements InitializingBean {
 
         LogUtil.info("<cluster> [datacenter_id]: "+datacenterId+"    [worker_id]: "+workerId);
 
-        LogUtil.info("<monitor> [url]: http://localhost:"+serverPort+"/monitor.html");
+        LogUtil.info("<monitor> [url]: http://localhost:"+serverPort+contextPath+"/monitor.html");
 
-        LogUtil.info("<swagger api doc> [url]: http://localhost:"+serverPort+"/doc.html");
+        LogUtil.info("<swagger api doc> [url]: http://localhost:"+serverPort+contextPath+"/doc.html");
 
         LogUtil.info("==================== elasticsearch index ====================");
 

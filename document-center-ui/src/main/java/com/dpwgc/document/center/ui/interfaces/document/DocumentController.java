@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Api(value = "文档相关接口")
 @RestController
-@RequestMapping("/docc/document")
+@RequestMapping("/document")
 public class DocumentController {
 
     @Resource

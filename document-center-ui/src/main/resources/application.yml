@@ -1,6 +1,9 @@
 server:
   # http端口号
   port: 8000
+  servlet:
+    # 路由前缀
+    context-path: /docc
 
 spring:
   mvc:
