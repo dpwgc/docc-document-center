@@ -9,6 +9,7 @@ import co.elastic.clients.json.JsonData;
 import co.elastic.clients.transport.endpoints.BooleanResponse;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.util.FieldUtil;
+import com.dpwgc.document.center.infrastructure.util.JsonUtil;
 import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.common.DocumentQueryCommon;
@@ -60,18 +61,20 @@ public class ESClient {
     /**
      * 插入文档
      * @param indexName 索引名称
-     * @param document 文档对象
+     * @param documentPO 文档对象
      * @return 主键id
      */
-    public String insertDocument(String indexName,DocumentPO document) {
+    public String insertDocument(String indexName,DocumentPO documentPO) {
 
         try {
-            //驼峰转下划线
-            Map<String,Object> documentMap = FieldUtil.object2Map(document);
+            //DocumentPO转Json字符串
+            String documentJson = JsonUtil.toJson(documentPO);
+
             //写入ES
             IndexResponse indexResponse = client.index(index -> index
                     .index(indexName)
-                    .document(documentMap));
+                    .document(documentJson));
+
             return indexResponse.id();
         } catch (Exception e) {
             LogUtil.error("es insert document error: "+e);

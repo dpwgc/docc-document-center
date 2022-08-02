@@ -25,7 +25,7 @@ public class DocumentMapperImpl implements DocumentMapper {
     private String indexName;
 
     @Override
-    public String createDocument(DocumentPO documentPO) {
+    public String insertDocument(DocumentPO documentPO) {
         return esClient.insertDocument(indexName,documentPO);
     }
 

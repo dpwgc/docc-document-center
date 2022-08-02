@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DocumentMapper {
 
-    String createDocument(DocumentPO documentPO);
+    String insertDocument(DocumentPO documentPO);
 
     DocumentPO queryDocumentById(String id);
 

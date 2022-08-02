@@ -16,7 +16,7 @@ public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Override
     public String createDocument(Document document) {
-        return documentMapper.createDocument(DocumentPOAssembler.INSTANCE.assembleDocumentPO(document));
+        return documentMapper.insertDocument(DocumentPOAssembler.INSTANCE.assembleDocumentPO(document));
     }
 
     @Override
