@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @ApiModel(value = "更新文档主要内容-接口参数")
 @Getter
 @Setter
@@ -38,7 +40,7 @@ public class UpdateDocumentMainCommand {
      * 文档标签
      */
     @ApiModelProperty(value = "文档标签")
-    private String tags;
+    private List<String> tags;
 
     /**
      * 文档总结摘要

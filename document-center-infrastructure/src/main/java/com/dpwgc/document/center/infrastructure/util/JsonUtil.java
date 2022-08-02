@@ -5,14 +5,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonUtil {
 
-    public static String toJson(Object object) throws JsonProcessingException {
+    public static String toJson(Object object) {
         ObjectMapper jsonMapper = new ObjectMapper();
-        //将对象转为json字符串
-        return jsonMapper.writeValueAsString(object);
+
+        try {
+            //将对象转为json字符串
+            return jsonMapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            LogUtil.error("JsonUtil.toJson error: "+e);
+            return null;
+        }
     }
 
-    public static <T> T fromJson(String json,Class<T> tClass) throws JsonProcessingException {
+    public static <T> T fromJson(String json,Class<T> tClass) {
         ObjectMapper jsonMapper = new ObjectMapper();
-        return jsonMapper.readValue(json, tClass);
+
+        try {
+            return jsonMapper.readValue(json, tClass);
+        } catch (JsonProcessingException e) {
+            LogUtil.error("JsonUtil.fromJson error: "+e);
+            return null;
+        }
     }
 }

@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @ApiModel(value = "新建文档-接口参数")
 @Getter
 @Setter
@@ -41,10 +43,10 @@ public class CreateDocumentCommand {
     private String content;
 
     /**
-     * 文档标签（JSON数组格式传入，例：['tag1','tag2','tag3']）
+     * 文档标签（数组格式传入，例：["tag1","tag2","tag3"]）
      */
-    @ApiModelProperty(value = "文档标签（JSON数组格式传入，例：['tag1','tag2','tag3']）")
-    private String tags;
+    @ApiModelProperty(value = "文档标签（数组格式传入，例：[\"tag1\",\"tag2\",\"tag3\"]）")
+    private List<String> tags;
 
     /**
      * 文档总结摘要

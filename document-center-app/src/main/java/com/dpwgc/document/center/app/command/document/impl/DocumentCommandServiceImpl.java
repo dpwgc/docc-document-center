@@ -38,24 +38,15 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
                 idGenUtil.nextIdString(),
                 createDocumentCommand.getTitle(),
                 createDocumentCommand.getContent(),
-                createDocumentCommand.getTags(),
+                JsonUtil.toJson(createDocumentCommand.getTags()),
                 createDocumentCommand.getSummary(),
                 createDocumentCommand.getAuthLevel(),
                 createDocumentCommand.getScore(),
                 createDocumentCommand.getType()
         );
 
-        List<String> tags = null;
-        try {
-            //用json工具解析出tag列表：["tag1","tag2","tag3"]
-            tags = JsonUtil.fromJson(createDocumentCommand.getTags(),List.class);
-        } catch (JsonProcessingException e) {
-            LogUtil.error(e.toString());
-            return null;
-        }
-
         //将该文档的标签更新至DB
-        for (String tag : tags) {
+        for (String tag : createDocumentCommand.getTags()) {
             TagFactory tagFactory = new TagFactory();
             if (!tagRepository.createTag(tagFactory.create(createDocumentCommand.getAppId(), tag))) {
                 //写入失败
@@ -77,7 +68,7 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
         document.setTitle(updateDocumentMainCommand.getTitle());
         document.setContent(updateDocumentMainCommand.getContent());
         document.setSummary(updateDocumentMainCommand.getSummary());
-        document.setTags(updateDocumentMainCommand.getTags());
+        document.setTags(JsonUtil.toJson(updateDocumentMainCommand.getTags()));
 
         //更新时间
         document.setUpdateTime(System.currentTimeMillis());

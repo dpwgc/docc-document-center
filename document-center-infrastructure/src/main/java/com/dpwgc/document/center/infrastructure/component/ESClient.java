@@ -73,7 +73,7 @@ public class ESClient {
             //写入ES
             IndexResponse indexResponse = client.index(index -> index
                     .index(indexName)
-                    .document(documentJson));
+                    .document(JsonUtil.fromJson(documentJson,Map.class)));
 
             return indexResponse.id();
         } catch (Exception e) {
@@ -86,18 +86,19 @@ public class ESClient {
      * 更新文档
      * @param indexName 索引名称
      * @param id 主键id
-     * @param document 文档对象
+     * @param documentPO 文档对象
      * @return Boolean
      */
-    public Boolean updateDocument(String indexName, String id, DocumentPO document) {
+    public Boolean updateDocument(String indexName, String id, DocumentPO documentPO) {
 
         try {
-            //驼峰转下划线
-            Map<String,Object> documentMap = FieldUtil.object2Map(document);
+            //DocumentPO转Json字符串
+            String documentJson = JsonUtil.toJson(documentPO);
+
             client.update(update -> update
                             .index(indexName)
                             .id(id)
-                            .doc(documentMap)
+                            .doc(JsonUtil.fromJson(documentJson,Map.class))
                     , Map.class);
             return true;
         } catch (Exception e) {
