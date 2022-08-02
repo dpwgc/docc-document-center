@@ -5,6 +5,7 @@ import com.dpwgc.document.center.app.assembler.CategoryAssembler;
 import com.dpwgc.document.center.app.query.category.CategoryQueryService;
 import com.dpwgc.document.center.infrastructure.dal.category.entity.CategoryPO;
 import com.dpwgc.document.center.infrastructure.dal.category.mapper.CategoryMapper;
+import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.category.CategoryDTO;
 import com.dpwgc.document.center.sdk.model.category.CategoryTreeDTO;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
         queryWrapper.select("category_id","parent_id","category_name","score","create_time","update_time");
 
         queryWrapper.eq("app_id",appId);
-        queryWrapper.eq("status",1);
+        queryWrapper.eq("status",Status.NORMAL);
         queryWrapper.orderByDesc("score");  //类别树的各级将按照score字段降序排序
 
         List<CategoryPO> categoryPOS = categoryMapper.selectList(queryWrapper);
@@ -48,7 +49,7 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
 
         queryWrapper.eq("app_id",appId);
         queryWrapper.eq("parent_id",parentId);
-        queryWrapper.eq("status",1);
+        queryWrapper.eq("status",Status.NORMAL);
         queryWrapper.orderByDesc("score");  //类别树的各级将按照score字段降序排序
 
         List<CategoryPO> categoryPOS = categoryMapper.selectList(queryWrapper);
@@ -113,7 +114,7 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
         queryWrapper.select("detail");
 
         queryWrapper.eq("category_id",categoryId);
-        queryWrapper.eq("status",1);
+        queryWrapper.eq("status", Status.NORMAL);
 
         CategoryPO categoryPO = categoryMapper.selectOne(queryWrapper);
         return categoryPO.getDetail();

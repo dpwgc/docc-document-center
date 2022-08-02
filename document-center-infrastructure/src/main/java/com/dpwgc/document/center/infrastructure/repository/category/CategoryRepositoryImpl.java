@@ -6,6 +6,7 @@ import com.dpwgc.document.center.domain.category.CategoryRepository;
 import com.dpwgc.document.center.infrastructure.assembler.CategoryPOAssembler;
 import com.dpwgc.document.center.infrastructure.dal.category.entity.CategoryPO;
 import com.dpwgc.document.center.infrastructure.dal.category.mapper.CategoryMapper;
+import com.dpwgc.document.center.sdk.base.Status;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -22,7 +23,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("app_id",appId);
         queryWrapper.eq("category_id",categoryId);
-        queryWrapper.eq("status",1);
+        queryWrapper.eq("status",Status.NORMAL);
 
         return CategoryPOAssembler.INSTANCE.assembleCategory(categoryMapper.selectOne(queryWrapper));
     }
@@ -34,7 +35,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         QueryWrapper<CategoryPO> checkWrapper = new QueryWrapper<>();
         checkWrapper.eq("category_name",category.getCategoryName());
         checkWrapper.eq("app_id",category.getAppId());
-        checkWrapper.eq("status",1);
+        checkWrapper.eq("status",Status.NORMAL);
         if (categoryMapper.selectOne(checkWrapper) != null) {
             return null;
         }
@@ -50,13 +51,13 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("category_id",category.getCategoryId());
-        queryWrapper.eq("status",1);
+        queryWrapper.eq("status", Status.NORMAL);
 
         //检查分类名称是否已经存在
         QueryWrapper<CategoryPO> checkWrapper = new QueryWrapper<>();
         checkWrapper.eq("category_name",category.getCategoryName());
         checkWrapper.eq("app_id",categoryMapper.selectOne(queryWrapper).getAppId());
-        checkWrapper.eq("status",1);
+        checkWrapper.eq("status",Status.NORMAL);
         CategoryPO checkPO = categoryMapper.selectOne(checkWrapper);
         //如果检查到分类名称已存在
         if (checkPO != null) {
@@ -80,7 +81,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("app_id",appId);
         queryWrapper.eq("category_id",categoryId);
-        queryWrapper.eq("status",1);
+        queryWrapper.eq("status",Status.NORMAL);
 
         CategoryPO categoryPO = categoryMapper.selectOne(queryWrapper);
 

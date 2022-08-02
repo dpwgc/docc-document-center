@@ -10,10 +10,8 @@ import com.dpwgc.document.center.infrastructure.util.IdGenUtil;
 import com.dpwgc.document.center.infrastructure.util.JsonUtil;
 import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.model.document.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class DocumentCommandServiceImpl implements DocumentCommandService {

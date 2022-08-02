@@ -73,13 +73,4 @@ public class ResultDTO<T> {
         result.setMessage(msg);
         return result;
     }
-
-    @Override
-    public String toString() {
-        try {
-            return JsonUtil.toJson(this);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

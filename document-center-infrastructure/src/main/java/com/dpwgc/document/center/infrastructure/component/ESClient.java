@@ -8,10 +8,10 @@ import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
 import co.elastic.clients.json.JsonData;
 import co.elastic.clients.transport.endpoints.BooleanResponse;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
-import com.dpwgc.document.center.infrastructure.util.FieldUtil;
 import com.dpwgc.document.center.infrastructure.util.JsonUtil;
 import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
+import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.common.DocumentQueryCommon;
 import org.springframework.stereotype.Component;
 
@@ -151,7 +151,7 @@ public class ESClient {
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("status")
-                                                    .query(1)
+                                                    .query(Status.NORMAL)
                                             )
                                     )
                             )
@@ -195,7 +195,7 @@ public class ESClient {
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("status")
-                                                    .query(1)
+                                                    .query(Status.NORMAL)
                                             )
                                     )
                             )
@@ -271,7 +271,7 @@ public class ESClient {
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("status")
-                                                    .query(1)
+                                                    .query(Status.NORMAL)
                                             )
                                     )
                             )
@@ -325,7 +325,7 @@ public class ESClient {
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("status")
-                                                    .query(1)
+                                                    .query(Status.NORMAL)
                                             )
                                     )
                             )
@@ -408,7 +408,7 @@ public class ESClient {
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("status")
-                                                    .query(1)
+                                                    .query(Status.NORMAL)
                                             )
                                     )
                             )
@@ -469,7 +469,7 @@ public class ESClient {
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("status")
-                                                    .query(1)
+                                                    .query(Status.NORMAL)
                                             )
                                     )
                             )
@@ -523,7 +523,7 @@ public class ESClient {
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("status")
-                                                    .query(1)
+                                                    .query(Status.NORMAL)
                                             )
                                     )
                             )
@@ -606,7 +606,7 @@ public class ESClient {
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("status")
-                                                    .query(1)
+                                                    .query(Status.NORMAL)
                                             )
                                     )
                             )
@@ -661,7 +661,7 @@ public class ESClient {
                                     .must(must -> must
                                             .match(match -> match
                                                     .field("status")
-                                                    .query(1)
+                                                    .query(Status.NORMAL)
                                             )
                                     )
                             )

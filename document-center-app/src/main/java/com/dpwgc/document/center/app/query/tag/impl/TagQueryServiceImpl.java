@@ -6,6 +6,7 @@ import com.dpwgc.document.center.app.assembler.TagAssembler;
 import com.dpwgc.document.center.app.query.tag.TagQueryService;
 import com.dpwgc.document.center.infrastructure.dal.tag.entity.TagPO;
 import com.dpwgc.document.center.infrastructure.dal.tag.mapper.TagMapper;
+import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,7 @@ public class TagQueryServiceImpl implements TagQueryService {
 
         //查询指定应用的标签
         queryWrapper.eq("app_id",appId);
-        queryWrapper.eq("status",1);
+        queryWrapper.eq("status", Status.NORMAL);
 
         //匹配时间区间
         queryWrapper.ge("update_time",startUpdateTime); // >=
