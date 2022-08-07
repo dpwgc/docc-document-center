@@ -330,13 +330,17 @@ public class ESClient {
                                     )
                             )
                     )
+                    //聚合统计-该分类旗下的文档收藏总数、点赞总数、阅读量总数
+                    .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love")))
+                    .aggregations("likeTotal", aggregations -> aggregations.sum(sum -> sum.field("like")))
+                    .aggregations("readTotal", aggregations -> aggregations.sum(sum -> sum.field("read")))
                     //分页查询
                     .from(documentQueryCommon.getPageIndex())
                     .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
-            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
+            return PageBase.getPageBase(search.hits().total().value(),search.aggregations(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by categoryId error: "+e);
             return null;
@@ -474,13 +478,17 @@ public class ESClient {
                                     )
                             )
                     )
+                    //聚合统计-该类型旗下的文档收藏总数、点赞总数、阅读量总数
+                    .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love")))
+                    .aggregations("likeTotal", aggregations -> aggregations.sum(sum -> sum.field("like")))
+                    .aggregations("readTotal", aggregations -> aggregations.sum(sum -> sum.field("read")))
                     //分页查询
                     .from(documentQueryCommon.getPageIndex())
                     .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
-            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
+            return PageBase.getPageBase(search.hits().total().value(),search.aggregations(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by categoryId and type error: "+e);
             return null;
@@ -528,13 +536,17 @@ public class ESClient {
                                     )
                             )
                     )
+                    //聚合统计-该作者旗下的文档收藏总数、点赞总数、阅读量总数
+                    .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love")))
+                    .aggregations("likeTotal", aggregations -> aggregations.sum(sum -> sum.field("like")))
+                    .aggregations("readTotal", aggregations -> aggregations.sum(sum -> sum.field("read")))
                     //分页查询
                     .from(documentQueryCommon.getPageIndex())
                     .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
-            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
+            return PageBase.getPageBase(search.hits().total().value(),search.aggregations(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by authorId error: "+e);
             return null;
@@ -666,13 +678,17 @@ public class ESClient {
                                     )
                             )
                     )
+                    //聚合统计-标签旗下的文档收藏总数、点赞总数、阅读量总数
+                    .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love")))
+                    .aggregations("likeTotal", aggregations -> aggregations.sum(sum -> sum.field("like")))
+                    .aggregations("readTotal", aggregations -> aggregations.sum(sum -> sum.field("read")))
                     //分页查询
                     .from(documentQueryCommon.getPageIndex())
                     .size(documentQueryCommon.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
                     .sort(sort -> sort.field(field -> field.field(documentQueryCommon.getSortField()).order(documentQueryCommon.getSortOrder()))),Object.class
             );
-            return PageBase.getPageBase(search.hits().total().value(),search.hits().hits());
+            return PageBase.getPageBase(search.hits().total().value(),search.aggregations(),search.hits().hits());
         } catch (Exception e) {
             LogUtil.error("es search document by tags error: "+e);
             return null;
