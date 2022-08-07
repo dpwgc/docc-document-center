@@ -17,10 +17,10 @@ public interface DocumentMapper {
     Boolean deleteDocument(DocumentPO documentPO);
 
     /**
-     * 返回应用内的文档列表
+     * 查询应用内的所有文档列表
      * @return List<Hit<Object>>
      */
-    PageBase<List<DocumentPO>> listDocument(DocumentQueryCommon documentQueryCommon);
+    PageBase<List<DocumentPO>> queryDocument(DocumentQueryCommon documentQueryCommon);
 
     /**
      * 根据关键词检索应用内的所有文档

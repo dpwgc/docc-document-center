@@ -8,10 +8,17 @@ import java.util.List;
 public interface DocumentQueryService {
 
     /**
-     * 返回应用内的文档列表
+     * 根据ES主键id集合查询文档
+     * @param idList ES主键id集合
+     * @return List<DocumentDTO>
+     */
+    List<DocumentDTO> queryDocumentByIdList(List<String> idList);
+
+    /**
+     * 查询应用内的所有文档列表
      * @return List<Hit<Object>>
      */
-    PageBase<List<DocumentDTO>> listDocument(DocumentQueryCommon documentQueryCommon);
+    PageBase<List<DocumentDTO>> queryDocument(DocumentQueryCommon documentQueryCommon);
 
     /**
      * 根据关键词检索应用内的所有文档

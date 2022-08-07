@@ -20,12 +20,27 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
     DocumentMapper documentMapper;
 
     /**
-     * 返回应用内的文档列表
+     * 根据ES主键id集合查询文档
+     * @param idList ES主键id集合
+     * List<DocumentDTO>
+     */
+    @Override
+    public List<DocumentDTO> queryDocumentByIdList(List<String> idList) {
+        List<DocumentDTO> documentDTOList = new ArrayList<>();
+        for (String id : idList) {
+            DocumentPO documentPO = documentMapper.queryDocumentById(id);
+            documentDTOList.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
+        }
+        return documentDTOList;
+    }
+
+    /**
+     * 查询应用内的所有文档列表
      * @return List<Hit<Object>>
      */
     @Override
-    public PageBase<List<DocumentDTO>> listDocument(DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.listDocument(documentQueryCommon);
+    public PageBase<List<DocumentDTO>> queryDocument(DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocument(documentQueryCommon);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
         for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));

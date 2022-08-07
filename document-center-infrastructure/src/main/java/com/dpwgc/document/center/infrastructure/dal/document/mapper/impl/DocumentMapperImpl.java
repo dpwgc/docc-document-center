@@ -45,11 +45,11 @@ public class DocumentMapperImpl implements DocumentMapper {
     }
 
     /**
-     * 返回应用内的文档列表
+     * 查询应用内的所有文档列表
      * @return List<Hit<Object>>
      */
     @Override
-    public PageBase<List<DocumentPO>> listDocument(DocumentQueryCommon documentQueryCommon) {
+    public PageBase<List<DocumentPO>> queryDocument(DocumentQueryCommon documentQueryCommon) {
         PageBase<List<Hit<Object>>> pageBase = esClient.searchDocument(indexName,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }

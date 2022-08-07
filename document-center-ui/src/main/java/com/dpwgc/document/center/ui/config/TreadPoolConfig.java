@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class TreadPoolConfig {
 
-    @Bean("productCenterTaskExecutor")
+    @Bean("documentCenterTaskExecutor")
     public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 设置核心线程数

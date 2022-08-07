@@ -109,7 +109,19 @@ public class DocumentController {
     }
 
     /**
-     * 返回应用内的文档列表
+     * 根据ES主键id集合查询文档
+     * （可以用这接口来查询用户的收藏文档列表）
+     * @param idList ES主键id集合
+     * @return ResultDTO<Object>
+     */
+    @ApiOperation(value = "根据ES主键id集合查询文档")
+    @GetMapping("/queryDocumentByIdList")
+    ResultDTO<List<DocumentDTO>> queryDocumentByIdList(@ApiParam(value = "ES主键id集合") List<String> idList) {
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByIdList(idList));
+    }
+
+    /**
+     * 查询应用内的所有文档列表
      * @param appId 应用id
      * @param authLevel 查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
      * @param sortField 选用排序字段 例：update_time
@@ -118,9 +130,9 @@ public class DocumentController {
      * @param pageSize 分页大小
      * @return ResultDTO<Object>
      */
-    @ApiOperation(value = "返回应用内的文档列表")
-    @GetMapping("/listDocument")
-    public ResultDTO<PageBase<List<DocumentDTO>>> listDocument(@ApiParam(value = "应用id") String appId,
+    @ApiOperation(value = "查询应用内的所有文档列表")
+    @GetMapping("/queryDocument")
+    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocument(@ApiParam(value = "应用id") String appId,
                                                                @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
                                                                @ApiParam(value = "选用排序字段 例：update_time") String sortField,
                                                                @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
@@ -129,7 +141,7 @@ public class DocumentController {
 
         DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
         documentQueryCommon.create(appId, authLevel, sortField, sortOrder, pageIndex, pageSize);
-        return ResultDTO.getSuccessResult(documentQueryService.listDocument(documentQueryCommon));
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocument(documentQueryCommon));
     }
 
     /**
