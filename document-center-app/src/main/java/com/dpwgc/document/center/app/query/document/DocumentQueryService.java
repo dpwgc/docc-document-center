@@ -24,7 +24,7 @@ public interface DocumentQueryService {
     List<DocumentDTO> queryDocumentByIdList(List<String> idList);
 
     /**
-     * 查询应用内的所有文档列表
+     * 文档检索
      */
     PageBase<List<DocumentDTO>> searchDocument(SearchDocumentQuery searchDocumentQuery);
 

@@ -285,10 +285,6 @@ public class ESClient {
                                     .excludes("content")
                             )
                     )
-                    //聚合统计-该分类旗下的文档收藏总数、点赞总数、阅读量总数
-                    .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love")))
-                    .aggregations("likeTotal", aggregations -> aggregations.sum(sum -> sum.field("like")))
-                    .aggregations("readTotal", aggregations -> aggregations.sum(sum -> sum.field("read")))
                     //分页查询
                     .from(searchDocumentQuery.getPageIndex())
                     .size(searchDocumentQuery.getPageSize())

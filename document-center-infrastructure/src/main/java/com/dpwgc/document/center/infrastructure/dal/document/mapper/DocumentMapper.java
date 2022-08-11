@@ -20,13 +20,13 @@ public interface DocumentMapper {
 
     /**
      * 文档检索
-     * @return List<Hit<Object>>
+     * @return PageBase<List<DocumentPO>>
      */
     PageBase<List<DocumentPO>> searchDocument(SearchDocumentQuery searchDocumentQuery);
 
     /**
      * 文档数据聚合统计
-     * @return List<Hit<Object>>
+     * @return DocumentAggregationsDTO
      */
     DocumentAggregationsDTO aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery);
 }

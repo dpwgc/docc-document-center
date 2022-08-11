@@ -49,7 +49,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
 
     /**
      * 文档检索
-     * @return List<Hit<Object>>
+     * @return PageBase<List<DocumentDTO>>
      */
     @Override
     public PageBase<List<DocumentDTO>> searchDocument(SearchDocumentQuery searchDocumentQuery) {
@@ -63,7 +63,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
 
     /**
      * 文档数据聚合统计
-     * @return List<Hit<Object>>
+     * @return DocumentAggregationsDTO
      */
     @Override
     public DocumentAggregationsDTO aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery) {

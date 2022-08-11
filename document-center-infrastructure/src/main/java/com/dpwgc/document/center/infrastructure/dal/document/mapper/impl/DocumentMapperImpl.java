@@ -52,7 +52,7 @@ public class DocumentMapperImpl implements DocumentMapper {
 
     /**
      * 文档检索
-     * @return List<Hit<Object>>
+     * @return PageBase<List<DocumentPO>>
      */
     @Override
     public PageBase<List<DocumentPO>> searchDocument(SearchDocumentQuery searchDocumentQuery) {
@@ -61,7 +61,7 @@ public class DocumentMapperImpl implements DocumentMapper {
     }
     /**
      * 文档数据聚合统计
-     * @return List<Hit<Object>>
+     * @return DocumentAggregationsDTO
      */
     @Override
     public DocumentAggregationsDTO aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery) {
