@@ -81,6 +81,11 @@ public class Document {
     private Long read;
 
     /**
+     * 文档评论总数
+     */
+    private Long commentNum;
+
+    /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
      */
     private Integer type;
