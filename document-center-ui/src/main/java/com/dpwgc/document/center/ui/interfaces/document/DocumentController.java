@@ -145,7 +145,7 @@ public class DocumentController {
      */
     @ApiOperation(value = "文档数据聚合统计")
     @GetMapping("/aggregationsDocument")
-    public ResultDTO<Object> aggregationsDocument(@ModelAttribute AggregationsDocumentQuery aggregationsDocumentQuery) {
+    public ResultDTO<DocumentAggregationsDTO> aggregationsDocument(@ModelAttribute AggregationsDocumentQuery aggregationsDocumentQuery) {
         return ResultDTO.getSuccessResult(documentQueryService.aggregationsDocument(aggregationsDocumentQuery));
     }
 }

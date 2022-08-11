@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@ApiModel(value = "文档数据聚合统计")
+@ApiModel(value = "文档数据聚合统计-接口参数")
 public class AggregationsDocumentQuery {
 
     @ApiModelProperty(value = "应用id")

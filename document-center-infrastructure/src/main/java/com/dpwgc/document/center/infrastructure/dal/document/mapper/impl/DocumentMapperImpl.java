@@ -1,12 +1,14 @@
 package com.dpwgc.document.center.infrastructure.dal.document.mapper.impl;
 
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import com.dpwgc.document.center.infrastructure.assembler.AggregationsMapToObjectAssembler;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.assembler.HitToDocumentPOAssembler;
 import com.dpwgc.document.center.infrastructure.component.ESClient;
 import com.dpwgc.document.center.infrastructure.dal.document.mapper.DocumentMapper;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.model.document.AggregationsDocumentQuery;
+import com.dpwgc.document.center.sdk.model.document.DocumentAggregationsDTO;
 import com.dpwgc.document.center.sdk.model.document.SearchDocumentQuery;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class DocumentMapperImpl implements DocumentMapper {
 
     @Resource
     HitToDocumentPOAssembler hitToDocumentPOAssembler;
+
+    @Resource
+    AggregationsMapToObjectAssembler aggregationsMapToObjectAssembler;
 
     @Value("${elasticsearch.indexName}")
     private String indexName;
@@ -59,7 +64,7 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @return List<Hit<Object>>
      */
     @Override
-    public Object aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery) {
-        return esClient.aggregationsDocument(indexName, aggregationsDocumentQuery);
+    public DocumentAggregationsDTO aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery) {
+        return aggregationsMapToObjectAssembler.assemblerAggregations(esClient.aggregationsDocument(indexName, aggregationsDocumentQuery));
     }
 }

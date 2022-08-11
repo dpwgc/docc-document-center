@@ -2,6 +2,7 @@ package com.dpwgc.document.center.infrastructure.component;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.SortOrder;
+import co.elastic.clients.elasticsearch._types.aggregations.Aggregate;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch.core.*;
 import co.elastic.clients.elasticsearch.core.search.Hit;
@@ -302,7 +303,7 @@ public class ESClient {
     /**
      * 文档数据聚合统计
      */
-    public Object aggregationsDocument(String indexName, AggregationsDocumentQuery aggregationsDocumentQuery) {
+    public Map<String, Aggregate> aggregationsDocument(String indexName, AggregationsDocumentQuery aggregationsDocumentQuery) {
         //
         BoolQuery.Builder bool = new BoolQuery.Builder();
         bool.must(m -> m
@@ -363,10 +364,12 @@ public class ESClient {
                                     .includes("loveTotal","likeTotal","readTotal")
                             )
                     )
-                    //聚合统计-该分类旗下的文档收藏总数、点赞总数、阅读量总数
+                    //聚合统计-该分类旗下的文档收藏总数、点赞总数、阅读量总数、评论总数、正常文档总数
                     .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love")))
                     .aggregations("likeTotal", aggregations -> aggregations.sum(sum -> sum.field("like")))
                     .aggregations("readTotal", aggregations -> aggregations.sum(sum -> sum.field("read")))
+                    .aggregations("commentTotal", aggregations -> aggregations.sum(sum -> sum.field("comment_num")))
+                    .aggregations("documentTotal", aggregations -> aggregations.sum(sum -> sum.field("status")))
                     //分页查询
                     .from(0)
                     .size(0)
