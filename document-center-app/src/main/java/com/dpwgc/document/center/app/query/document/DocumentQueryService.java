@@ -1,7 +1,8 @@
 package com.dpwgc.document.center.app.query.document;
 
 import com.dpwgc.document.center.sdk.base.PageBase;
-import com.dpwgc.document.center.sdk.common.DocumentQueryCommon;
+import com.dpwgc.document.center.sdk.model.document.AggregationsDocumentQuery;
+import com.dpwgc.document.center.sdk.model.document.SearchDocumentQuery;
 import com.dpwgc.document.center.sdk.model.document.DocumentDTO;
 import java.util.List;
 
@@ -17,11 +18,11 @@ public interface DocumentQueryService {
     /**
      * 查询应用内的所有文档列表
      */
-    PageBase<List<DocumentDTO>> searchDocument(DocumentQueryCommon documentQueryCommon);
+    PageBase<List<DocumentDTO>> searchDocument(SearchDocumentQuery searchDocumentQuery);
 
     /**
      * 文档数据聚合统计
      */
-    PageBase<List<DocumentDTO>> aggregationsDocument(DocumentQueryCommon documentQueryCommon);
+    PageBase<List<DocumentDTO>> aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery);
 
 }

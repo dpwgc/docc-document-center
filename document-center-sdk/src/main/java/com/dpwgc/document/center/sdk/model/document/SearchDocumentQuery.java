@@ -1,4 +1,4 @@
-package com.dpwgc.document.center.sdk.common;
+package com.dpwgc.document.center.sdk.model.document;
 
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import io.swagger.annotations.ApiModel;
@@ -8,11 +8,26 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@ApiModel(value = "文档接口通用字段")
-public class DocumentQueryCommon {
+@ApiModel(value = "文档检索")
+public class SearchDocumentQuery {
 
     @ApiModelProperty(value = "应用id")
     private String appId;
+
+    @ApiModelProperty(value = "分类id")
+    private String categoryId;
+
+    @ApiModelProperty(value = "作者id")
+    private String authorId;
+
+    @ApiModelProperty(value = "文档类型")
+    private Integer type;
+
+    @ApiModelProperty(value = "文档标签")
+    private String tag;
+
+    @ApiModelProperty(value = "检索关键词")
+    private String keyword;
 
     @ApiModelProperty(value = "访问权限等级")
     private Integer authLevel;

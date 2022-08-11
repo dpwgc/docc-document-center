@@ -4,7 +4,7 @@ import com.dpwgc.document.center.app.command.document.DocumentCommandService;
 import com.dpwgc.document.center.app.query.document.DocumentQueryService;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
-import com.dpwgc.document.center.sdk.common.DocumentQueryCommon;
+import com.dpwgc.document.center.sdk.model.document.SearchDocumentQuery;
 import com.dpwgc.document.center.sdk.model.document.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -126,8 +126,8 @@ public class DocumentController {
      */
     @ApiOperation(value = "文档检索")
     @GetMapping("/searchDocument")
-    public ResultDTO<PageBase<List<DocumentDTO>>> searchDocument(@ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.searchDocument(documentQueryCommon));
+    public ResultDTO<PageBase<List<DocumentDTO>>> searchDocument(@ModelAttribute SearchDocumentQuery searchDocumentQuery) {
+        return ResultDTO.getSuccessResult(documentQueryService.searchDocument(searchDocumentQuery));
     }
 
     /**
@@ -136,7 +136,7 @@ public class DocumentController {
      */
     @ApiOperation(value = "文档数据聚合统计")
     @GetMapping("/aggregationsDocument")
-    public ResultDTO<PageBase<List<DocumentDTO>>> aggregationsDocument(@ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.aggregationsDocument(documentQueryCommon));
+    public ResultDTO<PageBase<List<DocumentDTO>>> aggregationsDocument(@ModelAttribute AggregationsDocumentQuery aggregationsDocumentQuery) {
+        return ResultDTO.getSuccessResult(documentQueryService.aggregationsDocument(aggregationsDocumentQuery));
     }
 }

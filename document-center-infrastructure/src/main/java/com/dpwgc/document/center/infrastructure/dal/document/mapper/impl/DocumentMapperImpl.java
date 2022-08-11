@@ -6,7 +6,8 @@ import com.dpwgc.document.center.infrastructure.assembler.HitToDocumentPOAssembl
 import com.dpwgc.document.center.infrastructure.component.ESClient;
 import com.dpwgc.document.center.infrastructure.dal.document.mapper.DocumentMapper;
 import com.dpwgc.document.center.sdk.base.PageBase;
-import com.dpwgc.document.center.sdk.common.DocumentQueryCommon;
+import com.dpwgc.document.center.sdk.model.document.AggregationsDocumentQuery;
+import com.dpwgc.document.center.sdk.model.document.SearchDocumentQuery;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -49,8 +50,8 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @return List<Hit<Object>>
      */
     @Override
-    public PageBase<List<DocumentPO>> searchDocument(DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocument(indexName,documentQueryCommon);
+    public PageBase<List<DocumentPO>> searchDocument(SearchDocumentQuery searchDocumentQuery) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocument(indexName, searchDocumentQuery);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
     /**
@@ -58,8 +59,8 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @return List<Hit<Object>>
      */
     @Override
-    public PageBase<List<DocumentPO>> aggregationsDocument(DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.aggregationsDocument(indexName,documentQueryCommon);
+    public PageBase<List<DocumentPO>> aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.aggregationsDocument(indexName, aggregationsDocumentQuery);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 }
