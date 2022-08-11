@@ -165,8 +165,7 @@ public class ESClient {
                                     )
                             )
                     )
-                    //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                    .sort(sort -> sort.field(field -> field.field("id").order(SortOrder.Desc))), Object.class
+                    , Object.class
             );
             return search.hits().hits();
         } catch (Exception e) {
@@ -357,12 +356,6 @@ public class ESClient {
                     .index(indexName)
                     .query(query -> query
                             .bool(bool.build())
-                    )
-                    //过滤，只返回这些字段信息
-                    .source(source -> source
-                            .filter(filter -> filter
-                                    .includes("loveTotal","likeTotal","readTotal")
-                            )
                     )
                     //聚合统计-该分类旗下的文档收藏总数、点赞总数、阅读量总数、评论总数、正常文档总数
                     .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love")))

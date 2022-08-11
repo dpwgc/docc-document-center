@@ -11,17 +11,17 @@ import lombok.Setter;
 public class DocumentAggregationsDTO {
 
     @ApiModelProperty("收藏总数统计")
-    private Long loveTotal;
+    private Double loveTotal;
 
     @ApiModelProperty("点赞总数统计")
-    private Long likeTotal;
+    private Double likeTotal;
 
     @ApiModelProperty("阅读总数统计")
-    private Long readTotal;
+    private Double readTotal;
 
     @ApiModelProperty("评论总数统计")
-    private Long commentTotal;
+    private Double commentTotal;
 
     @ApiModelProperty("文档总数统计")
-    private Long documentTotal;
+    private Double documentTotal;
 }

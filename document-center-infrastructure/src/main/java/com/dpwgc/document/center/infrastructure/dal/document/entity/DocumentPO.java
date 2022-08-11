@@ -1,5 +1,6 @@
 package com.dpwgc.document.center.infrastructure.dal.document.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ public class DocumentPO {
     /**
      * ES主键id
      */
-    @JsonProperty("id")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String id;
 
     /**
