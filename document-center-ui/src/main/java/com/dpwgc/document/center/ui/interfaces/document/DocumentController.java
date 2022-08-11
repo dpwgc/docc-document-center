@@ -210,13 +210,13 @@ public class DocumentController {
 
     /**
      * 根据标签检索应用内的所有文档
-     * @param tags 标签
+     * @param tag 标签
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据标签检索文档")
-    @GetMapping("/queryDocumentByTags")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByTags(@ApiParam(value = "标签") String tags,
+    @GetMapping("/queryDocumentByTag")
+    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByTag(@ApiParam(value = "标签名称") String tag,
                                                                       @ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByTags(tags, documentQueryCommon));
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByTag(tag, documentQueryCommon));
     }
 }

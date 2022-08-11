@@ -143,12 +143,12 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
 
     /**
      * 根据标签检索文档
-     * @param tags 标签
+     * @param tag 标签
      * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public PageBase<List<DocumentDTO>> queryDocumentByTags(String tags, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByTags(tags, documentQueryCommon);
+    public PageBase<List<DocumentDTO>> queryDocumentByTag(String tag, DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByTag(tag, documentQueryCommon);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
         for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));

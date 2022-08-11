@@ -69,8 +69,8 @@ public interface DocumentMapper {
 
     /**
      * 根据标签检索文档
-     * @param tags 标签
+     * @param tag 标签
      * @return PageBase<List<DocumentPO>>
      */
-    PageBase<List<DocumentPO>> queryDocumentByTags(String tags, DocumentQueryCommon documentQueryCommon);
+    PageBase<List<DocumentPO>> queryDocumentByTag(String tag, DocumentQueryCommon documentQueryCommon);
 }

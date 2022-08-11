@@ -639,10 +639,10 @@ public class ESClient {
     /**
      * 根据标签检索文档
      * @param indexName 索引名称
-     * @param tags 标签
+     * @param tag 标签
      * @return List<Hit<Object>>
      */
-    public PageBase<List<Hit<Object>>> searchDocumentByTags(String indexName, String tags, DocumentQueryCommon documentQueryCommon) {
+    public PageBase<List<Hit<Object>>> searchDocumentByTag(String indexName, String tag, DocumentQueryCommon documentQueryCommon) {
 
         try {
             // 检索标签 (模糊查询，不允许错字)
@@ -659,7 +659,7 @@ public class ESClient {
                                     .must(must -> must
                                             .fuzzy(fuzzy -> fuzzy
                                                     .field("tags")
-                                                    .value(tags)
+                                                    .value(tag)
                                                     .fuzziness("0")
                                             )
                                     )

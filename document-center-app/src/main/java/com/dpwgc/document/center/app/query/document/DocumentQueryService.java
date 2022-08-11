@@ -67,8 +67,8 @@ public interface DocumentQueryService {
 
     /**
      * 根据标签检索文档
-     * @param tags 标签
+     * @param tag 标签
      * @return List<DocumentDTO>
      */
-    PageBase<List<DocumentDTO>> queryDocumentByTags(String tags, DocumentQueryCommon documentQueryCommon);
+    PageBase<List<DocumentDTO>> queryDocumentByTag(String tag, DocumentQueryCommon documentQueryCommon);
 }
