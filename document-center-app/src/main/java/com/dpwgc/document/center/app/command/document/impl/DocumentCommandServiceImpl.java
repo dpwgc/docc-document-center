@@ -153,6 +153,19 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
     }
 
     @Override
+    public Boolean updateDocumentCommentNum(UpdateDocumentCommentNumCommand updateDocumentCommentNumCommand) {
+
+        Document document = new Document();
+        document.setId(updateDocumentCommentNumCommand.getId());
+        document.setCommentNum(updateDocumentCommentNumCommand.getCommentNum());
+
+        //更新时间
+        document.setUpdateTime(System.currentTimeMillis());
+
+        return documentRepository.updateDocument(document);
+    }
+
+    @Override
     public Boolean deleteDocument(DeleteDocumentCommand deleteDocumentCommand) {
 
         Document document = new Document();

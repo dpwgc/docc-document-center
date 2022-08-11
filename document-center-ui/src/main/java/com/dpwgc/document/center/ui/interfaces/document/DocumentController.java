@@ -100,6 +100,15 @@ public class DocumentController {
     }
 
     /**
+     * 更新文档评论数（匹配ES主键id）
+     */
+    @ApiOperation(value = "更新文档评论数（匹配ES主键id）")
+    @PostMapping("/updateDocumentCommentNum")
+    public ResultDTO<Boolean> updateDocumentCommentNum(@RequestBody UpdateDocumentCommentNumCommand updateDocumentCommentNumCommand) {
+        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentCommentNum(updateDocumentCommentNumCommand));
+    }
+
+    /**
      * 删除文档（匹配ES主键id）
      */
     @ApiOperation(value = "删除文档（匹配ES主键id）")

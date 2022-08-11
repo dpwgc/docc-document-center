@@ -20,5 +20,7 @@ public interface DocumentCommandService {
 
     Boolean updateDocumentRead(UpdateDocumentReadCommand updateDocumentReadCommand);
 
+    Boolean updateDocumentCommentNum(UpdateDocumentCommentNumCommand updateDocumentCommentNumCommand);
+
     Boolean deleteDocument(DeleteDocumentCommand deleteDocumentCommand);
 }

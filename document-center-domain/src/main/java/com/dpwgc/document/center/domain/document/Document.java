@@ -124,6 +124,7 @@ public class Document {
         this.love = 0L;
         this.like = 0L;
         this.read = 0L;
+        this.commentNum = 0L;
 
         this.type = type;
 

@@ -89,9 +89,9 @@ public class DocumentDTO {
     private Long read;
 
     /**
-     * 文档评论总数
+     * 文档评论数
      */
-    @ApiModelProperty(value = "文档评论总数（可按此字段对文档进行排序）")
+    @ApiModelProperty(value = "文档评论数（可按此字段对文档进行排序）")
     private Long commentNum;
 
     /**
