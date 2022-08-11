@@ -22,6 +22,17 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
     DocumentMapper documentMapper;
 
     /**
+     * 根据ES主键id查询文档
+     * @param id ES主键id
+     * List<DocumentDTO>
+     */
+    @Override
+    public DocumentDTO queryDocumentById(String id) {
+        DocumentPO documentPO = documentMapper.queryDocumentById(id);
+        return DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO);
+    }
+
+    /**
      * 根据ES主键id集合查询文档
      * @param idList ES主键id集合
      * List<DocumentDTO>

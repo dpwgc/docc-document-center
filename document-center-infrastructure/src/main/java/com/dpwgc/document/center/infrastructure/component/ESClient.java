@@ -179,14 +179,16 @@ public class ESClient {
      * 文档检索
      */
     public PageBase<List<Hit<Object>>> searchDocument(String indexName,SearchDocumentQuery searchDocumentQuery) {
-        //
+
         BoolQuery.Builder bool = new BoolQuery.Builder();
-        bool.must(m -> m
-                .match(match -> match
-                        .field("app_id")
-                        .query(searchDocumentQuery.getAppId())
-                )
-        );
+        if (isEnable(searchDocumentQuery.getAppId())) {
+            bool.must(must -> must
+                    .match(match -> match
+                            .field("app_id")
+                            .query(searchDocumentQuery.getAppId())
+                    )
+            );
+        }
         if (isEnable(searchDocumentQuery.getCategoryId())) {
             bool.must(must -> must
                     .match(match -> match
@@ -306,12 +308,14 @@ public class ESClient {
     public Map<String, Aggregate> aggregationsDocument(String indexName, AggregationsDocumentQuery aggregationsDocumentQuery) {
         //
         BoolQuery.Builder bool = new BoolQuery.Builder();
-        bool.must(m -> m
-                .match(match -> match
-                        .field("app_id")
-                        .query(aggregationsDocumentQuery.getAppId())
-                )
-        );
+        if (isEnable(aggregationsDocumentQuery.getAppId())) {
+            bool.must(must -> must
+                    .match(match -> match
+                            .field("app_id")
+                            .query(aggregationsDocumentQuery.getAppId())
+                    )
+            );
+        }
         if (isEnable(aggregationsDocumentQuery.getCategoryId())) {
             bool.must(must -> must
                     .match(match -> match

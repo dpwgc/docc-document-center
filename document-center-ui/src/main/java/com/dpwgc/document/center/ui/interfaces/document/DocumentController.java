@@ -118,6 +118,18 @@ public class DocumentController {
     }
 
     /**
+     * 根据ES主键id查询文档
+     * （获取文档详情）
+     * @param id ES主键id
+     * @return ResultDTO<Object>
+     */
+    @ApiOperation(value = "根据ES主键id查询文档")
+    @GetMapping("/queryDocumentById")
+    ResultDTO<DocumentDTO> queryDocumentById(@ApiParam(value = "ES主键id") String id) {
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentById(id));
+    }
+
+    /**
      * 根据ES主键id集合查询文档
      * （可以用这接口来查询用户的收藏文档列表）
      * @param idList ES主键id集合

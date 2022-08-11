@@ -10,6 +10,13 @@ import java.util.List;
 public interface DocumentQueryService {
 
     /**
+     * 根据ES主键id查询文档
+     * @param id ES主键id
+     * @return DocumentDTO
+     */
+    DocumentDTO queryDocumentById(String id);
+
+    /**
      * 根据ES主键id集合查询文档
      * @param idList ES主键id集合
      * @return List<DocumentDTO>
