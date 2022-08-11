@@ -122,213 +122,101 @@ public class DocumentController {
 
     /**
      * 查询应用内的所有文档列表
-     * @param appId 应用id
-     * @param authLevel 查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 Desc/Asc
-     * @param pageIndex 分页起始
-     * @param pageSize 分页大小
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "查询应用内的所有文档列表")
     @GetMapping("/queryDocument")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocument(@ApiParam(value = "应用id") String appId,
-                                                               @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
-                                                               @ApiParam(value = "选用排序字段 例：update_time") String sortField,
-                                                               @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
-                                                               @ApiParam(value = "分页起始") Integer pageIndex,
-                                                               @ApiParam(value = "分页大小") Integer pageSize) {
-
-        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
-        documentQueryCommon.create(appId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocument(@ModelAttribute DocumentQueryCommon documentQueryCommon) {
         return ResultDTO.getSuccessResult(documentQueryService.queryDocument(documentQueryCommon));
     }
 
     /**
      * 根据关键词检索应用内的所有文档
-     * @param appId 应用id
      * @param keyword 关键词
-     * @param authLevel 查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 Desc/Asc
-     * @param pageIndex 分页起始
-     * @param pageSize 分页大小
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据关键词检索应用内的所有文档")
     @GetMapping("/queryDocumentByKeyword")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByKeyword(@ApiParam(value = "应用id") String appId,
-                                                                         @ApiParam(value = "关键词") String keyword,
-                                                                         @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
-                                                                         @ApiParam(value = "选用排序字段 例：update_time") String sortField,
-                                                                         @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
-                                                                         @ApiParam(value = "分页起始") Integer pageIndex,
-                                                                         @ApiParam(value = "分页大小") Integer pageSize) {
-
-        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
-        documentQueryCommon.create(appId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByKeyword(@ApiParam(value = "关键词") String keyword,
+                                                                         @ModelAttribute DocumentQueryCommon documentQueryCommon) {
         return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByKeyword(keyword, documentQueryCommon));
     }
 
     /**
      * 根据分类id检索文档
-     * @param appId 应用id
      * @param categoryId 分类id
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 Desc/Asc
-     * @param pageIndex 分页起始
-     * @param pageSize 分页大小
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据分类id检索文档")
     @GetMapping("/queryDocumentByCategoryId")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryId(@ApiParam(value = "应用id") String appId,
-                                                                            @ApiParam(value = "分类id") String categoryId,
-                                                                            @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
-                                                                            @ApiParam(value = "选用排序字段 例：update_time") String sortField,
-                                                                            @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
-                                                                            @ApiParam(value = "分页起始") Integer pageIndex,
-                                                                            @ApiParam(value = "分页大小") Integer pageSize) {
-
-        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
-        documentQueryCommon.create(appId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryId(@ApiParam(value = "分类id") String categoryId,
+                                                                            @ModelAttribute DocumentQueryCommon documentQueryCommon) {
         return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryId(categoryId, documentQueryCommon));
     }
 
     /**
      * 根据分类id与关键词检索文档
-     * @param appId 应用id
      * @param categoryId 分类id
      * @param keyword 关键词
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 Desc/Asc
-     * @param pageIndex 分页起始
-     * @param pageSize 分页大小
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据分类id与关键词检索文档")
     @GetMapping("/queryDocumentByCategoryIdAndKeyword")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryIdAndKeyword(@ApiParam(value = "应用id") String appId,
-                                                                                      @ApiParam(value = "分类id") String categoryId,
+    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryIdAndKeyword(@ApiParam(value = "分类id") String categoryId,
                                                                                       @ApiParam(value = "关键词") String keyword,
-                                                                                      @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
-                                                                                      @ApiParam(value = "选用排序字段 例：update_time") String sortField,
-                                                                                      @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
-                                                                                      @ApiParam(value = "分页起始") Integer pageIndex,
-                                                                                      @ApiParam(value = "分页大小") Integer pageSize) {
-
-        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
-        documentQueryCommon.create(appId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+                                                                                      @ModelAttribute DocumentQueryCommon documentQueryCommon) {
         return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndKeyword(categoryId, keyword, documentQueryCommon));
     }
 
     /**
      * 根据分类id与文档类型type检索文档
-     * @param appId 应用id
      * @param categoryId 分类id
      * @param type 文档类型
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 Desc/Asc
-     * @param pageIndex 分页起始
-     * @param pageSize 分页大小
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据分类id与文档类型type检索文档")
     @GetMapping("/queryDocumentByCategoryIdAndType")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryIdAndType(@ApiParam(value = "应用id") String appId,
-                                                                                   @ApiParam(value = "分类id") String categoryId,
+    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryIdAndType(@ApiParam(value = "分类id") String categoryId,
                                                                                    @ApiParam(value = "文档类型") Integer type,
-                                                                                   @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
-                                                                                   @ApiParam(value = "选用排序字段 例：update_time") String sortField,
-                                                                                   @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
-                                                                                   @ApiParam(value = "分页起始") Integer pageIndex,
-                                                                                   @ApiParam(value = "分页大小") Integer pageSize) {
-
-        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
-        documentQueryCommon.create(appId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+                                                                                   @ModelAttribute DocumentQueryCommon documentQueryCommon) {
         return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndType(categoryId, type, documentQueryCommon));
     }
 
     /**
      * 根据作者id检索文档
-     * @param appId 应用id
      * @param authorId 作者id
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 Desc/Asc
-     * @param pageIndex 分页起始
-     * @param pageSize 分页大小
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据作者id检索文档")
     @GetMapping("/queryDocumentByAuthorId")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByAuthorId(@ApiParam(value = "应用id") String appId,
-                                                                          @ApiParam(value = "作者id") String authorId,
-                                                                          @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
-                                                                          @ApiParam(value = "选用排序字段 例：update_time") String sortField,
-                                                                          @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
-                                                                          @ApiParam(value = "分页起始") Integer pageIndex,
-                                                                          @ApiParam(value = "分页大小") Integer pageSize) {
-
-        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
-        documentQueryCommon.create(appId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByAuthorId(@ApiParam(value = "作者id") String authorId,
+                                                                          @ModelAttribute DocumentQueryCommon documentQueryCommon) {
         return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorId(authorId, documentQueryCommon));
     }
 
     /**
      * 根据作者id与关键词检索文档
-     * @param appId 应用id
      * @param authorId 作者id
      * @param keyword 关键词
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 Desc/Asc
-     * @param pageIndex 分页起始
-     * @param pageSize 分页大小
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据作者id与关键词检索文档")
     @GetMapping("/queryDocumentByAuthorIdAndKeyword")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByAuthorIdAndKeyword(@ApiParam(value = "应用id") String appId,
-                                                                                    @ApiParam(value = "作者id") String authorId,
+    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByAuthorIdAndKeyword(@ApiParam(value = "作者id") String authorId,
                                                                                     @ApiParam(value = "关键词") String keyword,
-                                                                                    @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
-                                                                                    @ApiParam(value = "选用排序字段 例：update_time") String sortField,
-                                                                                    @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
-                                                                                    @ApiParam(value = "分页起始") Integer pageIndex,
-                                                                                    @ApiParam(value = "分页大小") Integer pageSize) {
-
-        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
-        documentQueryCommon.create(appId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+                                                                                    @ModelAttribute DocumentQueryCommon documentQueryCommon) {
         return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorIdAndKeyword(authorId, keyword, documentQueryCommon));
     }
 
     /**
      * 根据标签检索应用内的所有文档
-     * @param appId 应用id
      * @param tags 标签
-     * @param authLevel 查看该文档所需要的权限级别（用户权限必须>=文档权限，才会返回该文档数据）
-     * @param sortField 选用排序字段 例：update_time
-     * @param sortOrder 排序规则 Desc/Asc
-     * @param pageIndex 分页起始
-     * @param pageSize 分页大小
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据标签检索文档")
     @GetMapping("/queryDocumentByTags")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByTags(@ApiParam(value = "应用id") String appId,
-                                                                      @ApiParam(value = "标签") String tags,
-                                                                      @ApiParam(value = "查看该文档所需的权限级别（用户权限必须>=文档权限，才会返回该文档数据）") Integer authLevel,
-                                                                      @ApiParam(value = "选用排序字段 例：update_time") String sortField,
-                                                                      @ApiParam(value = "排序规则 Desc/Asc") String sortOrder,
-                                                                      @ApiParam(value = "分页起始") Integer pageIndex,
-                                                                      @ApiParam(value = "分页大小") Integer pageSize) {
-
-        DocumentQueryCommon documentQueryCommon = new DocumentQueryCommon();
-        documentQueryCommon.create(appId, authLevel, sortField, sortOrder, pageIndex, pageSize);
+    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByTags(@ApiParam(value = "标签") String tags,
+                                                                      @ModelAttribute DocumentQueryCommon documentQueryCommon) {
         return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByTags(tags, documentQueryCommon));
     }
 }

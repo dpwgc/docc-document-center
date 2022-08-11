@@ -1,35 +1,37 @@
 package com.dpwgc.document.center.sdk.common;
 
 import co.elastic.clients.elasticsearch._types.SortOrder;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+@ApiModel(value = "文档接口通用字段")
 public class DocumentQueryCommon {
 
+    @ApiModelProperty(value = "应用id")
     private String appId;
+
+    @ApiModelProperty(value = "访问权限等级")
     private Integer authLevel;
+
+    @ApiModelProperty(value = "排序字段")
     private String sortField;
+
+    @ApiModelProperty(value = "排序规则")
     private SortOrder sortOrder;
+
+    @ApiModelProperty(value = "更新时间区间开始")
+    private Long startUpdateTime;
+
+    @ApiModelProperty(value = "更新时间区间结尾")
+    private Long endUpdateTime;
+
+    @ApiModelProperty(value = "分页起始")
     private Integer pageIndex;
+
+    @ApiModelProperty(value = "分页大小")
     private Integer pageSize;
-
-    public void create(String appId, Integer authLevel, String sortField, String sortOrder, Integer pageIndex, Integer pageSize) {
-
-        this.appId = appId;
-
-        this.authLevel = authLevel;
-
-        this.sortField = sortField;
-
-        if (sortOrder.equals("Asc")) {
-            this.sortOrder = SortOrder.Asc;
-        } else {
-            this.sortOrder = SortOrder.Desc;
-        }
-
-        this.pageIndex = pageIndex;
-        this.pageSize = pageSize;
-    }
 }
