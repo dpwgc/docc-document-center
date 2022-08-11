@@ -121,102 +121,22 @@ public class DocumentController {
     }
 
     /**
-     * 查询应用内的所有文档列表
+     * 文档检索
      * @return ResultDTO<Object>
      */
-    @ApiOperation(value = "查询应用内的所有文档列表")
-    @GetMapping("/queryDocument")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocument(@ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocument(documentQueryCommon));
+    @ApiOperation(value = "文档检索")
+    @GetMapping("/searchDocument")
+    public ResultDTO<PageBase<List<DocumentDTO>>> searchDocument(@ModelAttribute DocumentQueryCommon documentQueryCommon) {
+        return ResultDTO.getSuccessResult(documentQueryService.searchDocument(documentQueryCommon));
     }
 
     /**
-     * 根据关键词检索应用内的所有文档
-     * @param keyword 关键词
+     * 文档数据聚合统计
      * @return ResultDTO<Object>
      */
-    @ApiOperation(value = "根据关键词检索应用内的所有文档")
-    @GetMapping("/queryDocumentByKeyword")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByKeyword(@ApiParam(value = "关键词") String keyword,
-                                                                         @ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByKeyword(keyword, documentQueryCommon));
-    }
-
-    /**
-     * 根据分类id检索文档
-     * @param categoryId 分类id
-     * @return ResultDTO<Object>
-     */
-    @ApiOperation(value = "根据分类id检索文档")
-    @GetMapping("/queryDocumentByCategoryId")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryId(@ApiParam(value = "分类id") String categoryId,
-                                                                            @ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryId(categoryId, documentQueryCommon));
-    }
-
-    /**
-     * 根据分类id与关键词检索文档
-     * @param categoryId 分类id
-     * @param keyword 关键词
-     * @return ResultDTO<Object>
-     */
-    @ApiOperation(value = "根据分类id与关键词检索文档")
-    @GetMapping("/queryDocumentByCategoryIdAndKeyword")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryIdAndKeyword(@ApiParam(value = "分类id") String categoryId,
-                                                                                      @ApiParam(value = "关键词") String keyword,
-                                                                                      @ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndKeyword(categoryId, keyword, documentQueryCommon));
-    }
-
-    /**
-     * 根据分类id与文档类型type检索文档
-     * @param categoryId 分类id
-     * @param type 文档类型
-     * @return ResultDTO<Object>
-     */
-    @ApiOperation(value = "根据分类id与文档类型type检索文档")
-    @GetMapping("/queryDocumentByCategoryIdAndType")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByCategoryIdAndType(@ApiParam(value = "分类id") String categoryId,
-                                                                                   @ApiParam(value = "文档类型") Integer type,
-                                                                                   @ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByCategoryIdAndType(categoryId, type, documentQueryCommon));
-    }
-
-    /**
-     * 根据作者id检索文档
-     * @param authorId 作者id
-     * @return ResultDTO<Object>
-     */
-    @ApiOperation(value = "根据作者id检索文档")
-    @GetMapping("/queryDocumentByAuthorId")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByAuthorId(@ApiParam(value = "作者id") String authorId,
-                                                                          @ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorId(authorId, documentQueryCommon));
-    }
-
-    /**
-     * 根据作者id与关键词检索文档
-     * @param authorId 作者id
-     * @param keyword 关键词
-     * @return ResultDTO<Object>
-     */
-    @ApiOperation(value = "根据作者id与关键词检索文档")
-    @GetMapping("/queryDocumentByAuthorIdAndKeyword")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByAuthorIdAndKeyword(@ApiParam(value = "作者id") String authorId,
-                                                                                    @ApiParam(value = "关键词") String keyword,
-                                                                                    @ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByAuthorIdAndKeyword(authorId, keyword, documentQueryCommon));
-    }
-
-    /**
-     * 根据标签检索应用内的所有文档
-     * @param tag 标签
-     * @return ResultDTO<Object>
-     */
-    @ApiOperation(value = "根据标签检索文档")
-    @GetMapping("/queryDocumentByTag")
-    public ResultDTO<PageBase<List<DocumentDTO>>> queryDocumentByTag(@ApiParam(value = "标签名称") String tag,
-                                                                      @ModelAttribute DocumentQueryCommon documentQueryCommon) {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByTag(tag, documentQueryCommon));
+    @ApiOperation(value = "文档数据聚合统计")
+    @GetMapping("/aggregationsDocument")
+    public ResultDTO<PageBase<List<DocumentDTO>>> aggregationsDocument(@ModelAttribute DocumentQueryCommon documentQueryCommon) {
+        return ResultDTO.getSuccessResult(documentQueryService.aggregationsDocument(documentQueryCommon));
     }
 }

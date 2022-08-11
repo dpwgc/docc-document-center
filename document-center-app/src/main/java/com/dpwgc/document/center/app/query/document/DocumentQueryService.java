@@ -16,59 +16,12 @@ public interface DocumentQueryService {
 
     /**
      * 查询应用内的所有文档列表
-     * @return List<Hit<Object>>
      */
-    PageBase<List<DocumentDTO>> queryDocument(DocumentQueryCommon documentQueryCommon);
+    PageBase<List<DocumentDTO>> searchDocument(DocumentQueryCommon documentQueryCommon);
 
     /**
-     * 根据关键词检索应用内的所有文档
-     * @param keyword 关键词
-     * @return List<DocumentDTO>
+     * 文档数据聚合统计
      */
-    PageBase<List<DocumentDTO>> queryDocumentByKeyword(String keyword, DocumentQueryCommon documentQueryCommon);
+    PageBase<List<DocumentDTO>> aggregationsDocument(DocumentQueryCommon documentQueryCommon);
 
-    /**
-     * 根据分类id检索文档
-     * @param categoryId 分类id
-     * @return List<DocumentDTO>
-     */
-    PageBase<List<DocumentDTO>> queryDocumentByCategoryId(String categoryId, DocumentQueryCommon documentQueryCommon);
-
-    /**
-     * 根据分类id与关键词检索文档
-     * @param categoryId 分类id
-     * @param keyword 关键词
-     * @return List<DocumentDTO>
-     */
-    PageBase<List<DocumentDTO>> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, DocumentQueryCommon documentQueryCommon);
-
-    /**
-     * 根据分类id与文档类型type检索文档
-     * @param categoryId 分类id
-     * @param type 文档类型
-     * @return List<DocumentDTO>
-     */
-    PageBase<List<DocumentDTO>> queryDocumentByCategoryIdAndType(String categoryId, Integer type, DocumentQueryCommon documentQueryCommon);
-
-    /**
-     * 根据作者id检索文档
-     * @param authorId 作者id
-     * @return List<DocumentDTO>
-     */
-    PageBase<List<DocumentDTO>> queryDocumentByAuthorId(String authorId, DocumentQueryCommon documentQueryCommon);
-
-    /**
-     * 根据作者id与关键词检索文档
-     * @param authorId 作者id
-     * @param keyword 关键词
-     * @return List<DocumentDTO>
-     */
-    PageBase<List<DocumentDTO>> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, DocumentQueryCommon documentQueryCommon);
-
-    /**
-     * 根据标签检索文档
-     * @param tag 标签
-     * @return List<DocumentDTO>
-     */
-    PageBase<List<DocumentDTO>> queryDocumentByTag(String tag, DocumentQueryCommon documentQueryCommon);
 }

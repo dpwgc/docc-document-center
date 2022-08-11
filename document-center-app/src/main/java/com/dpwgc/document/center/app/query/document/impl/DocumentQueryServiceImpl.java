@@ -39,8 +39,8 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @return List<Hit<Object>>
      */
     @Override
-    public PageBase<List<DocumentDTO>> queryDocument(DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocument(documentQueryCommon);
+    public PageBase<List<DocumentDTO>> searchDocument(DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.searchDocument(documentQueryCommon);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
         for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
@@ -49,106 +49,12 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
     }
 
     /**
-     * 根据关键词检索应用内的所有文档
-     * @param keyword 关键词
-     * @return PageBase<List<DocumentDTO>>
+     * 查询应用内的所有文档列表
+     * @return List<Hit<Object>>
      */
     @Override
-    public PageBase<List<DocumentDTO>> queryDocumentByKeyword(String keyword, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByKeyword(keyword, documentQueryCommon);
-        List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : pageBase.getList()) {
-            documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
-    }
-
-    /**
-     * 根据分类id检索文档
-     * @param categoryId 分类id
-     * @return PageBase<List<DocumentDTO>>
-     */
-    @Override
-    public PageBase<List<DocumentDTO>> queryDocumentByCategoryId(String categoryId, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByCategoryId(categoryId, documentQueryCommon);
-        List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : pageBase.getList()) {
-            documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
-    }
-
-    /**
-     * 根据分类id与关键词检索文档
-     * @param categoryId 分类id
-     * @param keyword 关键词
-     * @return PageBase<List<DocumentDTO>>
-     */
-    @Override
-    public PageBase<List<DocumentDTO>> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByCategoryIdAndKeyword(categoryId, keyword, documentQueryCommon);
-        List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : pageBase.getList()) {
-            documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
-    }
-
-    /**
-     * 根据分类id与文档类型type检索文档
-     * @param categoryId 分类id
-     * @param type 文档类型
-     * @return PageBase<List<DocumentDTO>>
-     */
-    @Override
-    public PageBase<List<DocumentDTO>> queryDocumentByCategoryIdAndType(String categoryId, Integer type, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByCategoryIdAndType(categoryId, type, documentQueryCommon);
-        List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : pageBase.getList()) {
-            documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
-    }
-
-    /**
-     * 根据作者id检索文档
-     * @param authorId 作者id
-     * @return PageBase<List<DocumentDTO>>
-     */
-    @Override
-    public PageBase<List<DocumentDTO>> queryDocumentByAuthorId(String authorId, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByAuthorId(authorId, documentQueryCommon);
-        List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : pageBase.getList()) {
-            documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
-    }
-
-    /**
-     * 根据作者id与关键词检索文档
-     * @param authorId 作者id
-     * @param keyword 关键词
-     * @return PageBase<List<DocumentDTO>>
-     */
-    @Override
-    public PageBase<List<DocumentDTO>> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByAuthorIdAndKeyword(authorId, keyword, documentQueryCommon);
-        List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : pageBase.getList()) {
-            documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
-    }
-
-    /**
-     * 根据标签检索文档
-     * @param tag 标签
-     * @return PageBase<List<DocumentDTO>>
-     */
-    @Override
-    public PageBase<List<DocumentDTO>> queryDocumentByTag(String tag, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.queryDocumentByTag(tag, documentQueryCommon);
+    public PageBase<List<DocumentDTO>> aggregationsDocument(DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.aggregationsDocument(documentQueryCommon);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
         for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));

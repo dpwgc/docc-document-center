@@ -45,92 +45,21 @@ public class DocumentMapperImpl implements DocumentMapper {
     }
 
     /**
-     * 查询应用内的所有文档列表
+     * 文档检索
      * @return List<Hit<Object>>
      */
     @Override
-    public PageBase<List<DocumentPO>> queryDocument(DocumentQueryCommon documentQueryCommon) {
+    public PageBase<List<DocumentPO>> searchDocument(DocumentQueryCommon documentQueryCommon) {
         PageBase<List<Hit<Object>>> pageBase = esClient.searchDocument(indexName,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
-
     /**
-     * 根据关键词检索应用内的所有文档
-     * @param keyword 关键词
-     * @return PageBase<List<DocumentPO>>
+     * 文档数据聚合统计
+     * @return List<Hit<Object>>
      */
     @Override
-    public PageBase<List<DocumentPO>> queryDocumentByKeyword(String keyword, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByKeyword(indexName,keyword,documentQueryCommon);
-        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
-    }
-
-    /**
-     * 根据分类id检索文档
-     * @param categoryId 分类id
-     * @return PageBase<List<DocumentPO>>
-     */
-    @Override
-    public PageBase<List<DocumentPO>> queryDocumentByCategoryId(String categoryId, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryId(indexName,categoryId,documentQueryCommon);
-        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
-    }
-
-    /**
-     * 根据分类id与关键词检索文档
-     * @param categoryId 分类id
-     * @param keyword 关键词
-     * @return PageBase<List<DocumentPO>>
-     */
-    @Override
-    public PageBase<List<DocumentPO>> queryDocumentByCategoryIdAndKeyword(String categoryId, String keyword, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryIdAndKeyword(indexName,categoryId,keyword,documentQueryCommon);
-        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
-    }
-
-    /**
-     * 根据分类id与文档类型type检索文档
-     * @param categoryId 分类id
-     * @param type 文档类型
-     * @return PageBase<List<DocumentPO>>
-     */
-    @Override
-    public PageBase<List<DocumentPO>> queryDocumentByCategoryIdAndType(String categoryId, Integer type, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByCategoryIdAndType(indexName,categoryId,type,documentQueryCommon);
-        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
-    }
-
-    /**
-     * 根据作者id检索文档
-     * @param authorId 作者id
-     * @return PageBase<List<DocumentPO>>
-     */
-    @Override
-    public PageBase<List<DocumentPO>> queryDocumentByAuthorId(String authorId, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByAuthorId(indexName,authorId,documentQueryCommon);
-        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
-    }
-
-    /**
-     * 根据作者id与关键词检索文档
-     * @param authorId 作者id
-     * @param keyword 关键词
-     * @return PageBase<List<DocumentPO>>
-     */
-    @Override
-    public PageBase<List<DocumentPO>> queryDocumentByAuthorIdAndKeyword(String authorId, String keyword, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByAuthorIdAndKeyword(indexName,authorId,keyword,documentQueryCommon);
-        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
-    }
-
-    /**
-     * 根据标签检索文档
-     * @param tag 标签
-     * @return PageBase<List<DocumentPO>>
-     */
-    @Override
-    public PageBase<List<DocumentPO>> queryDocumentByTag(String tag, DocumentQueryCommon documentQueryCommon) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.searchDocumentByTag(indexName,tag,documentQueryCommon);
+    public PageBase<List<DocumentPO>> aggregationsDocument(DocumentQueryCommon documentQueryCommon) {
+        PageBase<List<Hit<Object>>> pageBase = esClient.aggregationsDocument(indexName,documentQueryCommon);
         return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
     }
 }
