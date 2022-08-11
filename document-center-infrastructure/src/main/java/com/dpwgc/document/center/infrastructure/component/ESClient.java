@@ -302,7 +302,7 @@ public class ESClient {
     /**
      * 文档数据聚合统计
      */
-    public PageBase<List<Hit<Object>>> aggregationsDocument(String indexName, AggregationsDocumentQuery aggregationsDocumentQuery) {
+    public Object aggregationsDocument(String indexName, AggregationsDocumentQuery aggregationsDocumentQuery) {
         //
         BoolQuery.Builder bool = new BoolQuery.Builder();
         bool.must(m -> m
@@ -372,7 +372,7 @@ public class ESClient {
                     .size(0)
                     , Object.class
             );
-            return PageBase.getPageBase(search.hits().total().value(), search.hits().hits());
+            return search.aggregations();
         } catch (Exception e) {
             LogUtil.error("es aggregations document error: " + e);
             return null;

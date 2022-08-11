@@ -36,7 +36,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
     }
 
     /**
-     * 查询应用内的所有文档列表
+     * 文档检索
      * @return List<Hit<Object>>
      */
     @Override
@@ -50,16 +50,11 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
     }
 
     /**
-     * 查询应用内的所有文档列表
+     * 文档数据聚合统计
      * @return List<Hit<Object>>
      */
     @Override
-    public PageBase<List<DocumentDTO>> aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.aggregationsDocument(aggregationsDocumentQuery);
-        List<DocumentDTO> documentDTOS = new ArrayList<>();
-        for (DocumentPO documentPO : pageBase.getList()) {
-            documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
-        }
-        return PageBase.getPageBase(pageBase.getTotal(),documentDTOS);
+    public Object aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery) {
+        return documentMapper.aggregationsDocument(aggregationsDocumentQuery);
     }
 }

@@ -9,23 +9,12 @@ public class PageBase<T> {
     @ApiModelProperty(value = "数据总数")
     private Long total;
 
-    @ApiModelProperty(value = "聚合查询结果")
-    private Object aggregation;
-
     @ApiModelProperty(value = "当前分页区间内的数据列表")
     private T list;
 
     public static <T> PageBase<T> getPageBase(Long total, T list) {
         PageBase<T> pageBase = new PageBase();
         pageBase.total = total;
-        pageBase.list = list;
-        return pageBase;
-    }
-
-    public static <T> PageBase<T> getPageBase(Long total, Object aggregation, T list) {
-        PageBase<T> pageBase = new PageBase();
-        pageBase.total = total;
-        pageBase.aggregation = aggregation;
         pageBase.list = list;
         return pageBase;
     }
@@ -44,13 +33,5 @@ public class PageBase<T> {
 
     public T getList() {
         return list;
-    }
-
-    public void setAggregation(Object aggregation) {
-        this.aggregation = aggregation;
-    }
-
-    public Object getAggregation() {
-        return aggregation;
     }
 }

@@ -27,5 +27,5 @@ public interface DocumentMapper {
      * 文档数据聚合统计
      * @return List<Hit<Object>>
      */
-    PageBase<List<DocumentPO>> aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery);
+    Object aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery);
 }

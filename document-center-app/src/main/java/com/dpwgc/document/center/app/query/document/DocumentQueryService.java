@@ -23,6 +23,6 @@ public interface DocumentQueryService {
     /**
      * 文档数据聚合统计
      */
-    PageBase<List<DocumentDTO>> aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery);
+    Object aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery);
 
 }

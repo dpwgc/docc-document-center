@@ -59,8 +59,7 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @return List<Hit<Object>>
      */
     @Override
-    public PageBase<List<DocumentPO>> aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery) {
-        PageBase<List<Hit<Object>>> pageBase = esClient.aggregationsDocument(indexName, aggregationsDocumentQuery);
-        return PageBase.getPageBase(pageBase.getTotal(), hitToDocumentPOAssembler.assemblerDocumentPOList(pageBase.getList()));
+    public Object aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery) {
+        return esClient.aggregationsDocument(indexName, aggregationsDocumentQuery);
     }
 }
