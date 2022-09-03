@@ -54,8 +54,9 @@ public class BaseConfig implements InitializingBean {
                 "\n<cluster> [datacenter_id]: "+datacenterId+"    [worker_id]: "+workerId +
                 "\n<monitor> [url]: http://localhost:"+serverPort+contextPath+"/monitor.html" +
                 "\n<swagger api doc> [url]: http://localhost:"+serverPort+contextPath+"/doc.html" +
-                "\n==================== elasticsearch index ====================");
+                "\n==================== configuration ====================\n");
 
+        //ES索引创建
         try {
             if (!esClient.existsIndex(elasticsearchIndexName)) {
                 LogUtil.info("existsIndex","elasticsearch index does not exist","esClient");
