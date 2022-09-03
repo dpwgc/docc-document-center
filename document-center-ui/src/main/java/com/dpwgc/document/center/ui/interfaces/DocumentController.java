@@ -1,4 +1,4 @@
-package com.dpwgc.document.center.ui.interfaces.document;
+package com.dpwgc.document.center.ui.interfaces;
 
 import com.dpwgc.document.center.app.command.document.DocumentCommandService;
 import com.dpwgc.document.center.app.query.document.DocumentQueryService;

@@ -1,4 +1,4 @@
-package com.dpwgc.document.center.ui.interfaces.tag;
+package com.dpwgc.document.center.ui.interfaces;
 
 import com.dpwgc.document.center.app.command.tag.TagCommandService;
 import com.dpwgc.document.center.app.query.tag.TagQueryService;
