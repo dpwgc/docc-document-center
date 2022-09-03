@@ -164,6 +164,22 @@ public class ESClient {
                     )
             );
         }
+        if (isEnable(documentQuery.getFilter())) {
+            bool.must(must -> must
+                    .match(match -> match
+                            .field("filter")
+                            .query(documentQuery.getFilter())
+                    )
+            );
+        }
+        if (isEnable(documentQuery.getAttr())) {
+            bool.must(must -> must
+                    .match(match -> match
+                            .field("attr")
+                            .query(documentQuery.getAttr())
+                    )
+            );
+        }
         if (isEnable(documentQuery.getTag())) {
             bool.must(must -> must
                     .fuzzy(fuzzy -> fuzzy
