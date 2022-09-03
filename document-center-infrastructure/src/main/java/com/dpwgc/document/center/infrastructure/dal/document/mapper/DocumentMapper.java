@@ -16,8 +16,6 @@ public interface DocumentMapper {
 
     Boolean updateDocument(DocumentPO documentPO);
 
-    Boolean deleteDocument(DocumentPO documentPO);
-
     /**
      * 文档检索
      * @return PageBase<List<DocumentPO>>

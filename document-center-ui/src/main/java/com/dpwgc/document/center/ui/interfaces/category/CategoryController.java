@@ -37,12 +37,6 @@ public class CategoryController {
         return ResultDTO.getSuccessResult(categoryCommandService.updateCategory(updateCategoryCommand));
     }
 
-    @ApiOperation(value = "删除（隐藏）分类")
-    @PostMapping("/deleteCategory")
-    public ResultDTO<Boolean> deleteCategory(@RequestBody DeleteCategoryCommand deleteCategoryCommand) {
-        return ResultDTO.getSuccessResult(categoryCommandService.deleteCategory(deleteCategoryCommand));
-    }
-
     @ApiOperation(value = "获取分类树")
     @GetMapping("/getCategoryTreeByAppId")
     public ResultDTO<List<CategoryTreeDTO>> getCategoryTreeByAppId(@ApiParam(value = "应用id") String appId) {

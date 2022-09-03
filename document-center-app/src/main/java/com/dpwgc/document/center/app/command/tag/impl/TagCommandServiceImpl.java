@@ -2,9 +2,9 @@ package com.dpwgc.document.center.app.command.tag.impl;
 
 import com.dpwgc.document.center.app.command.tag.TagCommandService;
 import com.dpwgc.document.center.domain.tag.Tag;
+import com.dpwgc.document.center.domain.tag.TagAssembler;
 import com.dpwgc.document.center.domain.tag.TagRepository;
-import com.dpwgc.document.center.sdk.model.tag.DeleteTagCommand;
-import com.dpwgc.document.center.sdk.model.tag.UpdateTagNumberCommand;
+import com.dpwgc.document.center.sdk.model.tag.UpdateTagCommand;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,22 +16,12 @@ public class TagCommandServiceImpl implements TagCommandService {
     TagRepository tagRepository;
 
     @Override
-    public Boolean updateTagNumber(UpdateTagNumberCommand updateTagNumberCommand) {
-        Tag tag = new Tag();
-        tag.setAppId(updateTagNumberCommand.getAppId());
-        tag.setTagName(updateTagNumberCommand.getTagName());
-        tag.setNumber(updateTagNumberCommand.getNumber());
+    public Boolean updateTag(UpdateTagCommand updateTagCommand) {
+
+        Tag tag = TagAssembler.INSTANCE.assembleTagFromUpdate(updateTagCommand);
+
+        tag.setUpdateTime(System.currentTimeMillis());
 
         return tagRepository.updateTagNumber(tag);
-    }
-
-    @Override
-    public Boolean deleteTag(DeleteTagCommand deleteTagCommand) {
-        Tag tag = new Tag();
-        tag.setAppId(deleteTagCommand.getAppId());
-        tag.setTagName(deleteTagCommand.getTagName());
-        tag.setStatus(deleteTagCommand.getStatus());
-
-        return tagRepository.deleteTag(tag);
     }
 }

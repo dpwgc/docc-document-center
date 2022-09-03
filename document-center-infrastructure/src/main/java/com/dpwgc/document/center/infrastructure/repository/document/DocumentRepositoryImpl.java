@@ -20,21 +20,9 @@ public class DocumentRepositoryImpl implements DocumentRepository {
     }
 
     @Override
-    public Document queryDocumentById(String id) {
-        return DocumentPOAssembler.INSTANCE.assembleDocument(documentMapper.queryDocumentById(id));
-    }
-
-    @Override
     public Boolean updateDocument(Document document) {
 
         DocumentPO documentPO = DocumentPOAssembler.INSTANCE.assembleDocumentPO(document);
         return documentMapper.updateDocument(documentPO);
-    }
-
-    @Override
-    public Boolean deleteDocument(Document document) {
-
-        DocumentPO documentPO = DocumentPOAssembler.INSTANCE.assembleDocumentPO(document);
-        return documentMapper.deleteDocument(documentPO);
     }
 }

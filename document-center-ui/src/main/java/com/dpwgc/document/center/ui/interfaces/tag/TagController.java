@@ -3,9 +3,8 @@ package com.dpwgc.document.center.ui.interfaces.tag;
 import com.dpwgc.document.center.app.command.tag.TagCommandService;
 import com.dpwgc.document.center.app.query.tag.TagQueryService;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
-import com.dpwgc.document.center.sdk.model.tag.DeleteTagCommand;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
-import com.dpwgc.document.center.sdk.model.tag.UpdateTagNumberCommand;
+import com.dpwgc.document.center.sdk.model.tag.UpdateTagCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,21 +27,12 @@ public class TagController {
     TagQueryService tagQueryService;
 
     /**
-     * 后台修改标签数量
+     * 修改标签数量/隐藏标签
      */
-    @ApiOperation(value = "后台修改标签数量")
-    @PostMapping("/updateTagNumber")
-    public ResultDTO<Boolean> updateTagNumber(UpdateTagNumberCommand updateTagNumberCommand) {
-        return ResultDTO.getSuccessResult(tagCommandService.updateTagNumber(updateTagNumberCommand));
-    }
-
-    /**
-     * 删除（隐藏）标签
-     */
-    @ApiOperation(value = "删除（隐藏）标签")
-    @PostMapping("/deleteTag")
-    public ResultDTO<Boolean> deleteTag(DeleteTagCommand deleteTagCommand) {
-        return ResultDTO.getSuccessResult(tagCommandService.deleteTag(deleteTagCommand));
+    @ApiOperation(value = "后台修改标签")
+    @PostMapping("/updateTag")
+    public ResultDTO<Boolean> updateTag(UpdateTagCommand updateTagCommand) {
+        return ResultDTO.getSuccessResult(tagCommandService.updateTag(updateTagCommand));
     }
 
     /**

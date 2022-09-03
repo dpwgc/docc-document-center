@@ -45,4 +45,10 @@ public class UpdateCategoryCommand {
      */
     @ApiModelProperty(value = "分类推荐分值（自定义，生成分类树时将按此字段对分类进行排序）")
     private Long score;
+
+    /**
+     * 分类状态（0-删除，1-正常）
+     */
+    @ApiModelProperty(value = "分类状态（0-删除，1-正常）")
+    private Integer status;
 }

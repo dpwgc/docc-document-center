@@ -22,6 +22,12 @@ public class AggregationsDocumentQuery {
     @ApiModelProperty(value = "文档类型")
     private Integer type;
 
+    @ApiModelProperty(value = "文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）")
+    private Integer filter;
+
+    @ApiModelProperty(value = "文档属性（自定义，例：1-转载文章、2-原创文章）")
+    private Integer attr;
+
     @ApiModelProperty(value = "文档标签")
     private String tag;
 }

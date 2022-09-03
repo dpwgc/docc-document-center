@@ -67,6 +67,18 @@ public class CreateDocumentCommand {
     private Long score;
 
     /**
+     * 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）
+     */
+    @ApiModelProperty(value = "文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）")
+    private Integer filter;
+
+    /**
+     * 文档属性（自定义，例：1-转载文章、2-原创文章）
+     */
+    @ApiModelProperty(value = "文档属性（自定义，例：1-转载文章、2-原创文章）")
+    private Integer attr;
+
+    /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
      */
     @ApiModelProperty(value = "文档类型（自定义，例：0-普通文档，1-置顶文档）")

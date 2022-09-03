@@ -68,22 +68,32 @@ public class Document {
     /**
      * 文档收藏数（可按此字段对文档进行排序）
      */
-    private Long love;
+    private Long loveNum;
 
     /**
      * 文档点赞数（可按此字段对文档进行排序）
      */
-    private Long like;
+    private Long likeNum;
 
     /**
      * 文档阅读数（可按此字段对文档进行排序）
      */
-    private Long read;
+    private Long readNum;
 
     /**
      * 文档评论总数
      */
     private Long commentNum;
+
+    /**
+     * 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）
+     */
+    private Integer filter;
+
+    /**
+     * 文档属性（自定义，例：1-转载文章、2-原创文章）
+     */
+    private Integer attr;
 
     /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
@@ -105,7 +115,7 @@ public class Document {
      */
     private Long updateTime;
 
-    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Long score, Integer type) {
+    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Long score, Integer filter, Integer attr, Integer type) {
 
         this.status = 1;
 
@@ -121,11 +131,13 @@ public class Document {
 
         this.score = score;
 
-        this.love = 0L;
-        this.like = 0L;
-        this.read = 0L;
+        this.loveNum = 0L;
+        this.likeNum = 0L;
+        this.readNum = 0L;
         this.commentNum = 0L;
 
+        this.filter = filter;
+        this.attr = attr;
         this.type = type;
 
         this.createTime = System.currentTimeMillis();

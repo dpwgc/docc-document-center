@@ -18,17 +18,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     CategoryMapper categoryMapper;
 
     @Override
-    public Category queryCategoryByCategoryId(String appId, String categoryId) {
-
-        QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("app_id",appId);
-        queryWrapper.eq("category_id",categoryId);
-        queryWrapper.eq("status",Status.NORMAL);
-
-        return CategoryPOAssembler.INSTANCE.assembleCategory(categoryMapper.selectOne(queryWrapper));
-    }
-
-    @Override
     public String createCategory(Category category) {
 
         //检查分类名称是否已经存在
@@ -71,22 +60,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
         //更新时间
         categoryPO.setUpdateTime(System.currentTimeMillis());
-
-        return categoryMapper.update(categoryPO, queryWrapper) > 0;
-    }
-
-    @Override
-    public Boolean deleteCategory(String appId, String categoryId) {
-
-        QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("app_id",appId);
-        queryWrapper.eq("category_id",categoryId);
-        queryWrapper.eq("status",Status.NORMAL);
-
-        CategoryPO categoryPO = categoryMapper.selectOne(queryWrapper);
-
-        categoryPO.setStatus(0);                                //将状态设为0
-        categoryPO.setUpdateTime(System.currentTimeMillis());   //更新时间
 
         return categoryMapper.update(categoryPO, queryWrapper) > 0;
     }

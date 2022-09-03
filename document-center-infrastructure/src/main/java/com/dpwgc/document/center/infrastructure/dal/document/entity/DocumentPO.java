@@ -79,25 +79,37 @@ public class DocumentPO {
      * 文档收藏数（可按此字段对文档进行排序）
      */
     @JsonProperty("love")
-    private Long love;
+    private Long loveNum;
 
     /**
      * 文档点赞数（可按此字段对文档进行排序）
      */
     @JsonProperty("like")
-    private Long like;
+    private Long likeNum;
 
     /**
      * 文档阅读数（可按此字段对文档进行排序）
      */
     @JsonProperty("read")
-    private Long read;
+    private Long readNum;
 
     /**
      * 文档评论总数（可按此字段对文档进行排序）
      */
     @JsonProperty("comment_num")
     private Long commentNum;
+
+    /**
+     * 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）
+     */
+    @JsonProperty("filter")
+    private Integer filter;
+
+    /**
+     * 文档属性（自定义，例：1-转载文章、2-原创文章）
+     */
+    @JsonProperty("attr")
+    private Integer attr;
 
     /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）

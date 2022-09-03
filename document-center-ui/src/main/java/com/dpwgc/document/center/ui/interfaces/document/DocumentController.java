@@ -37,84 +37,12 @@ public class DocumentController {
     }
 
     /**
-     * 更新文档主体内容（匹配ES主键id）
+     * 更新文档（匹配ES主键id）
      */
-    @ApiOperation(value = "更新文档主体内容（匹配ES主键id）")
-    @PostMapping("/updateDocumentMain")
-    public ResultDTO<Boolean> updateDocumentMain(@RequestBody UpdateDocumentMainCommand updateDocumentMainCommand) {
-        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentMain(updateDocumentMainCommand));
-    }
-
-    /**
-     * 更新文档权限等级（匹配ES主键id）
-     */
-    @ApiOperation(value = "更新文档权限等级（匹配ES主键id）")
-    @PostMapping("/updateDocumentAuthLevel")
-    public ResultDTO<Boolean> updateDocumentAuthLevel(@RequestBody UpdateDocumentAuthLevelCommand updateDocumentAuthLevelCommand) {
-        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentAuthLevel(updateDocumentAuthLevelCommand));
-    }
-
-    /**
-     * 更新文档类型（匹配ES主键id）
-     */
-    @ApiOperation(value = "更新文档类型（匹配ES主键id）")
-    @PostMapping("/updateDocumentType")
-    public ResultDTO<Boolean> updateDocumentType(@RequestBody UpdateDocumentTypeCommand updateDocumentTypeCommand) {
-        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentType(updateDocumentTypeCommand));
-    }
-
-    /**
-     * 更新文档推荐评分（匹配ES主键id）
-     */
-    @ApiOperation(value = "更新文档推荐评分（匹配ES主键id）")
-    @PostMapping("/updateDocumentScore")
-    public ResultDTO<Boolean> updateDocumentScore(@RequestBody UpdateDocumentScoreCommand updateDocumentScoreCommand) {
-        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentScore(updateDocumentScoreCommand));
-    }
-
-    /**
-     * 更新文档收藏数（匹配ES主键id）
-     */
-    @ApiOperation(value = "更新文档收藏数（匹配ES主键id）")
-    @PostMapping("/updateDocumentLove")
-    public ResultDTO<Boolean> updateDocumentLove(@RequestBody UpdateDocumentLoveCommand updateDocumentLoveCommand) {
-        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentLove(updateDocumentLoveCommand));
-    }
-
-    /**
-     * 更新文档点赞数（匹配ES主键id）
-     */
-    @ApiOperation(value = "更新文档点赞数（匹配ES主键id）")
-    @PostMapping("/updateDocumentLike")
-    public ResultDTO<Boolean> updateDocumentLike(@RequestBody UpdateDocumentLikeCommand updateDocumentLikeCommand) {
-        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentLike(updateDocumentLikeCommand));
-    }
-
-    /**
-     * 更新文档阅读数（匹配ES主键id）
-     */
-    @ApiOperation(value = "更新文档阅读数（匹配ES主键id）")
-    @PostMapping("/updateDocumentRead")
-    public ResultDTO<Boolean> updateDocumentRead(@RequestBody UpdateDocumentReadCommand updateDocumentReadCommand) {
-        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentRead(updateDocumentReadCommand));
-    }
-
-    /**
-     * 更新文档评论数（匹配ES主键id）
-     */
-    @ApiOperation(value = "更新文档评论数（匹配ES主键id）")
-    @PostMapping("/updateDocumentCommentNum")
-    public ResultDTO<Boolean> updateDocumentCommentNum(@RequestBody UpdateDocumentCommentNumCommand updateDocumentCommentNumCommand) {
-        return ResultDTO.getSuccessResult(documentCommandService.updateDocumentCommentNum(updateDocumentCommentNumCommand));
-    }
-
-    /**
-     * 删除文档（匹配ES主键id）
-     */
-    @ApiOperation(value = "删除文档（匹配ES主键id）")
-    @PostMapping("/deleteDocument")
-    public ResultDTO<Boolean> deleteDocument(@RequestBody DeleteDocumentCommand deleteDocumentCommand) {
-        return ResultDTO.getSuccessResult(documentCommandService.deleteDocument(deleteDocumentCommand));
+    @ApiOperation(value = "更新文档（匹配ES主键id）")
+    @PostMapping("/updateDocument")
+    public ResultDTO<Boolean> updateDocument(@RequestBody UpdateDocumentCommand updateDocumentCommand) {
+        return ResultDTO.getSuccessResult(documentCommandService.updateDocument(updateDocumentCommand));
     }
 
     /**

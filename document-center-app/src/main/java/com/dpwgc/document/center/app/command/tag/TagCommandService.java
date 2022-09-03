@@ -1,11 +1,8 @@
 package com.dpwgc.document.center.app.command.tag;
 
-import com.dpwgc.document.center.sdk.model.tag.DeleteTagCommand;
-import com.dpwgc.document.center.sdk.model.tag.UpdateTagNumberCommand;
+import com.dpwgc.document.center.sdk.model.tag.UpdateTagCommand;
 
 public interface TagCommandService {
 
-    Boolean updateTagNumber(UpdateTagNumberCommand updateTagNumberCommand);
-
-    Boolean deleteTag(DeleteTagCommand deleteTagCommand);
+    Boolean updateTag(UpdateTagCommand updateTagCommand);
 }

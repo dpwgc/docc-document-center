@@ -45,11 +45,6 @@ public class DocumentMapperImpl implements DocumentMapper {
         return esClient.updateDocument(indexName,documentPO.getId(),documentPO);
     }
 
-    @Override
-    public Boolean deleteDocument(DocumentPO documentPO) {
-        return esClient.updateDocument(indexName,documentPO.getId(),documentPO);
-    }
-
     /**
      * 文档检索
      * @return PageBase<List<DocumentPO>>

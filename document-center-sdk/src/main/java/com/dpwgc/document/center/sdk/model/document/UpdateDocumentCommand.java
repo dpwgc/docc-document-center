@@ -5,10 +5,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "文档信息-DTO")
+import java.util.List;
+
+@ApiModel(value = "更新文档主要内容-接口参数")
 @Getter
 @Setter
-public class DocumentDTO {
+public class UpdateDocumentCommand {
 
     /**
      * ES主键id
@@ -21,18 +23,6 @@ public class DocumentDTO {
      */
     @ApiModelProperty(value = "分类id")
     private String categoryId;
-
-    /**
-     * 作者id
-     */
-    @ApiModelProperty(value = "作者id")
-    private String authorId;
-
-    /**
-     * 文档id
-     */
-    @ApiModelProperty(value = "文档id")
-    private String documentId;
 
     /**
      * 文档标题
@@ -50,7 +40,7 @@ public class DocumentDTO {
      * 文档标签
      */
     @ApiModelProperty(value = "文档标签")
-    private String tags;
+    private List<String> tags;
 
     /**
      * 文档总结摘要
@@ -71,18 +61,6 @@ public class DocumentDTO {
     private Long score;
 
     /**
-     * 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）
-     */
-    @ApiModelProperty(value = "文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）")
-    private Integer filter;
-
-    /**
-     * 文档属性（自定义，例：1-转载文章、2-原创文章）
-     */
-    @ApiModelProperty(value = "文档属性（自定义，例：1-转载文章、2-原创文章）")
-    private Integer attr;
-
-    /**
      * 文档收藏数（可按此字段对文档进行排序）
      */
     @ApiModelProperty(value = "文档收藏数（可按此字段对文档进行排序）")
@@ -101,10 +79,22 @@ public class DocumentDTO {
     private Long readNum;
 
     /**
-     * 文档评论数
+     * 文档评论总数（可按此字段对文档进行排序）
      */
-    @ApiModelProperty(value = "文档评论数（可按此字段对文档进行排序）")
+    @ApiModelProperty(value = "文档评论总数（可按此字段对文档进行排序）")
     private Long commentNum;
+
+    /**
+     * 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）
+     */
+    @ApiModelProperty(value = "文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）")
+    private Integer filter;
+
+    /**
+     * 文档属性（自定义，例：1-转载文章、2-原创文章）
+     */
+    @ApiModelProperty(value = "文档属性（自定义，例：1-转载文章、2-原创文章）")
+    private Integer attr;
 
     /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
@@ -113,14 +103,8 @@ public class DocumentDTO {
     private Integer type;
 
     /**
-     * 文档创建时间
+     * 文档状态（0-删除，1-正常）
      */
-    @ApiModelProperty(value = "文档创建时间")
-    private Long createTime;
-
-    /**
-     * 文档更新时间
-     */
-    @ApiModelProperty(value = "文档更新时间")
-    private Long updateTime;
+    @ApiModelProperty(value = "文档状态（0-删除，1-正常）")
+    private Integer status;
 }
