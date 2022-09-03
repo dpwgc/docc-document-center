@@ -14,36 +14,19 @@ public class LogUtil {
     private static final Logger LOGGER= LoggerFactory.getLogger(LogUtil.class);
 
 
-    public static void info(String log) {
-        preprocessing(log);
-        LOGGER.info(log);
+    public static void info(String title,String content,String filter) {
+        LOGGER.info(String.format("<title> { %s } <content> { %s } <filter> { %s }",title,content,filter));
     }
 
-    public static void error(String log) {
-        preprocessing(log);
-        LOGGER.error(log);
+    public static void error(String title,String content,String filter) {
+        LOGGER.error(String.format("<title> { %s } <content> { %s } <filter> { %s }",title,content,filter));
     }
 
-    public static void warn(String log) {
-        preprocessing(log);
-        LOGGER.warn(log);
+    public static void warn(String title,String content,String filter) {
+        LOGGER.warn(String.format("<title> { %s } <content> { %s } <filter> { %s }",title,content,filter));
     }
 
-    public static void debug(String log) {
-        preprocessing(log);
-        LOGGER.debug(log);
-    }
-
-    public static void trace(String log) {
-        preprocessing(log);
-        LOGGER.trace(log);
-    }
-
-    /**
-     * 在日志被写入本地之前的处理程序
-     * @param log
-     */
-    private static void preprocessing(String log) {
-        return;
+    public static void debug(String title,String content,String filter) {
+        LOGGER.debug(String.format("<title> { %s } <content> { %s } <filter> { %s }",title,content,filter));
     }
 }

@@ -65,11 +65,11 @@ public class IdGenUtil implements ApplicationContextAware {
         String msg;
         if (workerId > maxWorkerId || workerId < 0) {
             msg = String.format("worker Id can't be greater than %d or less than 0", maxWorkerId);
-            LogUtil.error(msg);
+            LogUtil.error("IdGenUtil.init() error",msg,"IdGen");
         }
         if (datacenterId > maxDatacenterId || datacenterId < 0) {
             msg = String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId);
-            LogUtil.error(msg);
+            LogUtil.error("IdGenUtil.init() error",msg,"IdGen");
         }
     }
 
@@ -82,7 +82,7 @@ public class IdGenUtil implements ApplicationContextAware {
         long timestamp = timeGen();
         if (timestamp < lastTimestamp) {
             String msg = String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp);
-            LogUtil.error(msg);
+            LogUtil.error("IdGenUtil.nextId() error",msg,"IdGen");
         }
         if (timestamp == lastTimestamp) {
             sequence = (sequence + 1) & maxSequence;

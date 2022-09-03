@@ -18,6 +18,7 @@ import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -35,14 +36,9 @@ public class ESClient {
      * @param indexName 索引名称
      * @return Boolean
      */
-    public Boolean existsIndex(String indexName) {
-        try {
-            BooleanResponse booleanResponse = client.indices().exists(exists -> exists.index(indexName));
-            return booleanResponse.value();
-        } catch (Exception e) {
-            LogUtil.error("es exists index error: " + e);
-            return false;
-        }
+    public Boolean existsIndex(String indexName) throws IOException {
+        BooleanResponse booleanResponse = client.indices().exists(exists -> exists.index(indexName));
+        return booleanResponse.value();
     }
 
     /**
@@ -51,15 +47,8 @@ public class ESClient {
      * @param indexName 索引名称
      * @return Boolean
      */
-    public Boolean createIndex(String indexName) {
-        try {
-            CreateIndexResponse indexResponse = client.indices().create(create -> create.index(indexName));
-            LogUtil.info("create index: " + indexResponse.index());
-            return true;
-        } catch (Exception e) {
-            LogUtil.error("es create index error: " + e);
-            return false;
-        }
+    public void createIndex(String indexName) throws IOException {
+        client.indices().create(create -> create.index(indexName));
     }
 
     /**
@@ -69,22 +58,17 @@ public class ESClient {
      * @param documentPO 文档对象
      * @return 主键id
      */
-    public String insertDocument(String indexName, DocumentPO documentPO) {
+    public String insertDocument(String indexName, DocumentPO documentPO) throws IOException {
 
-        try {
-            //DocumentPO转Json字符串
-            String documentJson = JsonUtil.toJson(documentPO);
+        //DocumentPO转Json字符串
+        String documentJson = JsonUtil.toJson(documentPO);
 
-            //写入ES
-            IndexResponse indexResponse = client.index(index -> index
-                    .index(indexName)
-                    .document(JsonUtil.fromJson(documentJson, Map.class)));
+        //写入ES
+        IndexResponse indexResponse = client.index(index -> index
+                .index(indexName)
+                .document(JsonUtil.fromJson(documentJson, Map.class)));
 
-            return indexResponse.id();
-        } catch (Exception e) {
-            LogUtil.error("es insert document error: " + e);
-            return null;
-        }
+        return indexResponse.id();
     }
 
     /**
@@ -95,43 +79,17 @@ public class ESClient {
      * @param documentPO 文档对象
      * @return Boolean
      */
-    public Boolean updateDocument(String indexName, String id, DocumentPO documentPO) {
+    public Boolean updateDocument(String indexName, String id, DocumentPO documentPO) throws IOException {
 
-        try {
-            //DocumentPO转Json字符串
-            String documentJson = JsonUtil.toJson(documentPO);
+        //DocumentPO转Json字符串
+        String documentJson = JsonUtil.toJson(documentPO);
 
-            client.update(update -> update
-                            .index(indexName)
-                            .id(id)
-                            .doc(JsonUtil.fromJson(documentJson, Map.class))
-                    , Map.class);
-            return true;
-        } catch (Exception e) {
-            LogUtil.error("es update document error: " + e);
-            return false;
-        }
-    }
-
-    /**
-     * 删除文档
-     *
-     * @param indexName 索引名称
-     * @param id        主键id
-     * @return Boolean
-     */
-    public Boolean deleteDocument(String indexName, String id) {
-
-        try {
-            client.delete(delete -> delete
-                    .index(indexName)
-                    .id(id)
-            );
-            return true;
-        } catch (Exception e) {
-            LogUtil.error("es delete document error: " + e);
-            return false;
-        }
+        UpdateResponse updateResponse = client.update(update -> update
+                        .index(indexName)
+                        .id(id)
+                        .doc(JsonUtil.fromJson(documentJson, Map.class))
+                , Map.class);
+        return updateResponse.id().length() > 0;
     }
 
     // ============ 检索操作 ============
@@ -143,40 +101,35 @@ public class ESClient {
      * @param id        主键id
      * @return List<Hit < Object>>
      */
-    public List<Hit<Object>> searchDocumentById(String indexName, String id) {
+    public List<Hit<Object>> searchDocumentById(String indexName, String id) throws IOException {
 
-        try {
-            SearchResponse<Object> search = client.search(s -> s
-                    .index(indexName)
-                    .query(query -> query
-                            .bool(bool -> bool
-                                    .must(must -> must
-                                            .match(match -> match
-                                                    .field("id")
-                                                    .query(id)
-                                            )
-                                    )
-                                    .must(must -> must
-                                            .match(match -> match
-                                                    .field("status")
-                                                    .query(Status.NORMAL)
-                                            )
-                                    )
-                            )
-                    )
-                    , Object.class
-            );
-            return search.hits().hits();
-        } catch (Exception e) {
-            LogUtil.error("es search document by id error: " + e);
-            return null;
-        }
+        SearchResponse<Object> search = client.search(s -> s
+                        .index(indexName)
+                        .query(query -> query
+                                .bool(bool -> bool
+                                        .must(must -> must
+                                                .match(match -> match
+                                                        .field("id")
+                                                        .query(id)
+                                                )
+                                        )
+                                        .must(must -> must
+                                                .match(match -> match
+                                                        .field("status")
+                                                        .query(Status.NORMAL)
+                                                )
+                                        )
+                                )
+                        )
+                , Object.class
+        );
+        return search.hits().hits();
     }
 
     /**
      * 文档检索
      */
-    public PageBase<List<Hit<Object>>> searchDocument(String indexName, DocumentQuery documentQuery) {
+    public PageBase<List<Hit<Object>>> searchDocument(String indexName, DocumentQuery documentQuery) throws IOException {
 
         BoolQuery.Builder bool = new BoolQuery.Builder();
         if (isEnable(documentQuery.getAppId())) {
@@ -270,36 +223,32 @@ public class ESClient {
                         .lt(JsonData.of(documentQuery.getEndUpdateTime()))
                 )
         );
-        try {
-            // 检索分类id(精准查询)
-            SearchResponse<Object> search = client.search(s -> s
-                    .index(indexName)
-                    .query(query -> query
-                            .bool(bool.build())
-                    )
-                    //过滤，不返回该字段信息
-                    .source(source -> source
-                            .filter(filter -> filter
-                                    .excludes("content")
-                            )
-                    )
-                    //分页查询
-                    .from(documentQuery.getPageIndex())
-                    .size(documentQuery.getPageSize())
-                    //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                    .sort(sort -> sort.field(field -> field.field(documentQuery.getSortField()).order(documentQuery.getSortOrder()))), Object.class
-            );
-            return PageBase.getPageBase(search.hits().total().value(), search.hits().hits());
-        } catch (Exception e) {
-            LogUtil.error("es search document error: " + e);
-            return null;
-        }
+
+        // 检索分类id(精准查询)
+        SearchResponse<Object> search = client.search(s -> s
+                .index(indexName)
+                .query(query -> query
+                        .bool(bool.build())
+                )
+                //过滤，不返回该字段信息
+                .source(source -> source
+                        .filter(filter -> filter
+                                .excludes("content")
+                        )
+                )
+                //分页查询
+                .from(documentQuery.getPageIndex())
+                .size(documentQuery.getPageSize())
+                //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
+                .sort(sort -> sort.field(field -> field.field(documentQuery.getSortField()).order(documentQuery.getSortOrder()))), Object.class
+        );
+        return PageBase.getPageBase(search.hits().total().value(), search.hits().hits());
     }
 
     /**
      * 文档数据聚合统计
      */
-    public Map<String, Aggregate> aggregationsDocument(String indexName, AggregationsQuery aggregationsQuery) {
+    public Map<String, Aggregate> aggregationsDocument(String indexName, AggregationsQuery aggregationsQuery) throws IOException {
         //
         BoolQuery.Builder bool = new BoolQuery.Builder();
         if (isEnable(aggregationsQuery.getAppId())) {
@@ -349,29 +298,25 @@ public class ESClient {
                         .query(Status.NORMAL)
                 )
         );
-        try {
-            // 检索分类id(精准查询)
-            SearchResponse<Object> search = client.search(s -> s
-                    .index(indexName)
-                    .query(query -> query
-                            .bool(bool.build())
-                    )
-                    //聚合统计-该分类旗下的文档收藏总数、点赞总数、阅读量总数、评论总数、正常文档总数
-                    .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love")))
-                    .aggregations("likeTotal", aggregations -> aggregations.sum(sum -> sum.field("like")))
-                    .aggregations("readTotal", aggregations -> aggregations.sum(sum -> sum.field("read")))
-                    .aggregations("commentTotal", aggregations -> aggregations.sum(sum -> sum.field("comment_num")))
-                    .aggregations("documentTotal", aggregations -> aggregations.sum(sum -> sum.field("status")))
-                    //分页查询
-                    .from(0)
-                    .size(0)
-                    , Object.class
-            );
-            return search.aggregations();
-        } catch (Exception e) {
-            LogUtil.error("es aggregations document error: " + e);
-            return null;
-        }
+
+        // 检索分类id(精准查询)
+        SearchResponse<Object> search = client.search(s -> s
+                        .index(indexName)
+                        .query(query -> query
+                                .bool(bool.build())
+                        )
+                        //聚合统计-该分类旗下的文档收藏总数、点赞总数、阅读量总数、评论总数、正常文档总数
+                        .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love")))
+                        .aggregations("likeTotal", aggregations -> aggregations.sum(sum -> sum.field("like")))
+                        .aggregations("readTotal", aggregations -> aggregations.sum(sum -> sum.field("read")))
+                        .aggregations("commentTotal", aggregations -> aggregations.sum(sum -> sum.field("comment_num")))
+                        .aggregations("documentTotal", aggregations -> aggregations.sum(sum -> sum.field("status")))
+                        //分页查询
+                        .from(0)
+                        .size(0)
+                , Object.class
+        );
+        return search.aggregations();
     }
 
     private boolean isEnable(String field) {

@@ -11,5 +11,5 @@ public interface CategoryQueryService {
 
     List<CategoryDTO> queryCategoryByParentId(String appId, String parentId);
 
-    String queryDetailByCategoryId(String categoryId);
+    String queryDetailByCategoryId(String appId, String categoryId);
 }

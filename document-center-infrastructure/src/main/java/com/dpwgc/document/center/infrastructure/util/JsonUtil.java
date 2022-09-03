@@ -12,7 +12,7 @@ public class JsonUtil {
             //将对象转为json字符串
             return jsonMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            LogUtil.error("JsonUtil.toJson error: "+e);
+            LogUtil.error("JsonUtil.toJson() error: ",e.getMessage(),"json");
             return null;
         }
     }
@@ -23,7 +23,7 @@ public class JsonUtil {
         try {
             return jsonMapper.readValue(json, tClass);
         } catch (JsonProcessingException e) {
-            LogUtil.error("JsonUtil.fromJson error: "+e);
+            LogUtil.error("JsonUtil.fromJson() error: ",e.getMessage(),"json");
             return null;
         }
     }

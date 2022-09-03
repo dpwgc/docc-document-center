@@ -2,6 +2,7 @@ package com.dpwgc.document.center.ui.interfaces.tag;
 
 import com.dpwgc.document.center.app.command.tag.TagCommandService;
 import com.dpwgc.document.center.app.query.tag.TagQueryService;
+import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
 import com.dpwgc.document.center.sdk.model.tag.UpdateTagCommand;
@@ -32,7 +33,12 @@ public class TagController {
     @ApiOperation(value = "后台修改标签")
     @PostMapping("/updateTag")
     public ResultDTO<Boolean> updateTag(UpdateTagCommand updateTagCommand) {
-        return ResultDTO.getSuccessResult(tagCommandService.updateTag(updateTagCommand));
+        try {
+            return ResultDTO.getSuccessResult(tagCommandService.updateTag(updateTagCommand));
+        } catch (Exception e) {
+            LogUtil.error("updateTag error",e.getMessage(),"tag");
+            return ResultDTO.getFailureResult(e.getMessage());
+        }
     }
 
     /**
@@ -49,7 +55,11 @@ public class TagController {
                                                         @ApiParam(value = "标签更新时间区间的起始位置") Long startUpdateTime,
                                                         @ApiParam(value = "标签更新时间区间的结束位置") Long endUpdateTime,
                                                         @ApiParam(value = "返回标签数量上限") Integer pageSize) {
-
-        return ResultDTO.getSuccessResult(tagQueryService.listTagsByNumberDesc(appId,startUpdateTime,endUpdateTime,pageSize));
+        try {
+            return ResultDTO.getSuccessResult(tagQueryService.listTagsByNumberDesc(appId,startUpdateTime,endUpdateTime,pageSize));
+        } catch (Exception e) {
+            LogUtil.error("listTagsByNumberDesc error",e.getMessage(),"tag");
+            return ResultDTO.getFailureResult(e.getMessage());
+        }
     }
 }

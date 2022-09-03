@@ -12,6 +12,7 @@ import com.dpwgc.document.center.sdk.model.document.DocumentDTO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * List<DocumentDTO>
      */
     @Override
-    public DocumentDTO queryDocumentById(String id) {
+    public DocumentDTO queryDocumentById(String id) throws IOException {
         DocumentPO documentPO = documentMapper.queryDocumentById(id);
         return DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO);
     }
@@ -38,7 +39,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * List<DocumentDTO>
      */
     @Override
-    public List<DocumentDTO> queryDocumentByIdList(List<String> idList) {
+    public List<DocumentDTO> queryDocumentByIdList(List<String> idList) throws IOException {
         List<DocumentDTO> documentDTOList = new ArrayList<>();
         for (String id : idList) {
             DocumentPO documentPO = documentMapper.queryDocumentById(id);
@@ -52,7 +53,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public PageBase<List<DocumentDTO>> searchDocument(DocumentQuery documentQuery) {
+    public PageBase<List<DocumentDTO>> searchDocument(DocumentQuery documentQuery) throws IOException {
         PageBase<List<DocumentPO>> pageBase = documentMapper.searchDocument(documentQuery);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
         for (DocumentPO documentPO : pageBase.getList()) {
@@ -66,7 +67,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @return DocumentAggregationsDTO
      */
     @Override
-    public AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery) {
+    public AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery) throws IOException {
         return documentMapper.aggregationsDocument(aggregationsQuery);
     }
 }

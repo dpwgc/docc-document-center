@@ -47,29 +47,27 @@ public class BaseConfig implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
 
-        LogUtil.info("\n");
+        System.out.println("\n==================== configuration ====================" +
+                "\n<application> [name]: "+applicationName +
+                "\n<datasource> [url]: "+datasourceUrl +
+                "\n<elasticsearch> [url]: "+elasticsearchUrl+"    [index]: "+elasticsearchIndexName +
+                "\n<cluster> [datacenter_id]: "+datacenterId+"    [worker_id]: "+workerId +
+                "\n<monitor> [url]: http://localhost:"+serverPort+contextPath+"/monitor.html" +
+                "\n<swagger api doc> [url]: http://localhost:"+serverPort+contextPath+"/doc.html" +
+                "\n==================== elasticsearch index ====================");
 
-        LogUtil.info("==================== configuration ====================");
-
-        LogUtil.info("<application> [name]: "+applicationName);
-
-        LogUtil.info("<datasource> [url]: "+datasourceUrl);
-
-        LogUtil.info("<elasticsearch> [url]: "+elasticsearchUrl+"    [index]: "+elasticsearchIndexName);
-
-        LogUtil.info("<cluster> [datacenter_id]: "+datacenterId+"    [worker_id]: "+workerId);
-
-        LogUtil.info("<monitor> [url]: http://localhost:"+serverPort+contextPath+"/monitor.html");
-
-        LogUtil.info("<swagger api doc> [url]: http://localhost:"+serverPort+contextPath+"/doc.html");
-
-        LogUtil.info("==================== elasticsearch index ====================");
-
-        if (!esClient.existsIndex(elasticsearchIndexName)) {
-            LogUtil.info("elasticsearch index does not exist");
-            if (esClient.createIndex(elasticsearchIndexName)) {
-                LogUtil.info("elasticsearch index creation succeeded");
+        try {
+            if (!esClient.existsIndex(elasticsearchIndexName)) {
+                LogUtil.info("existsIndex","elasticsearch index does not exist","esClient");
+                try {
+                    esClient.createIndex(elasticsearchIndexName);
+                    LogUtil.info("createIndex","elasticsearch index creation succeeded","esClient");
+                } catch (Exception e) {
+                    LogUtil.error("createIndex error",e.getMessage(),"esClient");
+                }
             }
+        } catch (Exception e) {
+            LogUtil.error("existsIndex error",e.getMessage(),"esClient");
         }
     }
 }

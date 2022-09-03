@@ -3,7 +3,6 @@ package com.dpwgc.document.center.infrastructure.assembler;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.util.JsonUtil;
-import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,13 +15,8 @@ public class HitToDocumentPOAssembler {
      * elasticsearch的Hit对象转DocumentPO对象
      */
     public DocumentPO assemblerDocumentPO(Hit<Object> hit) {
-        try {
-            String hitJson = JsonUtil.toJson(hit.source());
-            return JsonUtil.fromJson(hitJson,DocumentPO.class);
-        } catch (Exception e) {
-            LogUtil.error("HitToDocumentPOAssembler.assemblerDocumentPO error: "+e.toString());
-            return null;
-        }
+        String hitJson = JsonUtil.toJson(hit.source());
+        return JsonUtil.fromJson(hitJson,DocumentPO.class);
     }
 
     /**

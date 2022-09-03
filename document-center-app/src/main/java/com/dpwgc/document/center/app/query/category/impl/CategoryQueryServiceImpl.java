@@ -106,13 +106,14 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
      * @return CategoryDTO
      */
     @Override
-    public String queryDetailByCategoryId(String categoryId) {
+    public String queryDetailByCategoryId(String appId, String categoryId) {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
 
         //要查询的字段
         queryWrapper.select("detail");
 
+        queryWrapper.eq("app_id",appId);
         queryWrapper.eq("category_id",categoryId);
         queryWrapper.eq("status", Status.NORMAL);
 

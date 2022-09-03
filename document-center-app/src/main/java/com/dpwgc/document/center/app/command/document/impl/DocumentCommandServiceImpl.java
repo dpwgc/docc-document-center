@@ -13,6 +13,7 @@ import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.model.document.*;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.io.IOException;
 
 @Service
 public class DocumentCommandServiceImpl implements DocumentCommandService {
@@ -27,7 +28,7 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
     TagRepository tagRepository;
 
     @Override
-    public String createDocument(CreateDocumentCommand createDocumentCommand) {
+    public String createDocument(CreateDocumentCommand createDocumentCommand) throws IOException {
 
         DocumentFactory documentFactory = new DocumentFactory();
         Document document = documentFactory.create(
@@ -51,7 +52,7 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
             TagFactory tagFactory = new TagFactory();
             if (!tagRepository.createTag(tagFactory.create(createDocumentCommand.getAppId(), tag))) {
                 //写入失败
-                LogUtil.error("tagRepository.createTag return false "+tag);
+                LogUtil.error("createTag error","tagRepository.createTag() return false","tag");
                 return null;
             }
         }
@@ -61,7 +62,7 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
     }
 
     @Override
-    public Boolean updateDocument(UpdateDocumentCommand updateDocumentCommand) {
+    public Boolean updateDocument(UpdateDocumentCommand updateDocumentCommand) throws IOException {
 
         Document document = DocumentAssembler.INSTANCE.assembleDocumentFromUpdate(updateDocumentCommand);
 

@@ -5,6 +5,8 @@ import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
 import com.dpwgc.document.center.sdk.model.document.AggregationsDTO;
 import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 import com.dpwgc.document.center.sdk.model.document.DocumentDTO;
+
+import java.io.IOException;
 import java.util.List;
 
 public interface DocumentQueryService {
@@ -14,23 +16,23 @@ public interface DocumentQueryService {
      * @param id ES主键id
      * @return DocumentDTO
      */
-    DocumentDTO queryDocumentById(String id);
+    DocumentDTO queryDocumentById(String id) throws IOException;
 
     /**
      * 根据ES主键id集合查询文档
      * @param idList ES主键id集合
      * @return List<DocumentDTO>
      */
-    List<DocumentDTO> queryDocumentByIdList(List<String> idList);
+    List<DocumentDTO> queryDocumentByIdList(List<String> idList) throws IOException;
 
     /**
      * 文档检索
      */
-    PageBase<List<DocumentDTO>> searchDocument(DocumentQuery documentQuery);
+    PageBase<List<DocumentDTO>> searchDocument(DocumentQuery documentQuery) throws IOException;
 
     /**
      * 文档数据聚合统计
      */
-    AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery);
+    AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery) throws IOException;
 
 }
