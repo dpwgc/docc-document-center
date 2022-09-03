@@ -8,7 +8,6 @@ import com.dpwgc.document.center.domain.document.DocumentRepository;
 import com.dpwgc.document.center.domain.tag.TagFactory;
 import com.dpwgc.document.center.domain.tag.TagRepository;
 import com.dpwgc.document.center.infrastructure.util.IdGenUtil;
-import com.dpwgc.document.center.infrastructure.util.JsonUtil;
 import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.model.document.*;
 import org.springframework.stereotype.Service;
