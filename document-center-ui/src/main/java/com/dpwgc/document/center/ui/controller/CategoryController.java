@@ -1,4 +1,4 @@
-package com.dpwgc.document.center.ui.interfaces;
+package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.category.CategoryCommandService;
 import com.dpwgc.document.center.app.query.category.CategoryQueryService;
