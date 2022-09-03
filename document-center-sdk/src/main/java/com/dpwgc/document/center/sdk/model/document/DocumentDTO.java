@@ -53,6 +53,18 @@ public class DocumentDTO {
     private String tags;
 
     /**
+     * 文档备注
+     */
+    @ApiModelProperty(value = "文档备注")
+    private String remarks;
+
+    /**
+     * 文档附加内容（自定义）
+     */
+    @ApiModelProperty(value = "文档附加内容（自定义）")
+    private String extra;
+
+    /**
      * 文档总结摘要
      */
     @ApiModelProperty(value = "文档总结摘要")

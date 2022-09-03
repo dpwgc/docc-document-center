@@ -58,6 +58,18 @@ public class DocumentPO {
     private String tags;
 
     /**
+     * 文档备注
+     */
+    @JsonProperty("remarks")
+    private String remarks;
+
+    /**
+     * 文档附加内容（自定义）
+     */
+    @JsonProperty("extra")
+    private String extra;
+
+    /**
      * 文档总结摘要
      */
     @JsonProperty("summary")
