@@ -5,12 +5,11 @@ import co.elastic.clients.elasticsearch._types.aggregations.Aggregate;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch.core.*;
 import co.elastic.clients.elasticsearch.core.search.Hit;
-import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
+import co.elastic.clients.elasticsearch.core.search.SourceFilter;
 import co.elastic.clients.json.JsonData;
 import co.elastic.clients.transport.endpoints.BooleanResponse;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.util.JsonUtil;
-import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
@@ -240,17 +239,20 @@ public class ESClient {
                 )
         );
 
+        //是否显示文档主体内容
+        SourceFilter.Builder filter = new SourceFilter.Builder();
+        if (!documentQuery.getShowContent()) {
+            filter.excludes("content");
+        }
+
         // 检索分类id(精准查询)
         SearchResponse<Object> search = client.search(s -> s
                 .index(indexName)
                 .query(query -> query
                         .bool(bool.build())
                 )
-                //过滤，不返回该字段信息
                 .source(source -> source
-                        .filter(filter -> filter
-                                .excludes("content")
-                        )
+                        .filter(filter.build())
                 )
                 //分页查询
                 .from(documentQuery.getPageIndex())

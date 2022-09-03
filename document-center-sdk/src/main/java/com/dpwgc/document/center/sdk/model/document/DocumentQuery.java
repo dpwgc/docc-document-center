@@ -55,4 +55,7 @@ public class DocumentQuery {
 
     @ApiModelProperty(value = "分页大小")
     private Integer pageSize;
+
+    @ApiModelProperty(value = "是否显示文档主体内容")
+    private Boolean showContent;
 }
