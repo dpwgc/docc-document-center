@@ -38,7 +38,7 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
                 idGenUtil.nextIdString(),
                 createDocumentCommand.getTitle(),
                 createDocumentCommand.getContent(),
-                JsonUtil.toJson(createDocumentCommand.getTags()),
+                createDocumentCommand.getTags(),
                 createDocumentCommand.getSummary(),
                 createDocumentCommand.getAuthLevel(),
                 createDocumentCommand.getScore(),

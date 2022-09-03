@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class DocumentPO {
@@ -55,7 +57,7 @@ public class DocumentPO {
      * 文档标签
      */
     @JsonProperty("tags")
-    private String tags;
+    private List<String> tags;
 
     /**
      * 文档备注

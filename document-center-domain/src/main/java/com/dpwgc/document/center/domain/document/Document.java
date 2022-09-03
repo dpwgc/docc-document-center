@@ -3,6 +3,8 @@ package com.dpwgc.document.center.domain.document;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * 文档
  */
@@ -48,7 +50,7 @@ public class Document {
     /**
      * 文档标签
      */
-    private String tags;
+    private List<String> tags;
 
     /**
      * 文档备注
@@ -125,7 +127,7 @@ public class Document {
      */
     private Long updateTime;
 
-    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, String tags, String summary, Integer authLevel, Long score, Integer filter, Integer attr, Integer type) {
+    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, List<String> tags, String summary, Integer authLevel, Long score, Integer filter, Integer attr, Integer type) {
 
         this.status = 1;
 
