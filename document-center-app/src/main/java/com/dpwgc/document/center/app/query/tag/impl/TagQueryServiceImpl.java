@@ -8,6 +8,7 @@ import com.dpwgc.document.center.infrastructure.dal.tag.entity.TagPO;
 import com.dpwgc.document.center.infrastructure.dal.tag.mapper.TagMapper;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
+import com.dpwgc.document.center.sdk.model.tag.TagQuery;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,16 +23,13 @@ public class TagQueryServiceImpl implements TagQueryService {
 
     /**
      * 获取在指定时间区间内活跃的标签列表（按number文档数量降序排序）
-     * @param appId 应用id
-     * @param startUpdateTime 标签更新时间区间的起始位置
-     * @param endUpdateTime 标签更新时间区间的结束位置
-     * @param pageSize 最多返回几个标签
+     * @param tagQuery 检索条件
      * @return List<TagDTO>
      */
     @Override
-    public List<TagDTO> listTagsByNumberDesc(String appId, Long startUpdateTime, Long endUpdateTime, Integer pageSize) {
+    public List<TagDTO> listTagsByNumberDesc(TagQuery tagQuery) {
 
-        Page<TagPO> page = new Page<>(0, pageSize);
+        Page<TagPO> page = new Page<>(tagQuery.getPageIndex(), tagQuery.getPageSize());
 
         QueryWrapper<TagPO> queryWrapper = new QueryWrapper<>();
 
@@ -39,12 +37,12 @@ public class TagQueryServiceImpl implements TagQueryService {
         queryWrapper.select("tag_name","number","create_time","update_time");
 
         //查询指定应用的标签
-        queryWrapper.eq("app_id",appId);
+        queryWrapper.eq("app_id",tagQuery.getAppId());
         queryWrapper.eq("status", Status.NORMAL);
 
         //匹配时间区间
-        queryWrapper.ge("update_time",startUpdateTime); // >=
-        queryWrapper.lt("update_time",endUpdateTime);   // <
+        queryWrapper.ge("update_time",tagQuery.getStartUpdateTime()); // >=
+        queryWrapper.lt("update_time",tagQuery.getEndUpdateTime());   // <
 
         //排序
         queryWrapper.orderByDesc("number");

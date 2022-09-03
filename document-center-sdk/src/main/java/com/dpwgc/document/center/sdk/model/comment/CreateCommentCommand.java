@@ -1,4 +1,4 @@
 package com.dpwgc.document.center.sdk.model.comment;
 
-public class SubCommentDTO {
+public class CreateCommentCommand {
 }

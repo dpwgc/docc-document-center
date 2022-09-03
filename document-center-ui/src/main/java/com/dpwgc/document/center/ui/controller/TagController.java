@@ -5,10 +5,10 @@ import com.dpwgc.document.center.app.query.tag.TagQueryService;
 import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
+import com.dpwgc.document.center.sdk.model.tag.TagQuery;
 import com.dpwgc.document.center.sdk.model.tag.UpdateTagCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
@@ -32,7 +32,7 @@ public class TagController {
      */
     @ApiOperation(value = "后台修改标签")
     @PostMapping("/updateTag")
-    public ResultDTO<Boolean> updateTag(UpdateTagCommand updateTagCommand) {
+    public ResultDTO<Boolean> updateTag(@RequestBody UpdateTagCommand updateTagCommand) {
         try {
             return ResultDTO.getSuccessResult(tagCommandService.updateTag(updateTagCommand));
         } catch (Exception e) {
@@ -43,20 +43,14 @@ public class TagController {
 
     /**
      * 获取在指定时间区间内活跃的标签列表（按number文档数量降序排序）
-     * @param appId 应用id
-     * @param startUpdateTime 标签更新时间区间的起始位置
-     * @param endUpdateTime 标签更新时间区间的结束位置
-     * @param pageSize 返回标签数量上限
+     * @param tagQuery 检索条件
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "获取在指定时间区间内活跃的标签列表（按number文档数量降序排序）")
     @GetMapping("/listTagsByNumberDesc")
-    public ResultDTO<List<TagDTO>> listTagsByNumberDesc(@ApiParam(value = "应用id") String appId,
-                                                        @ApiParam(value = "标签更新时间区间的起始位置") Long startUpdateTime,
-                                                        @ApiParam(value = "标签更新时间区间的结束位置") Long endUpdateTime,
-                                                        @ApiParam(value = "返回标签数量上限") Integer pageSize) {
+    public ResultDTO<List<TagDTO>> listTagsByNumberDesc(@ModelAttribute TagQuery tagQuery) {
         try {
-            return ResultDTO.getSuccessResult(tagQueryService.listTagsByNumberDesc(appId,startUpdateTime,endUpdateTime,pageSize));
+            return ResultDTO.getSuccessResult(tagQueryService.listTagsByNumberDesc(tagQuery));
         } catch (Exception e) {
             LogUtil.error("listTagsByNumberDesc error",e.getMessage(),"tag");
             return ResultDTO.getFailureResult(e.getMessage());
