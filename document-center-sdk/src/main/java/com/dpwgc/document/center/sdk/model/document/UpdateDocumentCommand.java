@@ -40,7 +40,7 @@ public class UpdateDocumentCommand {
      * 文档标签
      */
     @ApiModelProperty(value = "文档标签")
-    private List<String> tags;
+    private String tags;
 
     /**
      * 文档总结摘要
