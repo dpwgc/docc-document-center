@@ -1,8 +1,8 @@
 package com.dpwgc.document.center.app.command.category.impl;
 
+import com.dpwgc.document.center.app.assembler.CategoryAssembler;
 import com.dpwgc.document.center.app.command.category.CategoryCommandService;
 import com.dpwgc.document.center.domain.category.Category;
-import com.dpwgc.document.center.domain.category.CategoryAssembler;
 import com.dpwgc.document.center.domain.category.CategoryFactory;
 import com.dpwgc.document.center.domain.category.CategoryRepository;
 import com.dpwgc.document.center.infrastructure.util.IdGenUtil;

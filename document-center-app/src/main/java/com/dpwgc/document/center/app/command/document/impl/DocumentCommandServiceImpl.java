@@ -1,8 +1,8 @@
 package com.dpwgc.document.center.app.command.document.impl;
 
+import com.dpwgc.document.center.app.assembler.DocumentAssembler;
 import com.dpwgc.document.center.app.command.document.DocumentCommandService;
 import com.dpwgc.document.center.domain.document.Document;
-import com.dpwgc.document.center.domain.document.DocumentAssembler;
 import com.dpwgc.document.center.domain.document.DocumentFactory;
 import com.dpwgc.document.center.domain.document.DocumentRepository;
 import com.dpwgc.document.center.domain.tag.TagFactory;

@@ -1,8 +1,8 @@
 package com.dpwgc.document.center.app.command.tag.impl;
 
+import com.dpwgc.document.center.app.assembler.TagAssembler;
 import com.dpwgc.document.center.app.command.tag.TagCommandService;
 import com.dpwgc.document.center.domain.tag.Tag;
-import com.dpwgc.document.center.domain.tag.TagAssembler;
 import com.dpwgc.document.center.domain.tag.TagRepository;
 import com.dpwgc.document.center.sdk.model.tag.UpdateTagCommand;
 import org.springframework.stereotype.Service;
