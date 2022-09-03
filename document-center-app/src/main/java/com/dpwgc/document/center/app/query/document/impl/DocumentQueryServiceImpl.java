@@ -5,9 +5,9 @@ import com.dpwgc.document.center.app.query.document.DocumentQueryService;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.dal.document.mapper.DocumentMapper;
 import com.dpwgc.document.center.sdk.base.PageBase;
-import com.dpwgc.document.center.sdk.model.document.AggregationsDocumentQuery;
-import com.dpwgc.document.center.sdk.model.document.DocumentAggregationsDTO;
-import com.dpwgc.document.center.sdk.model.document.SearchDocumentQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationsDTO;
+import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 import com.dpwgc.document.center.sdk.model.document.DocumentDTO;
 import org.springframework.stereotype.Service;
 
@@ -52,8 +52,8 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @return PageBase<List<DocumentDTO>>
      */
     @Override
-    public PageBase<List<DocumentDTO>> searchDocument(SearchDocumentQuery searchDocumentQuery) {
-        PageBase<List<DocumentPO>> pageBase = documentMapper.searchDocument(searchDocumentQuery);
+    public PageBase<List<DocumentDTO>> searchDocument(DocumentQuery documentQuery) {
+        PageBase<List<DocumentPO>> pageBase = documentMapper.searchDocument(documentQuery);
         List<DocumentDTO> documentDTOS = new ArrayList<>();
         for (DocumentPO documentPO : pageBase.getList()) {
             documentDTOS.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
@@ -66,7 +66,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @return DocumentAggregationsDTO
      */
     @Override
-    public DocumentAggregationsDTO aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery) {
-        return documentMapper.aggregationsDocument(aggregationsDocumentQuery);
+    public AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery) {
+        return documentMapper.aggregationsDocument(aggregationsQuery);
     }
 }

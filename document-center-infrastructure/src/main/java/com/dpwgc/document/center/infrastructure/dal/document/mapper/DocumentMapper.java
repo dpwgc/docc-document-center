@@ -2,9 +2,9 @@ package com.dpwgc.document.center.infrastructure.dal.document.mapper;
 
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.sdk.base.PageBase;
-import com.dpwgc.document.center.sdk.model.document.AggregationsDocumentQuery;
-import com.dpwgc.document.center.sdk.model.document.DocumentAggregationsDTO;
-import com.dpwgc.document.center.sdk.model.document.SearchDocumentQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationsDTO;
+import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 
 import java.util.List;
 
@@ -20,11 +20,11 @@ public interface DocumentMapper {
      * 文档检索
      * @return PageBase<List<DocumentPO>>
      */
-    PageBase<List<DocumentPO>> searchDocument(SearchDocumentQuery searchDocumentQuery);
+    PageBase<List<DocumentPO>> searchDocument(DocumentQuery documentQuery);
 
     /**
      * 文档数据聚合统计
      * @return DocumentAggregationsDTO
      */
-    DocumentAggregationsDTO aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery);
+    AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery);
 }

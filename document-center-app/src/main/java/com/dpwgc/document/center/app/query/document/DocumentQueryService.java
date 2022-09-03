@@ -1,9 +1,9 @@
 package com.dpwgc.document.center.app.query.document;
 
 import com.dpwgc.document.center.sdk.base.PageBase;
-import com.dpwgc.document.center.sdk.model.document.AggregationsDocumentQuery;
-import com.dpwgc.document.center.sdk.model.document.DocumentAggregationsDTO;
-import com.dpwgc.document.center.sdk.model.document.SearchDocumentQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationsDTO;
+import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 import com.dpwgc.document.center.sdk.model.document.DocumentDTO;
 import java.util.List;
 
@@ -26,11 +26,11 @@ public interface DocumentQueryService {
     /**
      * 文档检索
      */
-    PageBase<List<DocumentDTO>> searchDocument(SearchDocumentQuery searchDocumentQuery);
+    PageBase<List<DocumentDTO>> searchDocument(DocumentQuery documentQuery);
 
     /**
      * 文档数据聚合统计
      */
-    DocumentAggregationsDTO aggregationsDocument(AggregationsDocumentQuery aggregationsDocumentQuery);
+    AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery);
 
 }

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @ApiModel(value = "文档检索-接口参数")
-public class SearchDocumentQuery {
+public class DocumentQuery {
 
     @ApiModelProperty(value = "应用id")
     private String appId;

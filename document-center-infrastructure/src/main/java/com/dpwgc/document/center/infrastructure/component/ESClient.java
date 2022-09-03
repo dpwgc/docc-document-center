@@ -1,7 +1,6 @@
 package com.dpwgc.document.center.infrastructure.component;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.aggregations.Aggregate;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch.core.*;
@@ -14,8 +13,8 @@ import com.dpwgc.document.center.infrastructure.util.JsonUtil;
 import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.Status;
-import com.dpwgc.document.center.sdk.model.document.AggregationsDocumentQuery;
-import com.dpwgc.document.center.sdk.model.document.SearchDocumentQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
+import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -177,76 +176,76 @@ public class ESClient {
     /**
      * 文档检索
      */
-    public PageBase<List<Hit<Object>>> searchDocument(String indexName,SearchDocumentQuery searchDocumentQuery) {
+    public PageBase<List<Hit<Object>>> searchDocument(String indexName, DocumentQuery documentQuery) {
 
         BoolQuery.Builder bool = new BoolQuery.Builder();
-        if (isEnable(searchDocumentQuery.getAppId())) {
+        if (isEnable(documentQuery.getAppId())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("app_id")
-                            .query(searchDocumentQuery.getAppId())
+                            .query(documentQuery.getAppId())
                     )
             );
         }
-        if (isEnable(searchDocumentQuery.getCategoryId())) {
+        if (isEnable(documentQuery.getCategoryId())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("category_id")
-                            .query(searchDocumentQuery.getCategoryId())
+                            .query(documentQuery.getCategoryId())
                     )
             );
         }
-        if (isEnable(searchDocumentQuery.getAuthorId())) {
+        if (isEnable(documentQuery.getAuthorId())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("author_id")
-                            .query(searchDocumentQuery.getAuthorId())
+                            .query(documentQuery.getAuthorId())
                     )
             );
         }
-        if (isEnable(searchDocumentQuery.getType())) {
+        if (isEnable(documentQuery.getType())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("type")
-                            .query(searchDocumentQuery.getType())
+                            .query(documentQuery.getType())
                     )
             );
         }
-        if (isEnable(searchDocumentQuery.getTag())) {
+        if (isEnable(documentQuery.getTag())) {
             bool.must(must -> must
                     .fuzzy(fuzzy -> fuzzy
                             .field("tags")
-                            .value(searchDocumentQuery.getTag())
+                            .value(documentQuery.getTag())
                             .fuzziness("0")
                     )
             );
         }
-        if (isEnable(searchDocumentQuery.getKeyword())) {
+        if (isEnable(documentQuery.getKeyword())) {
             bool.should(should -> should
                     .fuzzy(fuzzy -> fuzzy
                             .field("title")
-                            .value(searchDocumentQuery.getKeyword())
+                            .value(documentQuery.getKeyword())
                             .fuzziness("0")
                     )
             );
             bool.should(should -> should
                     .fuzzy(fuzzy -> fuzzy
                             .field("content")
-                            .value(searchDocumentQuery.getKeyword())
+                            .value(documentQuery.getKeyword())
                             .fuzziness("0")
                     )
             );
             bool.should(should -> should
                     .fuzzy(fuzzy -> fuzzy
                             .field("tags")
-                            .value(searchDocumentQuery.getKeyword())
+                            .value(documentQuery.getKeyword())
                             .fuzziness("0")
                     )
             );
             bool.should(should -> should
                     .fuzzy(fuzzy -> fuzzy
                             .field("summary")
-                            .value(searchDocumentQuery.getKeyword())
+                            .value(documentQuery.getKeyword())
                             .fuzziness("0")
                     )
             );
@@ -255,7 +254,7 @@ public class ESClient {
                 .range(range -> range
                         //返回的文档权限等级要<=用户权限等级
                         .field("auth_level")
-                        .lte(JsonData.of(searchDocumentQuery.getAuthLevel()))
+                        .lte(JsonData.of(documentQuery.getAuthLevel()))
                 )
         );
         bool.must(must -> must
@@ -267,8 +266,8 @@ public class ESClient {
         bool.must(must -> must
                 .range(range -> range
                         .field("update_time")
-                        .gte(JsonData.of(searchDocumentQuery.getStartUpdateTime()))
-                        .lt(JsonData.of(searchDocumentQuery.getEndUpdateTime()))
+                        .gte(JsonData.of(documentQuery.getStartUpdateTime()))
+                        .lt(JsonData.of(documentQuery.getEndUpdateTime()))
                 )
         );
         try {
@@ -285,10 +284,10 @@ public class ESClient {
                             )
                     )
                     //分页查询
-                    .from(searchDocumentQuery.getPageIndex())
-                    .size(searchDocumentQuery.getPageSize())
+                    .from(documentQuery.getPageIndex())
+                    .size(documentQuery.getPageSize())
                     //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                    .sort(sort -> sort.field(field -> field.field(searchDocumentQuery.getSortField()).order(searchDocumentQuery.getSortOrder()))), Object.class
+                    .sort(sort -> sort.field(field -> field.field(documentQuery.getSortField()).order(documentQuery.getSortOrder()))), Object.class
             );
             return PageBase.getPageBase(search.hits().total().value(), search.hits().hits());
         } catch (Exception e) {
@@ -300,46 +299,46 @@ public class ESClient {
     /**
      * 文档数据聚合统计
      */
-    public Map<String, Aggregate> aggregationsDocument(String indexName, AggregationsDocumentQuery aggregationsDocumentQuery) {
+    public Map<String, Aggregate> aggregationsDocument(String indexName, AggregationsQuery aggregationsQuery) {
         //
         BoolQuery.Builder bool = new BoolQuery.Builder();
-        if (isEnable(aggregationsDocumentQuery.getAppId())) {
+        if (isEnable(aggregationsQuery.getAppId())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("app_id")
-                            .query(aggregationsDocumentQuery.getAppId())
+                            .query(aggregationsQuery.getAppId())
                     )
             );
         }
-        if (isEnable(aggregationsDocumentQuery.getCategoryId())) {
+        if (isEnable(aggregationsQuery.getCategoryId())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("category_id")
-                            .query(aggregationsDocumentQuery.getCategoryId())
+                            .query(aggregationsQuery.getCategoryId())
                     )
             );
         }
-        if (isEnable(aggregationsDocumentQuery.getAuthorId())) {
+        if (isEnable(aggregationsQuery.getAuthorId())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("author_id")
-                            .query(aggregationsDocumentQuery.getAuthorId())
+                            .query(aggregationsQuery.getAuthorId())
                     )
             );
         }
-        if (isEnable(aggregationsDocumentQuery.getType())) {
+        if (isEnable(aggregationsQuery.getType())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("type")
-                            .query(aggregationsDocumentQuery.getType())
+                            .query(aggregationsQuery.getType())
                     )
             );
         }
-        if (isEnable(aggregationsDocumentQuery.getTag())) {
+        if (isEnable(aggregationsQuery.getTag())) {
             bool.must(must -> must
                     .fuzzy(fuzzy -> fuzzy
                             .field("tags")
-                            .value(aggregationsDocumentQuery.getTag())
+                            .value(aggregationsQuery.getTag())
                             .fuzziness("0")
                     )
             );

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @ApiModel(value = "文档数据聚合统计-DTO")
-public class DocumentAggregationsDTO {
+public class AggregationsDTO {
 
     @ApiModelProperty("收藏总数统计")
     private Double loveTotal;
