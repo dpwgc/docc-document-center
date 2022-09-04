@@ -43,9 +43,24 @@ public class CategoryPO {
     private String detail;
 
     /**
-     * 分类推荐分值（可按此字段对分类进行排序）
+     * 分类附加内容（自定义）
+     */
+    private String extra;
+
+    /**
+     * 分类推荐分值（自由分配，返回分类列表时将按此字段对分类进行排序）
      */
     private Long score;
+
+    /**
+     * 分类属性（自定义，例：1-热门分类、0-普通分类）
+     */
+    private Integer attr;
+
+    /**
+     * 分类类型（自定义，例：1-官方分类，0-普通分类）
+     */
+    private Integer type;
 
     /**
      * 分类状态（0-删除，1-正常）

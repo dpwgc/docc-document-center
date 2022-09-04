@@ -33,10 +33,22 @@ public class CategoryTreeDTO {
     private String categoryName;
 
     /**
-     * 分类推荐分值（可按此字段对分类进行排序）
+     * 分类推荐分值（自由分配，返回分类列表时将按此字段对分类进行排序）
      */
-    @ApiModelProperty(value = "分类推荐分值（自定义，生成分类树时将按此字段对分类进行排序）")
+    @ApiModelProperty(value = "分类推荐分值（自由分配，返回分类列表时将按此字段对分类进行排序）")
     private Long score;
+
+    /**
+     * 分类属性（自定义，例：1-热门分类、0-普通分类）
+     */
+    @ApiModelProperty(value = "分类属性（自定义，例：1-热门分类、0-普通分类）")
+    private Integer attr;
+
+    /**
+     * 分类类型（自定义，例：1-官方分类，0-普通分类）
+     */
+    @ApiModelProperty(value = "分类类型（自定义，例：1-官方分类，0-普通分类）")
+    private Integer type;
 
     /**
      * 分类创建时间

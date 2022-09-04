@@ -7,6 +7,7 @@ import com.dpwgc.document.center.infrastructure.dal.category.entity.CategoryPO;
 import com.dpwgc.document.center.infrastructure.dal.category.mapper.CategoryMapper;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.category.CategoryDTO;
+import com.dpwgc.document.center.sdk.model.category.CategoryDetailDTO;
 import com.dpwgc.document.center.sdk.model.category.CategoryTreeDTO;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -106,18 +107,15 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
      * @return CategoryDTO
      */
     @Override
-    public String queryDetailByCategoryId(String appId, String categoryId) {
+    public CategoryDetailDTO queryDetailByCategoryId(String appId, String categoryId) {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
-
-        //要查询的字段
-        queryWrapper.select("detail");
 
         queryWrapper.eq("app_id",appId);
         queryWrapper.eq("category_id",categoryId);
         queryWrapper.eq("status", Status.NORMAL);
 
         CategoryPO categoryPO = categoryMapper.selectOne(queryWrapper);
-        return categoryPO.getDetail();
+        return CategoryAssembler.INSTANCE.assembleCategoryDetailDTO(categoryPO);
     }
 }

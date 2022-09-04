@@ -5,16 +5,22 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "新建文档分类-接口参数")
+@ApiModel(value = "文档分类信息-DTO")
 @Getter
 @Setter
-public class CreateCategoryCommand {
+public class CategoryDetailDTO {
 
     /**
      * 分类所属应用id
      */
     @ApiModelProperty(value = "分类所属应用id")
     private String appId;
+
+    /**
+     * 分类id
+     */
+    @ApiModelProperty(value = "分类id")
+    private String categoryId;
 
     /**
      * 父类id（如果是空字符串则表示这是顶级类别）
