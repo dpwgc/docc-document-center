@@ -16,12 +16,12 @@ public class Comment {
     private String id;
 
     /**
-     * 应用id
+     * 所属应用id
      */
     private String appId;
 
     /**
-     * 文档id
+     * 所属文档id
      */
     private String documentId;
 
