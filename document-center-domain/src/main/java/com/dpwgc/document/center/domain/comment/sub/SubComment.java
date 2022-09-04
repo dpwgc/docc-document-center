@@ -11,14 +11,24 @@ import lombok.Setter;
 public class SubComment {
 
     /**
-     * 应用id
+     * 主键id
+     */
+    private String id;
+
+    /**
+     * 所属应用id
      */
     private String appId;
 
     /**
-     * 文档id
+     * 所属文档id
      */
     private String documentId;
+
+    /**
+     * 所属评论id
+     */
+    private String commentId;
 
     /**
      * 子评论id

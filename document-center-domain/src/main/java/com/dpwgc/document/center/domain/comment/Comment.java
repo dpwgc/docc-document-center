@@ -11,6 +11,11 @@ import lombok.Setter;
 public class Comment {
 
     /**
+     * 主键id
+     */
+    private String id;
+
+    /**
      * 应用id
      */
     private String appId;
