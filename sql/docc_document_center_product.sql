@@ -7,8 +7,11 @@ create table category
     parent_id     varchar(64)  not null,
     category_name varchar(100) not null,
     detail        text         not null,
+    extra         text         not null,
     score         bigint       not null,
     status        int          not null,
+    attr          int          not null,
+    type          int          not null,
     create_time   bigint       not null,
     update_time   bigint       not null
 )
