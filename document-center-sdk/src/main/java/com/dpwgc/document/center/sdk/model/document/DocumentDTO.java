@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @ApiModel(value = "文档信息-DTO")
 @Getter
 @Setter
@@ -50,7 +52,7 @@ public class DocumentDTO {
      * 文档标签
      */
     @ApiModelProperty(value = "文档标签")
-    private String tags;
+    private List<String> tags;
 
     /**
      * 文档备注
