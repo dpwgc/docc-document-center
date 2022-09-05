@@ -2,7 +2,6 @@ package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.tag.TagCommandService;
 import com.dpwgc.document.center.app.query.tag.TagQueryService;
-import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
 import com.dpwgc.document.center.sdk.model.tag.TagQuery;
@@ -33,12 +32,7 @@ public class TagController {
     @ApiOperation(value = "后台修改标签")
     @PostMapping("/updateTag")
     public ResultDTO<Boolean> updateTag(@RequestBody UpdateTagCommand updateTagCommand) {
-        try {
-            return ResultDTO.getSuccessResult(tagCommandService.updateTag(updateTagCommand));
-        } catch (Exception e) {
-            LogUtil.error("updateTag error",e.getMessage(),"tag");
-            return ResultDTO.getFailureResult(e.getMessage());
-        }
+        return ResultDTO.getSuccessResult(tagCommandService.updateTag(updateTagCommand));
     }
 
     /**
@@ -49,11 +43,6 @@ public class TagController {
     @ApiOperation(value = "获取在指定时间区间内活跃的标签列表（按number文档数量降序排序）")
     @GetMapping("/listTagsByNumberDesc")
     public ResultDTO<List<TagDTO>> listTagsByNumberDesc(@ModelAttribute TagQuery tagQuery) {
-        try {
-            return ResultDTO.getSuccessResult(tagQueryService.listTagsByNumberDesc(tagQuery));
-        } catch (Exception e) {
-            LogUtil.error("listTagsByNumberDesc error",e.getMessage(),"tag");
-            return ResultDTO.getFailureResult(e.getMessage());
-        }
+        return ResultDTO.getSuccessResult(tagQueryService.listTagsByNumberDesc(tagQuery));
     }
 }

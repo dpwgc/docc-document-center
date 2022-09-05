@@ -2,7 +2,6 @@ package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.document.DocumentCommandService;
 import com.dpwgc.document.center.app.query.document.DocumentQueryService;
-import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
@@ -12,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,13 +33,8 @@ public class DocumentController {
      */
     @ApiOperation(value = "新建文档")
     @PostMapping("/createDocument")
-    public ResultDTO<String> createDocument(@RequestBody CreateDocumentCommand createDocumentCommand) {
-        try {
-            return ResultDTO.getSuccessResult(documentCommandService.createDocument(createDocumentCommand));
-        } catch (Exception e) {
-            LogUtil.error("createDocument error",e.getMessage(),"document");
-            return ResultDTO.getFailureResult(e.getMessage());
-        }
+    public ResultDTO<String> createDocument(@RequestBody CreateDocumentCommand createDocumentCommand) throws IOException {
+        return ResultDTO.getSuccessResult(documentCommandService.createDocument(createDocumentCommand));
     }
 
     /**
@@ -47,13 +42,8 @@ public class DocumentController {
      */
     @ApiOperation(value = "更新文档（匹配ES主键id）")
     @PostMapping("/updateDocument")
-    public ResultDTO<Boolean> updateDocument(@RequestBody UpdateDocumentCommand updateDocumentCommand) {
-        try {
-            return ResultDTO.getSuccessResult(documentCommandService.updateDocument(updateDocumentCommand));
-        } catch (Exception e) {
-            LogUtil.error("updateDocument error",e.getMessage(),"document");
-            return ResultDTO.getFailureResult(e.getMessage());
-        }
+    public ResultDTO<Boolean> updateDocument(@RequestBody UpdateDocumentCommand updateDocumentCommand) throws IOException {
+        return ResultDTO.getSuccessResult(documentCommandService.updateDocument(updateDocumentCommand));
     }
 
     /**
@@ -64,13 +54,8 @@ public class DocumentController {
      */
     @ApiOperation(value = "根据ES主键id查询文档")
     @GetMapping("/queryDocumentById")
-    ResultDTO<DocumentDTO> queryDocumentById(@ApiParam(value = "ES主键id") String id) {
-        try {
-            return ResultDTO.getSuccessResult(documentQueryService.queryDocumentById(id));
-        } catch (Exception e) {
-            LogUtil.error("queryDocumentById error",e.getMessage(),"document");
-            return ResultDTO.getFailureResult(e.getMessage());
-        }
+    ResultDTO<DocumentDTO> queryDocumentById(@ApiParam(value = "ES主键id") String id) throws IOException {
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentById(id));
     }
 
     /**
@@ -81,13 +66,8 @@ public class DocumentController {
      */
     @ApiOperation(value = "根据ES主键id集合查询文档")
     @GetMapping("/queryDocumentByIdList")
-    ResultDTO<List<DocumentDTO>> queryDocumentByIdList(@ApiParam(value = "ES主键id集合") List<String> idList) {
-        try {
-            return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByIdList(idList));
-        } catch (Exception e) {
-            LogUtil.error("queryDocumentByIdList error",e.getMessage(),"document");
-            return ResultDTO.getFailureResult(e.getMessage());
-        }
+    ResultDTO<List<DocumentDTO>> queryDocumentByIdList(@ApiParam(value = "ES主键id集合") List<String> idList) throws IOException {
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByIdList(idList));
     }
 
     /**
@@ -96,13 +76,8 @@ public class DocumentController {
      */
     @ApiOperation(value = "文档检索")
     @GetMapping("/searchDocument")
-    public ResultDTO<PageBase<List<DocumentDTO>>> searchDocument(@ModelAttribute DocumentQuery documentQuery) {
-        try {
-            return ResultDTO.getSuccessResult(documentQueryService.searchDocument(documentQuery));
-        } catch (Exception e) {
-            LogUtil.error("searchDocument error",e.getMessage(),"document");
-            return ResultDTO.getFailureResult(e.getMessage());
-        }
+    public ResultDTO<PageBase<List<DocumentDTO>>> searchDocument(@ModelAttribute DocumentQuery documentQuery) throws IOException {
+        return ResultDTO.getSuccessResult(documentQueryService.searchDocument(documentQuery));
     }
 
     /**
@@ -111,12 +86,7 @@ public class DocumentController {
      */
     @ApiOperation(value = "文档数据聚合统计")
     @GetMapping("/aggregationsDocument")
-    public ResultDTO<AggregationsDTO> aggregationsDocument(@ModelAttribute AggregationsQuery aggregationsQuery) {
-        try {
-            return ResultDTO.getSuccessResult(documentQueryService.aggregationsDocument(aggregationsQuery));
-        } catch (Exception e) {
-            LogUtil.error("aggregationsDocument error",e.getMessage(),"document");
-            return ResultDTO.getFailureResult(e.getMessage());
-        }
+    public ResultDTO<AggregationsDTO> aggregationsDocument(@ModelAttribute AggregationsQuery aggregationsQuery) throws IOException {
+        return ResultDTO.getSuccessResult(documentQueryService.aggregationsDocument(aggregationsQuery));
     }
 }
