@@ -48,12 +48,12 @@ public class Comment {
     /**
      * 评论点赞数
      */
-    private Integer likeNum;
+    private Long likeNum;
 
     /**
      * 评论收藏数
      */
-    private Integer loveNum;
+    private Long loveNum;
 
     /**
      * 子评论数
@@ -99,8 +99,9 @@ public class Comment {
         this.attr = attr;
         this.type = type;
 
-        this.likeNum = 0;
-        this.loveNum = 0;
+        this.likeNum = 0L;
+        this.loveNum = 0L;
+        this.subCommentNum = 0L;
 
         this.createTime = System.currentTimeMillis();
         this.updateTime = System.currentTimeMillis();

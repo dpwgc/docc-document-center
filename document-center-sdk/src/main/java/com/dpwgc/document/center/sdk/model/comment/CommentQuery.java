@@ -1,5 +1,6 @@
 package com.dpwgc.document.center.sdk.model.comment;
 
+import co.elastic.clients.elasticsearch._types.SortOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -45,6 +46,12 @@ public class CommentQuery {
      */
     @ApiModelProperty("评论类型（自定义，例：1-置顶评论，0-普通评论）")
     private Integer type;
+
+    @ApiModelProperty(value = "排序字段")
+    private String sortField;
+
+    @ApiModelProperty(value = "排序规则")
+    private String sortOrder;
 
     @ApiModelProperty(value = "分页起始")
     private Integer pageIndex;

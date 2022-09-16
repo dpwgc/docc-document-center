@@ -58,12 +58,12 @@ public class SubCommentPO {
     /**
      * 子评论点赞数
      */
-    private String likeNum;
+    private Long likeNum;
 
     /**
      * 子评论收藏数
      */
-    private String loveNum;
+    private Long loveNum;
 
     /**
      * 子评论状态（0-删除，1-正常）

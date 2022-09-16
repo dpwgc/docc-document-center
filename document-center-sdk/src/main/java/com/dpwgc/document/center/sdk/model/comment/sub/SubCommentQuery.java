@@ -46,6 +46,12 @@ public class SubCommentQuery {
     @ApiModelProperty("回复对象id（为空表示该评论没有@其他人）")
     private String replyTo;
 
+    @ApiModelProperty(value = "排序字段")
+    private String sortField;
+
+    @ApiModelProperty(value = "排序规则")
+    private String sortOrder;
+
     @ApiModelProperty(value = "分页起始")
     private Integer pageIndex;
 

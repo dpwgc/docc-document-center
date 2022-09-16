@@ -48,12 +48,12 @@ public class CommentPO {
     /**
      * 评论点赞数
      */
-    private String likeNum;
+    private Long likeNum;
 
     /**
      * 评论收藏数
      */
-    private String loveNum;
+    private Long loveNum;
 
     /**
      * 子评论数
