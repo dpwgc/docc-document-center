@@ -1,5 +1,6 @@
 package com.dpwgc.document.center.domain.comment.sub;
 
+import com.dpwgc.document.center.domain.category.Category;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -58,12 +59,12 @@ public class SubComment {
     /**
      * 子评论点赞数
      */
-    private String likeNum;
+    private Integer likeNum;
 
     /**
      * 子评论收藏数
      */
-    private String loveNum;
+    private Integer loveNum;
 
     /**
      * 子评论状态（0-删除，1-正常）
@@ -79,4 +80,26 @@ public class SubComment {
      * 子评论更新时间
      */
     private Long updateTime;
+
+    protected SubComment create(String appId, String documentId, String commentId ,String subCommentId, String authorId, String replyTo, String content, String extra) {
+
+        this.status = 1;
+
+        this.appId = appId;
+        this.documentId = documentId;
+        this.commentId = commentId;
+        this.subCommentId = subCommentId;
+        this.authorId = authorId;
+        this.replyTo = replyTo;
+        this.content = content;
+        this.extra = extra;
+
+        this.likeNum = 0;
+        this.loveNum = 0;
+
+        this.createTime = System.currentTimeMillis();
+        this.updateTime = System.currentTimeMillis();
+
+        return this;
+    }
 }

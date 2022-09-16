@@ -48,12 +48,12 @@ public class Comment {
     /**
      * 评论点赞数
      */
-    private String likeNum;
+    private Integer likeNum;
 
     /**
      * 评论收藏数
      */
-    private String loveNum;
+    private Integer loveNum;
 
     /**
      * 子评论数
@@ -84,4 +84,27 @@ public class Comment {
      * 评论更新时间
      */
     private Long updateTime;
+
+    protected Comment create(String appId, String documentId, String commentId, String authorId, String content, String extra, Integer attr, Integer type) {
+
+        this.status = 1;
+
+        this.appId = appId;
+        this.documentId = documentId;
+        this.commentId = commentId;
+        this.authorId = authorId;
+        this.content = content;
+        this.extra = extra;
+
+        this.attr = attr;
+        this.type = type;
+
+        this.likeNum = 0;
+        this.loveNum = 0;
+
+        this.createTime = System.currentTimeMillis();
+        this.updateTime = System.currentTimeMillis();
+
+        return this;
+    }
 }
