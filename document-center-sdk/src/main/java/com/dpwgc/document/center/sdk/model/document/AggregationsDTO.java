@@ -19,6 +19,9 @@ public class AggregationsDTO {
     @ApiModelProperty("阅读总数统计")
     private Double readTotal;
 
+    @ApiModelProperty("分享总数统计")
+    private Double shareTotal;
+
     @ApiModelProperty("评论总数统计")
     private Double commentTotal;
 

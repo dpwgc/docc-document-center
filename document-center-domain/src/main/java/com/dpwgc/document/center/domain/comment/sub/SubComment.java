@@ -66,6 +66,21 @@ public class SubComment {
     private Long loveNum;
 
     /**
+     * 子评论分享数
+     */
+    private Long shareNum;
+
+    /**
+     * 子评论属性（自定义，例：1-热门子评论、0-普通子评论）
+     */
+    private Integer attr;
+
+    /**
+     * 子评论类型（自定义，例：1-置顶子评论，0-普通子评论）
+     */
+    private Integer type;
+
+    /**
      * 子评论状态（0-删除，1-正常）
      */
     private Integer status;
@@ -80,7 +95,7 @@ public class SubComment {
      */
     private Long updateTime;
 
-    protected SubComment create(String appId, String documentId, String commentId ,String subCommentId, String authorId, String replyTo, String content, String extra) {
+    protected SubComment create(String appId, String documentId, String commentId ,String subCommentId, String authorId, String replyTo, String content, String extra, Integer attr, Integer type) {
 
         this.status = 1;
 
@@ -93,8 +108,12 @@ public class SubComment {
         this.content = content;
         this.extra = extra;
 
+        this.attr = attr;
+        this.type = type;
+
         this.likeNum = 0L;
         this.loveNum = 0L;
+        this.shareNum = 0L;
 
         this.createTime = System.currentTimeMillis();
         this.updateTime = System.currentTimeMillis();

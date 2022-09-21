@@ -56,6 +56,11 @@ public class Comment {
     private Long loveNum;
 
     /**
+     * 评论分享数
+     */
+    private Long shareNum;
+
+    /**
      * 子评论数
      */
     private Long subCommentNum;
@@ -101,6 +106,7 @@ public class Comment {
 
         this.likeNum = 0L;
         this.loveNum = 0L;
+        this.shareNum = 0L;
         this.subCommentNum = 0L;
 
         this.createTime = System.currentTimeMillis();

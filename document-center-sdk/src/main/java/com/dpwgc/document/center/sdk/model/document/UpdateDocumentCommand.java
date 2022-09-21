@@ -91,6 +91,12 @@ public class UpdateDocumentCommand {
     private Long readNum;
 
     /**
+     * 文档分享数
+     */
+    @ApiModelProperty(value = "文档分享数（可按此字段对文档进行排序）")
+    private Long shareNum;
+
+    /**
      * 文档评论总数（可按此字段对文档进行排序）
      */
     @ApiModelProperty(value = "文档评论总数（可按此字段对文档进行排序）")

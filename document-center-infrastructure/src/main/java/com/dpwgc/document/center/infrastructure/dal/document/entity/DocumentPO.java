@@ -92,20 +92,26 @@ public class DocumentPO {
     /**
      * 文档收藏数（可按此字段对文档进行排序）
      */
-    @JsonProperty("love")
+    @JsonProperty("love_num")
     private Long loveNum;
 
     /**
      * 文档点赞数（可按此字段对文档进行排序）
      */
-    @JsonProperty("like")
+    @JsonProperty("like_num")
     private Long likeNum;
 
     /**
      * 文档阅读数（可按此字段对文档进行排序）
      */
-    @JsonProperty("read")
+    @JsonProperty("read_num")
     private Long readNum;
+
+    /**
+     * 文档分享数（可按此字段对文档进行排序）
+     */
+    @JsonProperty("share_num")
+    private Long shareNum;
 
     /**
      * 文档评论总数（可按此字段对文档进行排序）

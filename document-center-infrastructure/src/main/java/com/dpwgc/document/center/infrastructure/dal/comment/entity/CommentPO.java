@@ -56,6 +56,11 @@ public class CommentPO {
     private Long loveNum;
 
     /**
+     * 评论分享数
+     */
+    private Long shareNum;
+
+    /**
      * 子评论数
      */
     private Long subCommentNum;

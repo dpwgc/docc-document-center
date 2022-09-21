@@ -66,6 +66,21 @@ public class SubCommentPO {
     private Long loveNum;
 
     /**
+     * 子评论分享数
+     */
+    private Long shareNum;
+
+    /**
+     * 子评论属性（自定义，例：1-热门子评论、0-普通子评论）
+     */
+    private Integer attr;
+
+    /**
+     * 子评论类型（自定义，例：1-置顶子评论，0-普通子评论）
+     */
+    private Integer type;
+
+    /**
      * 子评论状态（0-删除，1-正常）
      */
     private Integer status;
