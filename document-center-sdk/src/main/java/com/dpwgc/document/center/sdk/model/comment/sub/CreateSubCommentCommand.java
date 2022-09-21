@@ -51,4 +51,16 @@ public class CreateSubCommentCommand {
      */
     @ApiModelProperty("子评论附加内容（自定义）")
     private String extra;
+
+    /**
+     * 子评论属性（自定义，例：1-热门子评论、0-普通子评论）
+     */
+    @ApiModelProperty("子评论属性（自定义，例：1-热门子评论、0-普通子评论）")
+    private Integer attr;
+
+    /**
+     * 子评论类型（自定义，例：1-置顶子评论，0-普通子评论）
+     */
+    @ApiModelProperty("子评论类型（自定义，例：1-置顶子评论，0-普通子评论）")
+    private Integer type;
 }

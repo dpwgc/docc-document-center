@@ -57,7 +57,9 @@ public class CommentCommandServiceImpl implements CommentCommandService {
                 createSubCommentCommand.getAuthorId(),
                 createSubCommentCommand.getReplyTo(),
                 createSubCommentCommand.getContent(),
-                createSubCommentCommand.getExtra()
+                createSubCommentCommand.getExtra(),
+                createSubCommentCommand.getAttr(),
+                createSubCommentCommand.getType()
         );
         return subCommentRepository.createSubComment(subComment);
     }
