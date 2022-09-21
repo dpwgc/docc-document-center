@@ -1,6 +1,7 @@
 package com.dpwgc.document.center.infrastructure.component;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.aggregations.Aggregate;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch.core.*;
@@ -245,6 +246,15 @@ public class ESClient {
             filter.excludes("content");
         }
 
+        //排序
+        SortOrder sortOrder = null;
+        if (documentQuery.getSortOrder().equals("desc")) {
+            sortOrder = SortOrder.Desc;
+        } else {
+            sortOrder = SortOrder.Asc;
+        }
+        SortOrder finalSortOrder = sortOrder;
+
         // 检索分类id(精准查询)
         SearchResponse<Object> search = client.search(s -> s
                 .index(indexName)
@@ -258,7 +268,7 @@ public class ESClient {
                 .from(documentQuery.getPageIndex())
                 .size(documentQuery.getPageSize())
                 //排序（例：sortField: update_time 。sortOrder: SortOrder.Desc/SortOrder.Asc）
-                .sort(sort -> sort.field(field -> field.field(documentQuery.getSortField()).order(documentQuery.getSortOrder()))), Object.class
+                .sort(sort -> sort.field(field -> field.field(documentQuery.getSortField()).order(finalSortOrder))), Object.class
         );
         return PageBase.getPageBase(search.hits().total().value(), search.hits().hits());
     }
@@ -323,10 +333,11 @@ public class ESClient {
                         .query(query -> query
                                 .bool(bool.build())
                         )
-                        //聚合统计-该分类旗下的文档收藏总数、点赞总数、阅读量总数、评论总数、正常文档总数
-                        .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love")))
-                        .aggregations("likeTotal", aggregations -> aggregations.sum(sum -> sum.field("like")))
-                        .aggregations("readTotal", aggregations -> aggregations.sum(sum -> sum.field("read")))
+                        //聚合统计-文档分享总数、收藏总数、点赞总数、阅读量总数、评论总数、正常文档总数
+                        .aggregations("shareTotal", aggregations -> aggregations.sum(sum -> sum.field("share_num")))
+                        .aggregations("loveTotal", aggregations -> aggregations.sum(sum -> sum.field("love_num")))
+                        .aggregations("likeTotal", aggregations -> aggregations.sum(sum -> sum.field("like_num")))
+                        .aggregations("readTotal", aggregations -> aggregations.sum(sum -> sum.field("read_num")))
                         .aggregations("commentTotal", aggregations -> aggregations.sum(sum -> sum.field("comment_num")))
                         .aggregations("documentTotal", aggregations -> aggregations.sum(sum -> sum.field("status")))
                         //分页查询

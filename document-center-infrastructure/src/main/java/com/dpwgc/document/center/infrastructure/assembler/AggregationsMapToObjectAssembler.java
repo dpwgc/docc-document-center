@@ -15,6 +15,7 @@ public class AggregationsMapToObjectAssembler {
         aggregationsDTO.setCommentTotal(map.get("commentTotal").sum().value());
         aggregationsDTO.setLikeTotal(map.get("likeTotal").sum().value());
         aggregationsDTO.setLoveTotal(map.get("loveTotal").sum().value());
+        aggregationsDTO.setLoveTotal(map.get("shareTotal").sum().value());
         return aggregationsDTO;
     }
 }
