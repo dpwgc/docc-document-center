@@ -40,9 +40,10 @@
 
 ***
 
-### Elasticsearch索引
-#### 索引名称：docc-document-center-product
-#### 如果没有创建该索引，项目启动时会自动创建索引，但是mapping要自行用kibana创建
+### 存储格式
+#### Elasticsearch索引（`文档`存储）
+##### 索引名称：docc-document-center-product
+##### 如果没有创建该索引，项目启动时会自动创建索引，但是mapping要自行用kibana创建
 
 | 字段名称        | 字段解释                                           | 字段类型      |
 |-------------|------------------------------------------------|-----------|
@@ -62,6 +63,7 @@
 | love_num    | 文档收藏数（可按此字段对文档进行排序）                            | `Long`    |
 | like_num    | 文档点赞数（可按此字段对文档进行排序）                            | `Long`    |
 | read_num    | 文档阅读数（可按此字段对文档进行排序）                            | `Long`    |
+| share_num   | 文档分享数（可按此字段对文档进行排序）                            | `Long`    |
 | comment_num | 文档评论数（可按此字段对文档进行排序）                            | `Long`    |
 | filter      | 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）                | `Long`    |
 | attr        | 文档属性（自定义，例：1-转载文章、2-原创文章）                      | `Long`    |
@@ -70,3 +72,82 @@
 | create_time | 文档创建时间                                         | `Long`    |
 | update_time | 文档更新时间                                         | `Long`    |
 
+#### MariaDB索引（`分类`、`标签`、`评论`、`子评论`存储）
+```sql
+create table category
+(
+    id            bigint unsigned auto_increment
+        primary key,
+    app_id        varchar(63)  not null comment '应用id',
+    category_id   varchar(63)  not null comment '分类id',
+    parent_id     varchar(63)  not null comment '父类id',
+    category_name varchar(127) not null default '' comment '分类名称',
+    detail        text                  default '' comment '详情',
+    extra         text                  default '' comment '附加内容',
+    score         bigint       not null default 0 comment '排序权值',
+    status        int          not null default 1 comment '状态（1-正常、0-删除）',
+    attr          int          not null default 0 comment '属性',
+    type          int          not null default 0 comment '分类',
+    create_time   bigint       not null default 0 comment '创建时间',
+    update_time   bigint       not null default 0 comment '更新时间'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+create table tag
+(
+    id          bigint unsigned auto_increment
+        primary key,
+    app_id      varchar(63)  not null comment '应用id',
+    tag_name    varchar(127) not null default '' comment '标签名称',
+    number      bigint       not null default 0 comment '带有该标签的文档数量',
+    status      int          not null default 1 comment '状态（1-正常、0-删除）',
+    create_time bigint       not null default 0 comment '创建时间',
+    update_time bigint       not null default 0 comment '更新时间'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+create table comment
+(
+    id              bigint unsigned auto_increment
+        primary key,
+    app_id          varchar(63) not null comment '应用id',
+    document_id     varchar(63) not null comment '文档id',
+    comment_id      varchar(63) not null comment '评论id',
+    author_id       varchar(63) not null comment '作者id',
+    content         text                 default '' comment '主体内容',
+    extra           text                 default '' comment '附加内容',
+    like_num        bigint      not null default 0 comment '点赞数',
+    love_num        bigint      not null default 0 comment '收藏数',
+    share_num       bigint      not null default 0 comment '转发数',
+    sub_comment_num bigint      not null default 0 comment '子评论数',
+    attr            int         not null default 0 comment '属性',
+    type            int         not null default 0 comment '分类',
+    status          int         not null default 1 comment '状态（1-正常、0-删除）',
+    create_time     bigint      not null default 0 comment '创建时间',
+    update_time     bigint      not null default 0 comment '更新时间'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+create table sub_comment
+(
+    id             bigint unsigned auto_increment
+        primary key,
+    app_id         varchar(63) not null comment '应用id',
+    document_id    varchar(63) not null comment '文档id',
+    comment_id     varchar(63) not null comment '评论id',
+    sub_comment_id varchar(63) not null comment '子评论id',
+    author_id      varchar(63) not null comment '作者id',
+    reply_to       varchar(63) not null comment '回复对象id',
+    content        text                 default '' comment '主体内容',
+    extra          text                 default '' comment '附加内容',
+    like_num       bigint      not null default 0 comment '点赞数',
+    love_num       bigint      not null default 0 comment '收藏数',
+    share_num      bigint      not null default 0 comment '转发数',
+    attr           int         not null default 0 comment '属性',
+    type           int         not null default 0 comment '分类',
+    status         int         not null default 1 comment '状态（1-正常、0-删除）',
+    create_time    bigint      not null default 0 comment '创建时间',
+    update_time    bigint      not null default 0 comment '更新时间'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+```
