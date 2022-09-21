@@ -5,14 +5,14 @@
 ***
 
 ### 实现功能
-* 对外提供`文档插入、文档更新、文档多条件组合检索、标签统计与查询、树形分类结构生成、分类查询`等操作接口，可供博客应用、文库应用、公告应用等需要依靠文档检索功能的前台系统快速接入使用。
+* 对外提供`文档管理、文档多条件组合检索、评论管理、评论查询、标签统计与查询、树形分类结构生成、分类查询`等操作接口，可供博客应用、文库应用、公告应用等需要依靠文档检索功能的前台系统快速接入使用。
 
-![ddd](./img/ddoc.PNG)
+![ddd](./img/ddoc.png)
 
 ***
 ### 系统架构
 
-![ddd](./img/ddd.PNG)
+![ddd](./img/ddd.png)
 
 * 基于领域驱动与CQRS架构设计，四层架构（ui -> app -> domain -> infrastructure），代码层面读写分类。
 * 数据存储：Elasticsearch与MariaDB，Elasticsearch存储文档数据，MariaDB存储分类与标签数据。
@@ -36,7 +36,7 @@
 ### 接口文档
 #### 启动项目后访问：http://localhost:8000/doc.html
 
-![ddd](./img/swagger.PNG)
+![ddd](./img/swagger.png)
 
 ***
 
