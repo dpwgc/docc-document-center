@@ -27,7 +27,7 @@ public class TagQueryServiceImpl implements TagQueryService {
      * @return List<TagDTO>
      */
     @Override
-    public List<TagDTO> listTagsByNumberDesc(TagQuery tagQuery) {
+    public List<TagDTO> listTag(TagQuery tagQuery) {
 
         Page<TagPO> page = new Page<>(tagQuery.getPageIndex(), tagQuery.getPageSize());
 
@@ -45,7 +45,11 @@ public class TagQueryServiceImpl implements TagQueryService {
         queryWrapper.lt("update_time",tagQuery.getEndUpdateTime());   // <
 
         //排序
-        queryWrapper.orderByDesc("number");
+        if (tagQuery.getSortOrder().equals("desc")) {
+            queryWrapper.orderByDesc(tagQuery.getSortField());
+        } else {
+            queryWrapper.orderByAsc(tagQuery.getSortField());
+        }
 
         //分页
         Page<TagPO> tagPOS = tagMapper.selectPage(page,queryWrapper);

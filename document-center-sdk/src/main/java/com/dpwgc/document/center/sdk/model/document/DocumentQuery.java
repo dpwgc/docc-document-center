@@ -1,6 +1,6 @@
 package com.dpwgc.document.center.sdk.model.document;
 
-import co.elastic.clients.elasticsearch._types.SortOrder;
+import com.dpwgc.document.center.sdk.base.QueryBase;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @ApiModel(value = "文档检索-接口参数")
-public class DocumentQuery {
+public class DocumentQuery extends QueryBase {
 
     @ApiModelProperty(value = "应用id")
     private String appId;
@@ -38,23 +38,11 @@ public class DocumentQuery {
     @ApiModelProperty(value = "访问权限等级")
     private Integer authLevel;
 
-    @ApiModelProperty(value = "排序字段")
-    private String sortField;
-
-    @ApiModelProperty(value = "排序规则")
-    private SortOrder sortOrder;
-
     @ApiModelProperty(value = "更新时间区间开始")
     private Long startUpdateTime;
 
     @ApiModelProperty(value = "更新时间区间结尾")
     private Long endUpdateTime;
-
-    @ApiModelProperty(value = "分页起始")
-    private Integer pageIndex;
-
-    @ApiModelProperty(value = "分页大小")
-    private Integer pageSize;
 
     @ApiModelProperty(value = "是否显示文档主体内容")
     private Boolean showContent;

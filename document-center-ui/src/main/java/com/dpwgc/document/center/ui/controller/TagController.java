@@ -36,13 +36,13 @@ public class TagController {
     }
 
     /**
-     * 获取在指定时间区间内活跃的标签列表（按number文档数量降序排序）
+     * 获取在指定时间区间内活跃的标签列表
      * @param tagQuery 检索条件
      * @return ResultDTO<Object>
      */
-    @ApiOperation(value = "获取在指定时间区间内活跃的标签列表（按number文档数量降序排序）")
-    @GetMapping("/listTagsByNumberDesc")
-    public ResultDTO<List<TagDTO>> listTagsByNumberDesc(@ModelAttribute TagQuery tagQuery) {
-        return ResultDTO.getSuccessResult(tagQueryService.listTagsByNumberDesc(tagQuery));
+    @ApiOperation(value = "获取在指定时间区间内活跃的标签列表")
+    @GetMapping("/listTag")
+    public ResultDTO<List<TagDTO>> listTag(@ModelAttribute TagQuery tagQuery) {
+        return ResultDTO.getSuccessResult(tagQueryService.listTag(tagQuery));
     }
 }
