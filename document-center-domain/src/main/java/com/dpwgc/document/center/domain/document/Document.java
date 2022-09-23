@@ -132,7 +132,7 @@ public class Document {
      */
     private Long updateTime;
 
-    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, List<String> tags, String summary, Integer authLevel, Long score, Integer filter, Integer attr, Integer type) {
+    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, List<String> tags, String summary, String extra, String remarks, Integer authLevel, Long score, Integer filter, Integer attr, Integer type) {
 
         this.status = 1;
 
@@ -143,6 +143,8 @@ public class Document {
         this.title = title;
         this.content = content;
         this.summary = summary;
+        this.extra = extra;
+        this.remarks = remarks;
         this.tags = tags;
         this.authLevel = authLevel;
 

@@ -39,6 +39,8 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
                 createDocumentCommand.getContent(),
                 createDocumentCommand.getTags(),
                 createDocumentCommand.getSummary(),
+                createDocumentCommand.getExtra(),
+                createDocumentCommand.getRemarks(),
                 createDocumentCommand.getAuthLevel(),
                 createDocumentCommand.getScore(),
                 createDocumentCommand.getFilter(),
