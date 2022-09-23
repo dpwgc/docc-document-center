@@ -83,7 +83,7 @@ public class IdGenUtil implements ApplicationContextAware {
         //雪花id
         long id = nextId();
 
-        return String.format("%s%s",id,suffix);
+        return String.format("%s%s",id,suffix.getString());
     }
 
     public synchronized long nextId() {
