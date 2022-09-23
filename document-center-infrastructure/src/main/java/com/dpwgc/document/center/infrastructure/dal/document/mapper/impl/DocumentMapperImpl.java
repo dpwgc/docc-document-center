@@ -43,7 +43,7 @@ public class DocumentMapperImpl implements DocumentMapper {
 
     @Override
     public Boolean updateDocument(DocumentPO documentPO) throws IOException {
-        return esClient.updateDocument(indexName,documentPO.getId(),documentPO);
+        return esClient.updateDocument(indexName,documentPO);
     }
 
     /**

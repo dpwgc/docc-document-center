@@ -151,6 +151,7 @@ public class Document {
         this.loveNum = 0L;
         this.likeNum = 0L;
         this.readNum = 0L;
+        this.shareNum = 0L;
         this.commentNum = 0L;
 
         this.filter = filter;

@@ -75,18 +75,17 @@ public class ESClient {
      * 更新文档
      *
      * @param indexName  索引名称
-     * @param id         主键id
      * @param documentPO 文档对象
      * @return Boolean
      */
-    public Boolean updateDocument(String indexName, String id, DocumentPO documentPO) throws IOException {
+    public Boolean updateDocument(String indexName, DocumentPO documentPO) throws IOException {
 
         //DocumentPO转Json字符串
         String documentJson = JsonUtil.toJson(documentPO);
 
         UpdateResponse updateResponse = client.update(update -> update
                         .index(indexName)
-                        .id(id)
+                        .id(documentPO.getId())
                         .doc(JsonUtil.fromJson(documentJson, Map.class))
                 , Map.class);
         return updateResponse.id().length() > 0;
