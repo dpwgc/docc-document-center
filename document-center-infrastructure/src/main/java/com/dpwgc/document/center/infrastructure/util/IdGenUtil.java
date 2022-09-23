@@ -1,5 +1,6 @@
 package com.dpwgc.document.center.infrastructure.util;
 
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -7,6 +8,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 雪花算法
@@ -74,8 +76,14 @@ public class IdGenUtil implements ApplicationContextAware {
     }
 
     public String nextIdString() {
+
+        //生成长度是6的随机字符串后缀
+        RandomStringUtil suffix = new RandomStringUtil(6, ThreadLocalRandom.current());
+
+        //雪花id
         long id = nextId();
-        return String.valueOf(id);
+
+        return String.format("%s%s",id,suffix);
     }
 
     public synchronized long nextId() {
