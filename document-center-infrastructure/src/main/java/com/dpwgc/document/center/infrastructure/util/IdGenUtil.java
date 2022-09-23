@@ -77,8 +77,8 @@ public class IdGenUtil implements ApplicationContextAware {
 
     public String nextIdString() {
 
-        //生成长度是6的随机字符串后缀
-        RandomStringUtil suffix = new RandomStringUtil(6, ThreadLocalRandom.current());
+        //生成长度是8的随机字符串后缀
+        RandomStringUtil suffix = new RandomStringUtil(8, ThreadLocalRandom.current());
 
         //雪花id
         long id = nextId();
