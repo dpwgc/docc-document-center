@@ -18,10 +18,10 @@ public class QueryBase {
     private String sortOrder;
 
     @ApiModelProperty(value = "分页起始")
-    private Integer pageIndex;
+    private Integer pageIndex = 1;
 
     @ApiModelProperty(value = "分页大小")
-    private Integer pageSize;
+    private Integer pageSize = 10;
 
     /**
      * pageIndex转换
