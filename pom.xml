@@ -152,6 +152,13 @@
             <version>1.2.11</version>
         </dependency>
 
+        <!-- 参数校验 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.9.Final</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

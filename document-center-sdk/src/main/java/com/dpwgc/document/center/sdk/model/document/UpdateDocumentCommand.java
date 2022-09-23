@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @ApiModel(value = "更新文档主要内容-接口参数")
@@ -16,6 +17,7 @@ public class UpdateDocumentCommand {
      * ES主键id
      */
     @ApiModelProperty(value = "ES主键id")
+    @NotEmpty(message = "id is empty")
     private String id;
 
     /**

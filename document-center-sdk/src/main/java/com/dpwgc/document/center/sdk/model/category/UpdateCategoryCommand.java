@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+
 @ApiModel(value = "更新文档分类信息-接口参数")
 @Getter
 @Setter
@@ -14,12 +16,14 @@ public class UpdateCategoryCommand {
      * 分类所属应用id
      */
     @ApiModelProperty(value = "分类所属应用id")
+    @NotEmpty(message = "appId is empty")
     private String appId;
 
     /**
      * 分类id
      */
     @ApiModelProperty(value = "分类id")
+    @NotEmpty(message = "categoryId is empty")
     private String categoryId;
 
     /**

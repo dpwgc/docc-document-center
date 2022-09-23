@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+
 @Setter
 @Getter
 @ApiModel("更新子评论-接口参数")
@@ -14,24 +16,28 @@ public class UpdateSubCommentCommand {
      * 所属应用id
      */
     @ApiModelProperty("所属应用id")
+    @NotEmpty(message = "appId is empty")
     private String appId;
 
     /**
      * 所属文档id
      */
     @ApiModelProperty("所属文档id")
+    @NotEmpty(message = "documentId is empty")
     private String documentId;
 
     /**
      * 所属评论id
      */
     @ApiModelProperty("所属评论id")
+    @NotEmpty(message = "commentId is empty")
     private String commentId;
 
     /**
      * 子评论id
      */
     @ApiModelProperty("子评论id")
+    @NotEmpty(message = "subCommentId is empty")
     private String subCommentId;
 
     /**

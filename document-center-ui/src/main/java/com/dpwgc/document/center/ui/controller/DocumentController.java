@@ -2,6 +2,7 @@ package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.document.DocumentCommandService;
 import com.dpwgc.document.center.app.query.document.DocumentQueryService;
+import com.dpwgc.document.center.infrastructure.util.FieldCheckUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
@@ -9,10 +10,13 @@ import com.dpwgc.document.center.sdk.model.document.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 文档相关接口
@@ -33,7 +37,14 @@ public class DocumentController {
      */
     @ApiOperation(value = "新建文档")
     @PostMapping("/createDocument")
-    public ResultDTO<String> createDocument(@RequestBody CreateDocumentCommand createDocumentCommand) throws IOException {
+    public ResultDTO<String> createDocument(@RequestBody @Validated CreateDocumentCommand createDocumentCommand, BindingResult bindingResult) throws IOException {
+
+        // 参数校验
+        String checkRes = FieldCheckUtil.check(bindingResult);
+        if (checkRes != null) {
+            return ResultDTO.getFailureResult(checkRes);
+        }
+
         return ResultDTO.getSuccessResult(documentCommandService.createDocument(createDocumentCommand));
     }
 
@@ -42,7 +53,14 @@ public class DocumentController {
      */
     @ApiOperation(value = "更新文档（匹配ES主键id）")
     @PostMapping("/updateDocument")
-    public ResultDTO<Boolean> updateDocument(@RequestBody UpdateDocumentCommand updateDocumentCommand) throws IOException {
+    public ResultDTO<Boolean> updateDocument(@RequestBody @Validated UpdateDocumentCommand updateDocumentCommand, BindingResult bindingResult) throws IOException {
+
+        // 参数校验
+        String checkRes = FieldCheckUtil.check(bindingResult);
+        if (checkRes != null) {
+            return ResultDTO.getFailureResult(checkRes);
+        }
+
         return ResultDTO.getSuccessResult(documentCommandService.updateDocument(updateDocumentCommand));
     }
 

@@ -2,6 +2,7 @@ package com.dpwgc.document.center.sdk.model.category;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ public class CreateCategoryCommand {
      * 分类所属应用id
      */
     @ApiModelProperty(value = "分类所属应用id")
+    @NotEmpty(message = "appId is empty")
     private String appId;
 
     /**

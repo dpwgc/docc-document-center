@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+
 @ApiModel(value = "更新文档标签旗下的文档数量-接口参数")
 @Getter
 @Setter
@@ -14,12 +16,14 @@ public class UpdateTagCommand {
      * 标签所属应用id
      */
     @ApiModelProperty(value = "标签所属应用id")
+    @NotEmpty(message = "appId is empty")
     private String appId;
 
     /**
      * 标签名称
      */
     @ApiModelProperty(value = "标签名称（等价于该应用内的标签唯一标识）")
+    @NotEmpty(message = "tagName is empty")
     private String tagName;
 
     /**
