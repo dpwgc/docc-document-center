@@ -6,6 +6,7 @@ import com.dpwgc.document.center.app.assembler.TagAssembler;
 import com.dpwgc.document.center.app.query.tag.TagQueryService;
 import com.dpwgc.document.center.infrastructure.dal.tag.entity.TagPO;
 import com.dpwgc.document.center.infrastructure.dal.tag.mapper.TagMapper;
+import com.dpwgc.document.center.infrastructure.util.StringUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
@@ -40,12 +41,18 @@ public class TagQueryServiceImpl implements TagQueryService {
         queryWrapper.select("tag_name","number","create_time","update_time");
 
         //查询指定应用的标签
-        queryWrapper.eq("app_id",tagQuery.getAppId());
+        if (StringUtil.notEmpty(tagQuery.getAppId())) {
+            queryWrapper.eq("app_id",tagQuery.getAppId());
+        }
         queryWrapper.eq("status", Status.NORMAL);
 
         //匹配时间区间
-        queryWrapper.ge("update_time",tagQuery.getStartUpdateTime()); // >=
-        queryWrapper.lt("update_time",tagQuery.getEndUpdateTime());   // <
+        if (tagQuery.getStartUpdateTime() != null) {
+            queryWrapper.ge("update_time",tagQuery.getStartUpdateTime()); // >=
+        }
+        if (tagQuery.getEndUpdateTime() != null) {
+            queryWrapper.lt("update_time",tagQuery.getEndUpdateTime());   // <
+        }
 
         //排序
         if (tagQuery.getSortOrder().equals("desc")) {

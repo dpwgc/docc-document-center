@@ -5,6 +5,7 @@ import com.dpwgc.document.center.app.assembler.CategoryAssembler;
 import com.dpwgc.document.center.app.query.category.CategoryQueryService;
 import com.dpwgc.document.center.infrastructure.dal.category.entity.CategoryPO;
 import com.dpwgc.document.center.infrastructure.dal.category.mapper.CategoryMapper;
+import com.dpwgc.document.center.infrastructure.util.StringUtil;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.category.CategoryDTO;
 import com.dpwgc.document.center.sdk.model.category.CategoryDetailDTO;
@@ -29,7 +30,9 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
         //要查询的字段
         queryWrapper.select("category_id","parent_id","category_name","score","create_time","update_time");
 
-        queryWrapper.eq("app_id",appId);
+        if (StringUtil.notEmpty(appId)) {
+            queryWrapper.eq("app_id",appId);
+        }
         queryWrapper.eq("status",Status.NORMAL);
         queryWrapper.orderByDesc("score");  //类别树的各级将按照score字段降序排序
 

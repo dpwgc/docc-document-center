@@ -9,6 +9,7 @@ import com.dpwgc.document.center.infrastructure.dal.comment.entity.CommentPO;
 import com.dpwgc.document.center.infrastructure.dal.comment.entity.SubCommentPO;
 import com.dpwgc.document.center.infrastructure.dal.comment.mapper.CommentMapper;
 import com.dpwgc.document.center.infrastructure.dal.comment.mapper.SubCommentMapper;
+import com.dpwgc.document.center.infrastructure.util.StringUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.comment.CommentDTO;
@@ -39,11 +40,15 @@ public class CommentQueryServiceImpl implements CommentQueryService {
 
         QueryWrapper<CommentPO> queryWrapper = new QueryWrapper<>();
 
-        queryWrapper.eq("app_id",commentQuery.getAppId());
-        queryWrapper.eq("document_id",commentQuery.getDocumentId());
+        if (StringUtil.notEmpty(commentQuery.getAppId())) {
+            queryWrapper.eq("app_id",commentQuery.getAppId());
+        }
+        if (StringUtil.notEmpty(commentQuery.getDocumentId())) {
+            queryWrapper.eq("document_id",commentQuery.getDocumentId());
+        }
         queryWrapper.eq("status", Status.NORMAL);
 
-        if (commentQuery.getAuthorId() != null) {
+        if (StringUtil.notEmpty(commentQuery.getAuthorId())) {
             queryWrapper.eq("author_id",commentQuery.getAuthorId());
         }
 
@@ -97,16 +102,22 @@ public class CommentQueryServiceImpl implements CommentQueryService {
 
         QueryWrapper<SubCommentPO> queryWrapper = new QueryWrapper<>();
 
-        queryWrapper.eq("app_id",subCommentQuery.getAppId());
-        queryWrapper.eq("document_id",subCommentQuery.getDocumentId());
-        queryWrapper.eq("comment_id",subCommentQuery.getCommentId());
+        if (StringUtil.notEmpty(subCommentQuery.getAppId())) {
+            queryWrapper.eq("app_id",subCommentQuery.getAppId());
+        }
+        if (StringUtil.notEmpty(subCommentQuery.getDocumentId())) {
+            queryWrapper.eq("document_id",subCommentQuery.getDocumentId());
+        }
+        if (StringUtil.notEmpty(subCommentQuery.getCommentId())) {
+            queryWrapper.eq("comment_id",subCommentQuery.getCommentId());
+        }
         queryWrapper.eq("status", Status.NORMAL);
 
-        if (subCommentQuery.getAuthorId() != null) {
+        if (StringUtil.notEmpty(subCommentQuery.getAuthorId())) {
             queryWrapper.eq("author_id",subCommentQuery.getAuthorId());
         }
 
-        if (subCommentQuery.getReplyTo() != null) {
+        if (StringUtil.notEmpty(subCommentQuery.getReplyTo())) {
             queryWrapper.eq("reply_to",subCommentQuery.getReplyTo());
         }
 
