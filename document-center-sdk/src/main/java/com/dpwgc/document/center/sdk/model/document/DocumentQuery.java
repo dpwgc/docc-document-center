@@ -36,14 +36,14 @@ public class DocumentQuery extends QueryBase {
     private String keyword;
 
     @ApiModelProperty(value = "访问权限等级")
-    private Integer authLevel;
+    private Integer authLevel = 0;
 
     @ApiModelProperty(value = "更新时间区间开始")
-    private Long startUpdateTime;
+    private Long startUpdateTime = 0L;
 
     @ApiModelProperty(value = "更新时间区间结尾")
-    private Long endUpdateTime;
+    private Long endUpdateTime = System.currentTimeMillis();
 
     @ApiModelProperty(value = "是否显示文档主体内容")
-    private Boolean showContent;
+    private Boolean showContent = false;
 }

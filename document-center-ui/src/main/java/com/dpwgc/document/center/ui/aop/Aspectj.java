@@ -1,5 +1,6 @@
 package com.dpwgc.document.center.ui.aop;
 
+import com.dpwgc.document.center.infrastructure.util.ExceptionUtil;
 import com.dpwgc.document.center.infrastructure.util.LogUtil;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -49,7 +50,7 @@ public class Aspectj {
         try {
             return joinPoint.proceed();
         } catch (Exception e) {
-            LogUtil.error(String.format("%s.%s error", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName()),e.getMessage(),uri);
+            LogUtil.error(String.format("%s.%s error", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName()), ExceptionUtil.GetStackTrace(e),uri);
             return ResultDTO.getFailureResult(e.getMessage());
         }
     }
