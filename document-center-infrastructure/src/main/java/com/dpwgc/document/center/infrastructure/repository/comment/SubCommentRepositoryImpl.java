@@ -27,6 +27,9 @@ public class SubCommentRepositoryImpl implements SubCommentRepository {
     public Boolean updateSubComment(SubComment subComment) {
 
         QueryWrapper<SubCommentPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("app_id",subComment.getAppId());
+        queryWrapper.eq("document_id",subComment.getDocumentId());
+        queryWrapper.eq("comment_id",subComment.getCommentId());
         queryWrapper.eq("sub_comment_id",subComment.getSubCommentId());
         queryWrapper.eq("status", Status.NORMAL);
 

@@ -27,6 +27,8 @@ public class CommentRepositoryImpl implements CommentRepository {
     public Boolean updateComment(Comment comment) {
 
         QueryWrapper<CommentPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("app_id",comment.getAppId());
+        queryWrapper.eq("document_id",comment.getDocumentId());
         queryWrapper.eq("comment_id",comment.getCommentId());
         queryWrapper.eq("status", Status.NORMAL);
 
