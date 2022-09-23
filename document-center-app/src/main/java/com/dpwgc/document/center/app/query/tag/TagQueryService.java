@@ -1,5 +1,6 @@
 package com.dpwgc.document.center.app.query.tag;
 
+import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
 import com.dpwgc.document.center.sdk.model.tag.TagQuery;
 
@@ -12,5 +13,5 @@ public interface TagQueryService {
      * @param tagQuery 检索条件
      * @return List<TagDTO>
      */
-    List<TagDTO> listTag(TagQuery tagQuery);
+    PageBase<List<TagDTO>> listTag(TagQuery tagQuery);
 }

@@ -6,6 +6,7 @@ import com.dpwgc.document.center.app.assembler.TagAssembler;
 import com.dpwgc.document.center.app.query.tag.TagQueryService;
 import com.dpwgc.document.center.infrastructure.dal.tag.entity.TagPO;
 import com.dpwgc.document.center.infrastructure.dal.tag.mapper.TagMapper;
+import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
 import com.dpwgc.document.center.sdk.model.tag.TagQuery;
@@ -27,7 +28,9 @@ public class TagQueryServiceImpl implements TagQueryService {
      * @return List<TagDTO>
      */
     @Override
-    public List<TagDTO> listTag(TagQuery tagQuery) {
+    public PageBase<List<TagDTO>> listTag(TagQuery tagQuery) {
+
+        PageBase<List<TagDTO>> pageBase = new PageBase<>();
 
         Page<TagPO> page = new Page<>(tagQuery.getPageIndex(), tagQuery.getPageSize());
 
@@ -57,6 +60,10 @@ public class TagQueryServiceImpl implements TagQueryService {
         for (TagPO tagPO : tagPOS.getRecords()) {
             tagDTOS.add(TagAssembler.INSTANCE.assembleTagDTO(tagPO));
         }
-        return tagDTOS;
+
+        pageBase.setList(tagDTOS);
+        pageBase.setTotal(tagPOS.getTotal());
+
+        return pageBase;
     }
 }

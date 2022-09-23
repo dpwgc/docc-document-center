@@ -1,6 +1,7 @@
 package com.dpwgc.document.center.app.query.comment.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dpwgc.document.center.app.assembler.CommentAssembler;
 import com.dpwgc.document.center.app.assembler.SubCommentAssembler;
 import com.dpwgc.document.center.app.query.comment.CommentQueryService;
@@ -8,6 +9,7 @@ import com.dpwgc.document.center.infrastructure.dal.comment.entity.CommentPO;
 import com.dpwgc.document.center.infrastructure.dal.comment.entity.SubCommentPO;
 import com.dpwgc.document.center.infrastructure.dal.comment.mapper.CommentMapper;
 import com.dpwgc.document.center.infrastructure.dal.comment.mapper.SubCommentMapper;
+import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.comment.CommentDTO;
 import com.dpwgc.document.center.sdk.model.comment.CommentQuery;
@@ -29,7 +31,11 @@ public class CommentQueryServiceImpl implements CommentQueryService {
     SubCommentMapper subCommentMapper;
 
     @Override
-    public List<CommentDTO> queryComment(CommentQuery commentQuery) {
+    public PageBase<List<CommentDTO>> queryComment(CommentQuery commentQuery) {
+
+        PageBase<List<CommentDTO>> pageBase = new PageBase<>();
+
+        Page<CommentPO> page = new Page<>(commentQuery.getPageIndex(), commentQuery.getPageSize());
 
         QueryWrapper<CommentPO> queryWrapper = new QueryWrapper<>();
 
@@ -55,16 +61,39 @@ public class CommentQueryServiceImpl implements CommentQueryService {
             queryWrapper.orderByAsc(commentQuery.getSortField());
         }
 
-        List<CommentPO> commentPOS = commentMapper.selectList(queryWrapper);
+        Page<CommentPO> commentPOS = commentMapper.selectPage(page, queryWrapper);
         List<CommentDTO> commentDTOS = new ArrayList<>();
-        for (CommentPO commentPO : commentPOS) {
-            commentDTOS.add(CommentAssembler.INSTANCE.assembleCommentDTO(commentPO));
+        for (CommentPO commentPO : commentPOS.getRecords()) {
+            CommentDTO commentDTO = CommentAssembler.INSTANCE.assembleCommentDTO(commentPO);
+            commentDTO.setSubCommentList(getSubCommentList(commentDTO.getAppId(),commentDTO.getDocumentId(),commentDTO.getCommentId()));
+            commentDTOS.add(commentDTO);
         }
-        return commentDTOS;
+
+        pageBase.setTotal(commentPOS.getTotal());
+        pageBase.setList(commentDTOS);
+
+        return pageBase;
+    }
+
+    private PageBase<List<SubCommentDTO>> getSubCommentList(String appId,String documentId,String commentId) {
+        SubCommentQuery subCommentQuery = new SubCommentQuery();
+        subCommentQuery.setAppId(appId);
+        subCommentQuery.setDocumentId(documentId);
+        subCommentQuery.setCommentId(commentId);
+        //按创建时间降序排序，每条评论展示三条子评论
+        subCommentQuery.setSortField("create_time");
+        subCommentQuery.setSortOrder("desc");
+        subCommentQuery.setPageIndex(0);
+        subCommentQuery.setPageSize(3);
+        return querySubComment(subCommentQuery);
     }
 
     @Override
-    public List<SubCommentDTO> querySubComment(SubCommentQuery subCommentQuery) {
+    public PageBase<List<SubCommentDTO>> querySubComment(SubCommentQuery subCommentQuery) {
+
+        PageBase<List<SubCommentDTO>> pageBase = new PageBase<>();
+
+        Page<SubCommentPO> page = new Page<>(subCommentQuery.getPageIndex(), subCommentQuery.getPageSize());
 
         QueryWrapper<SubCommentPO> queryWrapper = new QueryWrapper<>();
 
@@ -87,11 +116,15 @@ public class CommentQueryServiceImpl implements CommentQueryService {
             queryWrapper.orderByAsc(subCommentQuery.getSortField());
         }
 
-        List<SubCommentPO> subCommentPOS = subCommentMapper.selectList(queryWrapper);
+        Page<SubCommentPO> subCommentPOS = subCommentMapper.selectPage(page, queryWrapper);
         List<SubCommentDTO> subCommentDTOS = new ArrayList<>();
-        for (SubCommentPO subCommentPO : subCommentPOS) {
+        for (SubCommentPO subCommentPO : subCommentPOS.getRecords()) {
             subCommentDTOS.add(SubCommentAssembler.INSTANCE.assembleSubCommentDTO(subCommentPO));
         }
-        return subCommentDTOS;
+
+        pageBase.setTotal(subCommentPOS.getTotal());
+        pageBase.setList(subCommentDTOS);
+
+        return pageBase;
     }
 }

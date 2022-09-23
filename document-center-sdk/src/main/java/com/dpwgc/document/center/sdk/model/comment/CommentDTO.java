@@ -1,9 +1,13 @@
 package com.dpwgc.document.center.sdk.model.comment;
 
+import com.dpwgc.document.center.sdk.base.PageBase;
+import com.dpwgc.document.center.sdk.model.comment.sub.SubCommentDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -93,4 +97,10 @@ public class CommentDTO {
      */
     @ApiModelProperty("评论更新时间")
     private Long updateTime;
+
+    /**
+     * 子评论列表
+     */
+    @ApiModelProperty("子评论列表")
+    private PageBase<List<SubCommentDTO>> subCommentList;
 }

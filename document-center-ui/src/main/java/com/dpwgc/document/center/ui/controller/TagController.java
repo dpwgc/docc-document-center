@@ -2,6 +2,7 @@ package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.tag.TagCommandService;
 import com.dpwgc.document.center.app.query.tag.TagQueryService;
+import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
 import com.dpwgc.document.center.sdk.model.tag.TagQuery;
@@ -42,7 +43,7 @@ public class TagController {
      */
     @ApiOperation(value = "获取在指定时间区间内活跃的标签列表")
     @GetMapping("/listTag")
-    public ResultDTO<List<TagDTO>> listTag(@ModelAttribute TagQuery tagQuery) {
+    public ResultDTO<PageBase<List<TagDTO>>> listTag(@ModelAttribute TagQuery tagQuery) {
         return ResultDTO.getSuccessResult(tagQueryService.listTag(tagQuery));
     }
 }

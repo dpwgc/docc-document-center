@@ -2,6 +2,7 @@ package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.comment.CommentCommandService;
 import com.dpwgc.document.center.app.query.comment.CommentQueryService;
+import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.comment.CommentDTO;
 import com.dpwgc.document.center.sdk.model.comment.CommentQuery;
@@ -57,13 +58,13 @@ public class CommentController {
 
     @ApiOperation(value = "获取文档评论")
     @GetMapping("/queryComment")
-    public ResultDTO<List<CommentDTO>> queryComment(@ModelAttribute CommentQuery commentQuery) {
+    public ResultDTO<PageBase<List<CommentDTO>>> queryComment(@ModelAttribute CommentQuery commentQuery) {
         return ResultDTO.getSuccessResult(commentQueryService.queryComment(commentQuery));
     }
 
     @ApiOperation(value = "获取父评论下的子评论")
     @GetMapping("/querySubComment")
-    public ResultDTO<List<SubCommentDTO>> querySubComment(@ModelAttribute SubCommentQuery subCommentQuery) {
+    public ResultDTO<PageBase<List<SubCommentDTO>>> querySubComment(@ModelAttribute SubCommentQuery subCommentQuery) {
         return ResultDTO.getSuccessResult(commentQueryService.querySubComment(subCommentQuery));
     }
 }
