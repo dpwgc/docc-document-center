@@ -22,4 +22,11 @@ public class QueryBase {
 
     @ApiModelProperty(value = "分页大小")
     private Integer pageSize;
+
+    /**
+     * pageIndex转换
+     */
+    public void pageIndexConvert() {
+        this.pageIndex = ( this.pageIndex - 1 ) * this.pageSize;
+    }
 }

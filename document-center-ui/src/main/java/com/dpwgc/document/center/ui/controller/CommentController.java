@@ -59,12 +59,16 @@ public class CommentController {
     @ApiOperation(value = "获取文档评论")
     @GetMapping("/queryComment")
     public ResultDTO<PageBase<List<CommentDTO>>> queryComment(@ModelAttribute CommentQuery commentQuery) {
+        //pageIndex格式转换
+        commentQuery.pageIndexConvert();
         return ResultDTO.getSuccessResult(commentQueryService.queryComment(commentQuery));
     }
 
     @ApiOperation(value = "获取父评论下的子评论")
     @GetMapping("/querySubComment")
     public ResultDTO<PageBase<List<SubCommentDTO>>> querySubComment(@ModelAttribute SubCommentQuery subCommentQuery) {
+        //pageIndex格式转换
+        subCommentQuery.pageIndexConvert();
         return ResultDTO.getSuccessResult(commentQueryService.querySubComment(subCommentQuery));
     }
 }

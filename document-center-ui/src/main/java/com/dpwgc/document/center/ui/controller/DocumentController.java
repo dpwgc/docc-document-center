@@ -77,6 +77,8 @@ public class DocumentController {
     @ApiOperation(value = "文档检索")
     @GetMapping("/searchDocument")
     public ResultDTO<PageBase<List<DocumentDTO>>> searchDocument(@ModelAttribute DocumentQuery documentQuery) throws IOException {
+        //pageIndex格式转换
+        documentQuery.pageIndexConvert();
         return ResultDTO.getSuccessResult(documentQueryService.searchDocument(documentQuery));
     }
 

@@ -23,12 +23,6 @@ public class CreateCommentCommand {
     private String documentId;
 
     /**
-     * 评论id
-     */
-    @ApiModelProperty("评论id")
-    private String commentId;
-
-    /**
      * 作者（发布者）id
      */
     @ApiModelProperty("作者（发布者）id")
