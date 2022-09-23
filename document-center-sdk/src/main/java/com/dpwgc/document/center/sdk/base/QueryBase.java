@@ -12,10 +12,10 @@ import lombok.Setter;
 public class QueryBase {
 
     @ApiModelProperty(value = "排序字段")
-    private String sortField = "desc";
+    private String sortField = "update_time";
 
     @ApiModelProperty(value = "排序规则")
-    private String sortOrder = "update_time";
+    private String sortOrder = "desc";
 
     @ApiModelProperty(value = "分页起始")
     private Integer pageIndex = 1;

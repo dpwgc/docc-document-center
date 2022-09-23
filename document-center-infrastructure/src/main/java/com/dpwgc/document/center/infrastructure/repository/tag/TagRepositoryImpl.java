@@ -29,7 +29,7 @@ public class TagRepositoryImpl implements TagRepository {
         //如果标签已存在
         if (tagPO != null) {
             //更新标签数量和时间
-            tagPO.setNumber(tag.getNumber()+1);
+            tagPO.setNumber(tagPO.getNumber()+1);
             tagPO.setUpdateTime(System.currentTimeMillis());
             return tagMapper.update(tagPO ,queryWrapper) > 0;
         } else {
