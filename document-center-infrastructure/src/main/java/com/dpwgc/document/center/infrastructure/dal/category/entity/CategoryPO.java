@@ -3,6 +3,7 @@ package com.dpwgc.document.center.infrastructure.dal.category.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -66,6 +67,12 @@ public class CategoryPO {
      * 分类状态（0-删除，1-正常）
      */
     private Integer status;
+
+    /**
+     * 版本号（乐观锁字段，递增）
+     */
+    @Version
+    private Long version;
 
     /**
      * 分类创建时间

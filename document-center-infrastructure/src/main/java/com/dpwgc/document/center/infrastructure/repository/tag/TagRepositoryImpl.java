@@ -39,29 +39,23 @@ public class TagRepositoryImpl implements TagRepository {
     }
 
     @Override
-    public Boolean updateTagNumber(Tag tag) {
+    public Boolean updateTag(Tag tag) {
 
         QueryWrapper<TagPO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("app_id",tag.getAppId());
         queryWrapper.eq("tag_name",tag.getTagName());
 
-        TagPO tagPO = tagMapper.selectOne(queryWrapper);
+        TagPO po = tagMapper.selectOne(queryWrapper);
+        // 判断是否存在 + 版本号获取
+        if (po == null) {
+            return false;
+        }
 
-        tagPO.setNumber(tagPO.getNumber());
-
-        return tagMapper.update(tagPO,queryWrapper) > 0;
-    }
-
-    @Override
-    public Boolean deleteTag(Tag tag) {
-
-        QueryWrapper<TagPO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("app_id",tag.getAppId());
-        queryWrapper.eq("tag_name",tag.getTagName());
-
-        TagPO tagPO = tagMapper.selectOne(queryWrapper);
-
-        tagPO.setStatus(0);
+        TagPO tagPO = TagPOAssembler.INSTANCE.assembleTagPO(tag);
+        //带上版本号（乐观锁更新）
+        tagPO.setVersion(po.getVersion());
+        //更新时间
+        tagPO.setUpdateTime(System.currentTimeMillis());
 
         return tagMapper.update(tagPO,queryWrapper) > 0;
     }

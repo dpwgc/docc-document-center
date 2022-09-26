@@ -33,8 +33,17 @@ public class SubCommentRepositoryImpl implements SubCommentRepository {
         queryWrapper.eq("sub_comment_id",subComment.getSubCommentId());
         queryWrapper.eq("status", Status.NORMAL);
 
+        // 判断是否存在 + 版本号获取
+        SubCommentPO po = subCommentMapper.selectOne(queryWrapper);
+        if (po == null) {
+            return false;
+        }
+
         SubCommentPO subCommentPO = SubCommentPOAssembler.INSTANCE.assembleSubCommentPO(subComment);
-        subComment.setUpdateTime(System.currentTimeMillis());
+        //带上版本号（乐观锁更新）
+        subCommentPO.setVersion(po.getVersion());
+        //更新时间
+        subCommentPO.setUpdateTime(System.currentTimeMillis());
 
         return subCommentMapper.update(subCommentPO, queryWrapper) > 0;
     }

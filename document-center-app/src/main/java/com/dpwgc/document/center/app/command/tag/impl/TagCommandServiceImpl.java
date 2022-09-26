@@ -20,8 +20,6 @@ public class TagCommandServiceImpl implements TagCommandService {
 
         Tag tag = TagAssembler.INSTANCE.assembleTagFromUpdate(updateTagCommand);
 
-        tag.setUpdateTime(System.currentTimeMillis());
-
-        return tagRepository.updateTagNumber(tag);
+        return tagRepository.updateTag(tag);
     }
 }

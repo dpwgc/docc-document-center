@@ -69,8 +69,6 @@ public class CommentCommandServiceImpl implements CommentCommandService {
 
         Comment comment = CommentAssembler.INSTANCE.assembleCommentFromUpdate(updateCommentCommand);
 
-        comment.setUpdateTime(System.currentTimeMillis());
-
         return commentRepository.updateComment(comment);
     }
 
@@ -78,8 +76,6 @@ public class CommentCommandServiceImpl implements CommentCommandService {
     public Boolean updateSubComment(UpdateSubCommentCommand updateSubCommentCommand) {
 
         SubComment subComment = SubCommentAssembler.INSTANCE.assembleSubCommentFromUpdate(updateSubCommentCommand);
-
-        subComment.setUpdateTime(System.currentTimeMillis());
 
         return subCommentRepository.updateSubComment(subComment);
     }

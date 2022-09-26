@@ -40,8 +40,6 @@ public class CategoryCommandServiceImpl implements CategoryCommandService {
 
         Category category = CategoryAssembler.INSTANCE.assembleCategoryFromUpdate(updateCategoryCommand);
 
-        category.setUpdateTime(System.currentTimeMillis());
-
         return categoryRepository.updateCategory(category);
     }
 }

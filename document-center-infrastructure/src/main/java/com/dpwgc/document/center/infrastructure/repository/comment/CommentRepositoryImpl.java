@@ -32,8 +32,17 @@ public class CommentRepositoryImpl implements CommentRepository {
         queryWrapper.eq("comment_id",comment.getCommentId());
         queryWrapper.eq("status", Status.NORMAL);
 
+        // 判断是否存在 + 版本号获取
+        CommentPO po = commentMapper.selectOne(queryWrapper);
+        if (po == null) {
+            return false;
+        }
+
         CommentPO commentPO = CommentPOAssembler.INSTANCE.assembleCommentPO(comment);
-        comment.setUpdateTime(System.currentTimeMillis());
+        //带上版本号（乐观锁更新）
+        commentPO.setVersion(po.getVersion());
+        //更新时间
+        commentPO.setUpdateTime(System.currentTimeMillis());
 
         return commentMapper.update(commentPO, queryWrapper) > 0;
     }

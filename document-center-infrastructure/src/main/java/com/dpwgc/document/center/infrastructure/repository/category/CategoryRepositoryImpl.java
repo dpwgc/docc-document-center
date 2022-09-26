@@ -42,6 +42,12 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         queryWrapper.eq("category_id",category.getCategoryId());
         queryWrapper.eq("status", Status.NORMAL);
 
+        // 判断是否存在 + 版本号获取
+        CategoryPO po = categoryMapper.selectOne(queryWrapper);
+        if (po == null) {
+            return false;
+        }
+
         //检查分类名称是否已经存在
         QueryWrapper<CategoryPO> checkWrapper = new QueryWrapper<>();
         checkWrapper.eq("category_name",category.getCategoryName());
@@ -57,7 +63,8 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         }
 
         CategoryPO categoryPO = CategoryPOAssembler.INSTANCE.assembleCategoryPO(category);
-
+        //带上版本号（乐观锁更新）
+        categoryPO.setVersion(po.getVersion());
         //更新时间
         categoryPO.setUpdateTime(System.currentTimeMillis());
 
