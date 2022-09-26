@@ -90,9 +90,10 @@ create table category
     detail        text                  default '' comment '详情',
     extra         text                  default '' comment '附加内容',
     score         bigint       not null default 0 comment '排序权值',
-    status        int          not null default 1 comment '状态（1-正常、0-删除）',
     attr          int          not null default 0 comment '属性',
     type          int          not null default 0 comment '分类',
+    status        int          not null default 1 comment '状态（1-正常、0-删除）',
+    version       bigint       not null default 0 comment '版本号（乐观锁）',
     create_time   bigint       not null default 0 comment '创建时间',
     update_time   bigint       not null default 0 comment '更新时间'
 ) ENGINE = InnoDB
@@ -106,6 +107,7 @@ create table tag
     tag_name    varchar(127) not null default '' comment '标签名称',
     number      bigint       not null default 0 comment '带有该标签的文档数量',
     status      int          not null default 1 comment '状态（1-正常、0-删除）',
+    version     bigint       not null default 0 comment '版本号（乐观锁）',
     create_time bigint       not null default 0 comment '创建时间',
     update_time bigint       not null default 0 comment '更新时间'
 ) ENGINE = InnoDB
@@ -128,6 +130,7 @@ create table comment
     attr            int         not null default 0 comment '属性',
     type            int         not null default 0 comment '分类',
     status          int         not null default 1 comment '状态（1-正常、0-删除）',
+    version         bigint      not null default 0 comment '版本号（乐观锁）',
     create_time     bigint      not null default 0 comment '创建时间',
     update_time     bigint      not null default 0 comment '更新时间'
 ) ENGINE = InnoDB
@@ -151,6 +154,7 @@ create table sub_comment
     attr           int         not null default 0 comment '属性',
     type           int         not null default 0 comment '分类',
     status         int         not null default 1 comment '状态（1-正常、0-删除）',
+    version        bigint      not null default 0 comment '版本号（乐观锁）',
     create_time    bigint      not null default 0 comment '创建时间',
     update_time    bigint      not null default 0 comment '更新时间'
 ) ENGINE = InnoDB
