@@ -7,12 +7,16 @@ import com.dpwgc.document.center.infrastructure.assembler.SubCommentPOAssembler;
 import com.dpwgc.document.center.infrastructure.dal.comment.entity.SubCommentPO;
 import com.dpwgc.document.center.infrastructure.dal.comment.mapper.SubCommentMapper;
 import com.dpwgc.document.center.sdk.base.Status;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
 @Repository
 public class SubCommentRepositoryImpl implements SubCommentRepository {
+
+    @Value("${optimistic.update.retry}")
+    private int retry;
 
     @Resource
     SubCommentMapper subCommentMapper;
@@ -34,6 +38,7 @@ public class SubCommentRepositoryImpl implements SubCommentRepository {
         queryWrapper.eq("status", Status.NORMAL);
 
         // 判断是否存在 + 版本号获取
+        queryWrapper.select("version");
         SubCommentPO po = subCommentMapper.selectOne(queryWrapper);
         if (po == null) {
             return false;
@@ -45,6 +50,15 @@ public class SubCommentRepositoryImpl implements SubCommentRepository {
         //更新时间
         subCommentPO.setUpdateTime(System.currentTimeMillis());
 
-        return subCommentMapper.update(subCommentPO, queryWrapper) > 0;
+        for (int i=0;i<retry;i++) {
+            //如果成功
+            if (subCommentMapper.update(subCommentPO, queryWrapper) > 0) {
+                return true;
+            }
+            //如果失败，重新获取版本，再次更新
+            po = subCommentMapper.selectOne(queryWrapper);
+            subCommentPO.setVersion(po.getVersion());
+        }
+        return false;
     }
 }

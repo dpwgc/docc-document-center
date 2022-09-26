@@ -6,12 +6,16 @@ import com.dpwgc.document.center.domain.tag.TagRepository;
 import com.dpwgc.document.center.infrastructure.assembler.TagPOAssembler;
 import com.dpwgc.document.center.infrastructure.dal.tag.entity.TagPO;
 import com.dpwgc.document.center.infrastructure.dal.tag.mapper.TagMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
 @Repository
 public class TagRepositoryImpl implements TagRepository {
+
+    @Value("${optimistic.update.retry}")
+    private int retry;
 
     @Resource
     TagMapper tagMapper;
@@ -45,8 +49,9 @@ public class TagRepositoryImpl implements TagRepository {
         queryWrapper.eq("app_id",tag.getAppId());
         queryWrapper.eq("tag_name",tag.getTagName());
 
-        TagPO po = tagMapper.selectOne(queryWrapper);
         // 判断是否存在 + 版本号获取
+        queryWrapper.select("version");
+        TagPO po = tagMapper.selectOne(queryWrapper);
         if (po == null) {
             return false;
         }
@@ -57,6 +62,15 @@ public class TagRepositoryImpl implements TagRepository {
         //更新时间
         tagPO.setUpdateTime(System.currentTimeMillis());
 
-        return tagMapper.update(tagPO,queryWrapper) > 0;
+        for (int i=0;i<retry;i++) {
+            //如果成功
+            if (tagMapper.update(tagPO, queryWrapper) > 0) {
+                return true;
+            }
+            //如果失败，重新获取版本，再次更新
+            po = tagMapper.selectOne(queryWrapper);
+            tagPO.setVersion(po.getVersion());
+        }
+        return false;
     }
 }

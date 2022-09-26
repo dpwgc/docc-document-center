@@ -1,6 +1,6 @@
 server:
   # http端口号
-  port: 8000
+  port: 8080
   servlet:
     # 路由前缀
     context-path: /docc
@@ -47,3 +47,9 @@ mybatis-plus:
     use-column-label: true
     # 开启驼峰命名转换：Table{create_time} -> Entity{createTime}
     map-underscore-to-camel-case: true
+
+# 乐观锁配置
+optimistic:
+  # 更新失败-重试次数
+  update:
+    retry: 20

@@ -7,11 +7,15 @@ import com.dpwgc.document.center.infrastructure.assembler.CommentPOAssembler;
 import com.dpwgc.document.center.infrastructure.dal.comment.entity.CommentPO;
 import com.dpwgc.document.center.infrastructure.dal.comment.mapper.CommentMapper;
 import com.dpwgc.document.center.sdk.base.Status;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 
 @Repository
 public class CommentRepositoryImpl implements CommentRepository {
+
+    @Value("${optimistic.update.retry}")
+    private int retry;
 
     @Resource
     CommentMapper commentMapper;
@@ -33,6 +37,7 @@ public class CommentRepositoryImpl implements CommentRepository {
         queryWrapper.eq("status", Status.NORMAL);
 
         // 判断是否存在 + 版本号获取
+        queryWrapper.select("version");
         CommentPO po = commentMapper.selectOne(queryWrapper);
         if (po == null) {
             return false;
@@ -44,6 +49,15 @@ public class CommentRepositoryImpl implements CommentRepository {
         //更新时间
         commentPO.setUpdateTime(System.currentTimeMillis());
 
-        return commentMapper.update(commentPO, queryWrapper) > 0;
+        for (int i=0;i<retry;i++) {
+            //如果成功
+            if (commentMapper.update(commentPO, queryWrapper) > 0) {
+                return true;
+            }
+            //如果失败，重新获取版本，再次更新
+            po = commentMapper.selectOne(queryWrapper);
+            commentPO.setVersion(po.getVersion());
+        }
+        return false;
     }
 }

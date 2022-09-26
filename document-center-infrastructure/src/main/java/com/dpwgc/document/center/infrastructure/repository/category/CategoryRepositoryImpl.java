@@ -7,12 +7,16 @@ import com.dpwgc.document.center.infrastructure.assembler.CategoryPOAssembler;
 import com.dpwgc.document.center.infrastructure.dal.category.entity.CategoryPO;
 import com.dpwgc.document.center.infrastructure.dal.category.mapper.CategoryMapper;
 import com.dpwgc.document.center.sdk.base.Status;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
 @Repository
 public class CategoryRepositoryImpl implements CategoryRepository {
+
+    @Value("${optimistic.update.retry}")
+    private int retry;
 
     @Resource
     CategoryMapper categoryMapper;
@@ -43,6 +47,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         queryWrapper.eq("status", Status.NORMAL);
 
         // 判断是否存在 + 版本号获取
+        queryWrapper.select("version");
         CategoryPO po = categoryMapper.selectOne(queryWrapper);
         if (po == null) {
             return false;
@@ -68,6 +73,15 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         //更新时间
         categoryPO.setUpdateTime(System.currentTimeMillis());
 
-        return categoryMapper.update(categoryPO, queryWrapper) > 0;
+        for (int i=0;i<retry;i++) {
+            //如果成功
+            if (categoryMapper.update(categoryPO, queryWrapper) > 0) {
+                return true;
+            }
+            //如果失败，重新获取版本，再次更新
+            po = categoryMapper.selectOne(queryWrapper);
+            categoryPO.setVersion(po.getVersion());
+        }
+        return false;
     }
 }
