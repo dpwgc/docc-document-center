@@ -15,6 +15,7 @@ import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
 import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -24,6 +25,9 @@ import java.util.Map;
 
 @Component
 public class ESClient {
+
+    @Value("${optimistic.update.retry}")
+    private int retry;
 
     @Resource
     private ElasticsearchClient client;
@@ -86,6 +90,9 @@ public class ESClient {
         UpdateResponse updateResponse = client.update(update -> update
                         .index(indexName)
                         .id(documentPO.getId())
+                        // 乐观锁-更新失败重试次数
+                        .retryOnConflict(retry)
+                        // 更新文档
                         .doc(JsonUtil.fromJson(documentJson, Map.class))
                 , Map.class);
         return updateResponse.id().length() > 0;
