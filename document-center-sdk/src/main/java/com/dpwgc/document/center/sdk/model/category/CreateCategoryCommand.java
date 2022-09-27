@@ -14,7 +14,7 @@ public class CreateCategoryCommand {
     /**
      * 分类所属应用id
      */
-    @ApiModelProperty(value = "分类所属应用id")
+    @ApiModelProperty(value = "分类所属应用id", required = true)
     @NotEmpty(message = "appId is empty")
     private String appId;
 

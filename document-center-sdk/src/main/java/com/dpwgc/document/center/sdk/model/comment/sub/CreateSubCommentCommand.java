@@ -15,28 +15,28 @@ public class CreateSubCommentCommand {
     /**
      * 所属应用id
      */
-    @ApiModelProperty("所属应用id")
+    @ApiModelProperty(value = "所属应用id", required = true)
     @NotEmpty(message = "appId is empty")
     private String appId;
 
     /**
      * 所属文档id
      */
-    @ApiModelProperty("所属文档id")
+    @ApiModelProperty(value = "所属文档id", required = true)
     @NotEmpty(message = "documentId is empty")
     private String documentId;
 
     /**
      * 所属评论id
      */
-    @ApiModelProperty("所属评论id")
+    @ApiModelProperty(value = "所属评论id", required = true)
     @NotEmpty(message = "commentId is empty")
     private String commentId;
 
     /**
      * 作者（发布者）id
      */
-    @ApiModelProperty("作者（发布者）id")
+    @ApiModelProperty(value = "作者（发布者）id", required = true)
     @NotEmpty(message = "authorId is empty")
     private String authorId;
 

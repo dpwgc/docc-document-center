@@ -15,14 +15,14 @@ public class UpdateTagCommand {
     /**
      * 标签所属应用id
      */
-    @ApiModelProperty(value = "标签所属应用id")
+    @ApiModelProperty(value = "标签所属应用id", required = true)
     @NotEmpty(message = "appId is empty")
     private String appId;
 
     /**
      * 标签名称
      */
-    @ApiModelProperty(value = "标签名称（等价于该应用内的标签唯一标识）")
+    @ApiModelProperty(value = "标签名称（等价于该应用内的标签唯一标识）", required = true)
     @NotEmpty(message = "tagName is empty")
     private String tagName;
 

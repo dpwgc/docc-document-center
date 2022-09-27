@@ -16,7 +16,7 @@ public class UpdateDocumentCommand {
     /**
      * ES主键id
      */
-    @ApiModelProperty(value = "ES主键id")
+    @ApiModelProperty(value = "ES主键id", required = true)
     @NotEmpty(message = "id is empty")
     private String id;
 

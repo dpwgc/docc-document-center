@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @ApiModel(value = "新建文档-接口参数")
@@ -16,7 +17,7 @@ public class CreateDocumentCommand {
     /**
      * 文档所属应用id
      */
-    @ApiModelProperty(value = "文档所属应用id")
+    @ApiModelProperty(value = "文档所属应用id", required = true)
     @NotEmpty(message = "appId is empty")
     private String appId;
 
@@ -24,13 +25,12 @@ public class CreateDocumentCommand {
      * 分类id
      */
     @ApiModelProperty(value = "分类id")
-    @NotEmpty(message = "categoryId is empty")
     private String categoryId;
 
     /**
      * 作者id
      */
-    @ApiModelProperty(value = "作者id")
+    @ApiModelProperty(value = "作者id", required = true)
     @NotEmpty(message = "authorId is empty")
     private String authorId;
 

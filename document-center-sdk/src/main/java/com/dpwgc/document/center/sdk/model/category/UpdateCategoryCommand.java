@@ -15,14 +15,14 @@ public class UpdateCategoryCommand {
     /**
      * 分类所属应用id
      */
-    @ApiModelProperty(value = "分类所属应用id")
+    @ApiModelProperty(value = "分类所属应用id", required = true)
     @NotEmpty(message = "appId is empty")
     private String appId;
 
     /**
      * 分类id
      */
-    @ApiModelProperty(value = "分类id")
+    @ApiModelProperty(value = "分类id", required = true)
     @NotEmpty(message = "categoryId is empty")
     private String categoryId;
 
