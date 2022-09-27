@@ -16,7 +16,11 @@ public class HitToDocumentPOAssembler {
      */
     public DocumentPO assemblerDocumentPO(Hit<Object> hit) {
         String hitJson = JsonUtil.toJson(hit.source());
-        return JsonUtil.fromJson(hitJson,DocumentPO.class);
+        DocumentPO documentPO = JsonUtil.fromJson(hitJson,DocumentPO.class);
+        if (documentPO != null) {
+            documentPO.setId(hit.id());
+        }
+        return documentPO;
     }
 
     /**

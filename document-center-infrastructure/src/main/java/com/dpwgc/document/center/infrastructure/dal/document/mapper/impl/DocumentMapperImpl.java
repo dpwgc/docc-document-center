@@ -38,7 +38,11 @@ public class DocumentMapperImpl implements DocumentMapper {
 
     @Override
     public DocumentPO queryDocumentById(String id) throws IOException {
-        return hitToDocumentPOAssembler.assemblerDocumentPO(esClient.searchDocumentById(indexName,id).get(0));
+        List<Hit<Object>> list = esClient.searchDocumentById(indexName,id);
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+        return hitToDocumentPOAssembler.assemblerDocumentPO(list.get(0));
     }
 
     @Override

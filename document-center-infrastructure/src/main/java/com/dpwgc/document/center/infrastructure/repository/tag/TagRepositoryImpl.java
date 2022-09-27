@@ -33,9 +33,17 @@ public class TagRepositoryImpl implements TagRepository {
         //如果标签已存在
         if (tagPO != null) {
             //更新标签数量和时间
-            tagPO.setNumber(tagPO.getNumber()+1);
+            tagPO.setNumber(tagPO.getNumber() + 1);
             tagPO.setUpdateTime(System.currentTimeMillis());
-            return tagMapper.update(tagPO ,queryWrapper) > 0;
+            for (int i=0;i<retry;i++) {
+                //如果成功
+                if (tagMapper.update(tagPO, queryWrapper) > 0) {
+                    return true;
+                }
+                //如果失败，重新获取版本，再次更新
+                tagPO = tagMapper.selectOne(queryWrapper);
+            }
+            return false;
         } else {
             //插入新标签
             return tagMapper.insert(TagPOAssembler.INSTANCE.assembleTagPO(tag)) > 0;
