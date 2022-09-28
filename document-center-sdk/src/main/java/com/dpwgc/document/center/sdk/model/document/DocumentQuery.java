@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Setter
 @Getter
 @ApiModel(value = "文档检索-接口参数")
@@ -16,6 +18,9 @@ public class DocumentQuery extends QueryBase {
 
     @ApiModelProperty(value = "分类id")
     private String categoryId;
+
+    @ApiModelProperty(value = "专栏id")
+    private String columnId;
 
     @ApiModelProperty(value = "作者id")
     private String authorId;

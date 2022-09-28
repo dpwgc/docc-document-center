@@ -24,6 +24,12 @@ public class DocumentDTO {
     private String categoryId;
 
     /**
+     * 专栏id
+     */
+    @ApiModelProperty(value = "专栏id")
+    private Set<String> columnId;
+
+    /**
      * 作者id（允许多个作者联合发布文章）
      */
     @ApiModelProperty(value = "作者id（允许多个作者联合发布文章）")

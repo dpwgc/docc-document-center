@@ -154,6 +154,14 @@ public class ESClient {
                     )
             );
         }
+        if (isEnable(documentQuery.getColumnId())) {
+            bool.must(must -> must
+                    .match(match -> match
+                            .field("column_id")
+                            .query(documentQuery.getColumnId())
+                    )
+            );
+        }
         if (isEnable(documentQuery.getAuthorId())) {
             bool.must(must -> must
                     .match(match -> match

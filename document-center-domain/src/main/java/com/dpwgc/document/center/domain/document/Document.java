@@ -27,6 +27,11 @@ public class Document {
     private String categoryId;
 
     /**
+     * 专栏id
+     */
+    private Set<String> columnId;
+
+    /**
      * 作者id
      */
     private Set<String> authorId;
@@ -131,12 +136,13 @@ public class Document {
      */
     private Long updateTime;
 
-    protected Document create(String appId, String categoryId, Set<String> authorId, String documentId, String title, String content, Set<String> tag, String summary, String extra, String remarks, Integer authLevel, Long score, Set<Integer> filter, Set<Integer> attr, Integer type) {
+    protected Document create(String appId, String categoryId, Set<String> columnId, Set<String> authorId, String documentId, String title, String content, Set<String> tag, String summary, String extra, String remarks, Integer authLevel, Long score, Set<Integer> filter, Set<Integer> attr, Integer type) {
 
         this.status = 1;
 
         this.appId = appId;
         this.categoryId = categoryId;
+        this.columnId = columnId;
         this.authorId = authorId;
         this.documentId = documentId;
         this.title = title;

@@ -29,6 +29,12 @@ public class DocumentPO {
     private String categoryId;
 
     /**
+     * 专栏id
+     */
+    @JsonProperty("column_id")
+    private Set<String> columnId;
+
+    /**
      * 作者id
      */
     @JsonProperty("author_id")
