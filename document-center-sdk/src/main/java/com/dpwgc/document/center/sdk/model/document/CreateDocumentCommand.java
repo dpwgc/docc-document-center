@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 
 @ApiModel(value = "新建文档-接口参数")
 @Getter
@@ -28,11 +27,11 @@ public class CreateDocumentCommand {
     private String categoryId;
 
     /**
-     * 作者id
+     * 作者id（允许多个作者联合发布文章）
      */
-    @ApiModelProperty(value = "作者id", required = true)
+    @ApiModelProperty(value = "作者id（允许多个作者联合发布文章）", required = true)
     @NotEmpty(message = "authorId is empty")
-    private String authorId;
+    private Set<String> authorId;
 
     /**
      * 文档标题
@@ -50,7 +49,7 @@ public class CreateDocumentCommand {
      * 文档标签（数组格式传入，例：["tag1","tag2","tag3"]）
      */
     @ApiModelProperty(value = "文档标签（数组格式传入，例：[\"tag1\",\"tag2\",\"tag3\"]）")
-    private List<String> tags;
+    private Set<String> tag;
 
     /**
      * 文档备注
@@ -83,16 +82,16 @@ public class CreateDocumentCommand {
     private Long score;
 
     /**
-     * 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）
+     * 文档检索过滤条件（自定义，允许多个，例：1-仅自己可见、2-所有人可见）
      */
-    @ApiModelProperty(value = "文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）")
-    private Integer filter;
+    @ApiModelProperty(value = "文档检索过滤条件（自定义，允许多个，例：1-仅自己可见、2-所有人可见）")
+    private Set<Integer> filter;
 
     /**
-     * 文档属性（自定义，例：1-转载文章、2-原创文章）
+     * 文档属性（自定义，允许多个，例：1-转载文章、2-原创文章）
      */
-    @ApiModelProperty(value = "文档属性（自定义，例：1-转载文章、2-原创文章）")
-    private Integer attr;
+    @ApiModelProperty(value = "文档属性（自定义，允许多个，例：1-转载文章、2-原创文章）")
+    private Set<Integer> attr;
 
     /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）

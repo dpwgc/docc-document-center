@@ -56,11 +56,11 @@
 | id          | ES主键id                                         | `keyword` |
 | app_id      | 文档所属应用id                                       | `keyword` |
 | category_id | 文档所属分类id                                       | `keyword` |
-| author_id   | 文档作者id                                         | `keyword` |
+| author_id   | 文档作者id（允许多个）                                   | `keyword` |
 | document_id | 文档id                                           | `keyword` |
 | title       | 文档标题                                           | `keyword` |
 | content     | 文档内容                                           | `keyword` |
-| tags        | 文档标签                                           | `keyword` |
+| tag         | 文档标签（允许多个）                                     | `keyword` |
 | remarks     | 文档备注                                           | `keyword` |
 | extra       | 文档附加内容（自定义）                                    | `keyword` |
 | summary     | 文档总结摘要                                         | `keyword` |
@@ -71,9 +71,9 @@
 | read_num    | 文档阅读数（可按此字段对文档进行排序）                            | `Long`    |
 | share_num   | 文档分享数（可按此字段对文档进行排序）                            | `Long`    |
 | comment_num | 文档评论数（可按此字段对文档进行排序）                            | `Long`    |
-| filter      | 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）                | `Long`    |
-| attr        | 文档属性（自定义，例：1-转载文章、2-原创文章）                      | `Long`    |
-| type        | 文档类型（自定义，例：0-普通文档，1-置顶文档）                      | `Long`    |
+| filter      | 文档检索过滤条件（自定义，允许多个，例：1-仅自己可见、2-所有人可见）           | `Long`    |
+| attr        | 文档属性（自定义，允许多个，例：1-转载文章、2-原创文章）                 | `Long`    |
+| type        | 文档类型（自定义，例：0-普通文章，1-官方公告）                      | `Long`    |
 | status      | 文档状态（0-删除，1-正常）                                | `Long`    |
 | create_time | 文档创建时间                                         | `Long`    |
 | update_time | 文档更新时间                                         | `Long`    |

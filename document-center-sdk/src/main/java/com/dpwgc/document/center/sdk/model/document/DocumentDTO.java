@@ -4,8 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
+import java.util.Set;
 
 @ApiModel(value = "文档信息-DTO")
 @Getter
@@ -25,10 +24,10 @@ public class DocumentDTO {
     private String categoryId;
 
     /**
-     * 作者id
+     * 作者id（允许多个作者联合发布文章）
      */
-    @ApiModelProperty(value = "作者id")
-    private String authorId;
+    @ApiModelProperty(value = "作者id（允许多个作者联合发布文章）")
+    private Set<String> authorId;
 
     /**
      * 文档id
@@ -52,7 +51,7 @@ public class DocumentDTO {
      * 文档标签
      */
     @ApiModelProperty(value = "文档标签")
-    private List<String> tags;
+    private Set<String> tag;
 
     /**
      * 文档备注
@@ -85,16 +84,16 @@ public class DocumentDTO {
     private Long score;
 
     /**
-     * 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）
+     * 文档检索过滤条件（自定义，允许多个，例：1-仅自己可见、2-所有人可见）
      */
-    @ApiModelProperty(value = "文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）")
-    private Integer filter;
+    @ApiModelProperty(value = "文档检索过滤条件（自定义，允许多个，例：1-仅自己可见、2-所有人可见）")
+    private Set<Integer> filter;
 
     /**
-     * 文档属性（自定义，例：1-转载文章、2-原创文章）
+     * 文档属性（自定义，允许多个，例：1-转载文章、2-原创文章）
      */
-    @ApiModelProperty(value = "文档属性（自定义，例：1-转载文章、2-原创文章）")
-    private Integer attr;
+    @ApiModelProperty(value = "文档属性（自定义，允许多个，例：1-转载文章、2-原创文章）")
+    private Set<Integer> attr;
 
     /**
      * 文档收藏数（可按此字段对文档进行排序）
@@ -127,9 +126,9 @@ public class DocumentDTO {
     private Long commentNum;
 
     /**
-     * 文档类型（自定义，例：0-普通文档，1-置顶文档）
+     * 文档类型（自定义，例：0-普通文章，1-官方公告）
      */
-    @ApiModelProperty(value = "文档类型（自定义，例：0-普通文档，1-置顶文档）")
+    @ApiModelProperty(value = "文档类型（自定义，例：0-普通文章，1-官方公告）")
     private Integer type;
 
     /**

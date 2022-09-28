@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.Set;
 
 @ApiModel(value = "更新文档主要内容-接口参数")
 @Getter
@@ -27,6 +28,12 @@ public class UpdateDocumentCommand {
     private String categoryId;
 
     /**
+     * 作者id（允许多个作者联合发布文章）
+     */
+    @ApiModelProperty(value = "作者id（允许多个作者联合发布文章）", required = true)
+    private Set<String> authorId;
+
+    /**
      * 文档标题
      */
     @ApiModelProperty(value = "文档标题")
@@ -42,7 +49,7 @@ public class UpdateDocumentCommand {
      * 文档标签
      */
     @ApiModelProperty(value = "文档标签")
-    private List<String> tags;
+    private Set<String> tag;
 
     /**
      * 文档备注
@@ -107,14 +114,14 @@ public class UpdateDocumentCommand {
     /**
      * 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）
      */
-    @ApiModelProperty(value = "文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）")
-    private Integer filter;
+    @ApiModelProperty(value = "文档阅读过滤条件（自定义，允许多个，例：1-仅自己可见、2-所有人可见）")
+    private Set<Integer> filter;
 
     /**
      * 文档属性（自定义，例：1-转载文章、2-原创文章）
      */
-    @ApiModelProperty(value = "文档属性（自定义，例：1-转载文章、2-原创文章）")
-    private Integer attr;
+    @ApiModelProperty(value = "文档属性（自定义，允许多个，例：1-转载文章、2-原创文章）")
+    private Set<Integer> attr;
 
     /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）

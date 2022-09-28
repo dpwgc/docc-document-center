@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -33,7 +32,7 @@ public class DocumentPO {
      * 作者id
      */
     @JsonProperty("author_id")
-    private String authorId;
+    private Set<String> authorId;
 
     /**
      * 文档id
@@ -56,8 +55,8 @@ public class DocumentPO {
     /**
      * 文档标签
      */
-    @JsonProperty("tags")
-    private List<String> tags;
+    @JsonProperty("tag")
+    private Set<String> tag;
 
     /**
      * 文档备注
@@ -123,13 +122,13 @@ public class DocumentPO {
      * 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）
      */
     @JsonProperty("filter")
-    private Integer filter;
+    private Set<Integer> filter;
 
     /**
      * 文档属性（自定义，例：1-转载文章、2-原创文章）
      */
     @JsonProperty("attr")
-    private Integer attr;
+    private Set<Integer> attr;
 
     /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）

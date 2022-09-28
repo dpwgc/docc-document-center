@@ -37,7 +37,7 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
                 idGenUtil.nextIdString(),
                 createDocumentCommand.getTitle(),
                 createDocumentCommand.getContent(),
-                createDocumentCommand.getTags(),
+                createDocumentCommand.getTag(),
                 createDocumentCommand.getSummary(),
                 createDocumentCommand.getExtra(),
                 createDocumentCommand.getRemarks(),
@@ -49,7 +49,7 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
         );
 
         //将该文档的标签更新至DB
-        for (String tag : createDocumentCommand.getTags()) {
+        for (String tag : createDocumentCommand.getTag()) {
             TagFactory tagFactory = new TagFactory();
             if (!tagRepository.createTag(tagFactory.create(createDocumentCommand.getAppId(), tag))) {
                 //写入失败

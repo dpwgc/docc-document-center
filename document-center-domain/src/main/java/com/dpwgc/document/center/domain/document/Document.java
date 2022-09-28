@@ -2,8 +2,7 @@ package com.dpwgc.document.center.domain.document;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
+import java.util.Set;
 
 /**
  * 文档
@@ -30,7 +29,7 @@ public class Document {
     /**
      * 作者id
      */
-    private String authorId;
+    private Set<String> authorId;
 
     /**
      * 文档id
@@ -50,7 +49,7 @@ public class Document {
     /**
      * 文档标签
      */
-    private List<String> tags;
+    private Set<String> tag;
 
     /**
      * 文档备注
@@ -105,12 +104,12 @@ public class Document {
     /**
      * 文档检索过滤条件（自定义，例：1-仅自己可见、2-所有人可见）
      */
-    private Integer filter;
+    private Set<Integer> filter;
 
     /**
      * 文档属性（自定义，例：1-转载文章、2-原创文章）
      */
-    private Integer attr;
+    private Set<Integer> attr;
 
     /**
      * 文档类型（自定义，例：0-普通文档，1-置顶文档）
@@ -132,7 +131,7 @@ public class Document {
      */
     private Long updateTime;
 
-    protected Document create(String appId, String categoryId, String authorId, String documentId, String title, String content, List<String> tags, String summary, String extra, String remarks, Integer authLevel, Long score, Integer filter, Integer attr, Integer type) {
+    protected Document create(String appId, String categoryId, Set<String> authorId, String documentId, String title, String content, Set<String> tag, String summary, String extra, String remarks, Integer authLevel, Long score, Set<Integer> filter, Set<Integer> attr, Integer type) {
 
         this.status = 1;
 
@@ -145,7 +144,7 @@ public class Document {
         this.summary = summary;
         this.extra = extra;
         this.remarks = remarks;
-        this.tags = tags;
+        this.tag = tag;
         this.authLevel = authLevel;
 
         this.score = score;

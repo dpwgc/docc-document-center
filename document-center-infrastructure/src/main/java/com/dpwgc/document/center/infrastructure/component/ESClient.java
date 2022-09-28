@@ -189,7 +189,7 @@ public class ESClient {
         if (isEnable(documentQuery.getTag())) {
             bool.must(must -> must
                     .fuzzy(fuzzy -> fuzzy
-                            .field("tags")
+                            .field("tag")
                             .value(documentQuery.getTag())
                             .fuzziness("0")
                     )
