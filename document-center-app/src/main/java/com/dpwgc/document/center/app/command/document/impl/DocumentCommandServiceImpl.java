@@ -33,6 +33,7 @@ public class DocumentCommandServiceImpl implements DocumentCommandService {
         Document document = documentFactory.create(
                 createDocumentCommand.getAppId(),
                 createDocumentCommand.getCategoryId(),
+                createDocumentCommand.getColumnId(),
                 createDocumentCommand.getAuthorId(),
                 idGenUtil.nextIdString(),
                 createDocumentCommand.getTitle(),
