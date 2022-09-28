@@ -28,9 +28,9 @@ public class UpdateDocumentCommand {
     private String categoryId;
 
     /**
-     * 专栏id
+     * 专栏id（允许文档被多个专栏收录）
      */
-    @ApiModelProperty(value = "专栏id")
+    @ApiModelProperty(value = "专栏id（允许文档被多个专栏收录）")
     private Set<String> columnId;
 
     /**
@@ -130,9 +130,9 @@ public class UpdateDocumentCommand {
     private Set<Integer> attr;
 
     /**
-     * 文档类型（自定义，例：0-普通文档，1-置顶文档）
+     * 文档类型（自定义，例：0-普通文章，1-官方公告）
      */
-    @ApiModelProperty(value = "文档类型（自定义，例：0-普通文档，1-置顶文档）")
+    @ApiModelProperty(value = "文档类型（自定义，例：0-普通文章，1-官方公告）")
     private Integer type;
 
     /**

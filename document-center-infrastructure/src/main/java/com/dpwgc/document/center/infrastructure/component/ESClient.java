@@ -309,6 +309,14 @@ public class ESClient {
                     )
             );
         }
+        if (isEnable(aggregationsQuery.getColumnId())) {
+            bool.must(must -> must
+                    .match(match -> match
+                            .field("column_id")
+                            .query(aggregationsQuery.getColumnId())
+                    )
+            );
+        }
         if (isEnable(aggregationsQuery.getAuthorId())) {
             bool.must(must -> must
                     .match(match -> match

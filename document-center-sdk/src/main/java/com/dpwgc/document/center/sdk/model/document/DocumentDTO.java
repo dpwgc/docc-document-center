@@ -26,7 +26,7 @@ public class DocumentDTO {
     /**
      * 专栏id
      */
-    @ApiModelProperty(value = "专栏id")
+    @ApiModelProperty(value = "专栏id（允许文档被多个专栏收录）")
     private Set<String> columnId;
 
     /**
@@ -90,9 +90,9 @@ public class DocumentDTO {
     private Long score;
 
     /**
-     * 文档检索过滤条件（自定义，允许多个，例：1-仅自己可见、2-所有人可见）
+     * 文档阅读过滤条件（自定义，允许多个，例：1-仅自己可见、2-所有人可见）
      */
-    @ApiModelProperty(value = "文档检索过滤条件（自定义，允许多个，例：1-仅自己可见、2-所有人可见）")
+    @ApiModelProperty(value = "文档阅读过滤条件（自定义，允许多个，例：1-仅自己可见、2-所有人可见）")
     private Set<Integer> filter;
 
     /**
