@@ -56,6 +56,7 @@
 | id          | ES主键id                                         | `keyword` |
 | app_id      | 文档所属应用id                                       | `keyword` |
 | category_id | 文档所属分类id                                       | `keyword` |
+| column_id   | 文档所属专栏id（允许多个）                                 | `keyword` |
 | author_id   | 文档作者id（允许多个）                                   | `keyword` |
 | document_id | 文档id                                           | `keyword` |
 | title       | 文档标题                                           | `keyword` |
@@ -78,9 +79,9 @@
 | create_time | 文档创建时间                                         | `Long`    |
 | update_time | 文档更新时间                                         | `Long`    |
 
-#### MariaDB索引（`分类`、`标签`、`评论`、`子评论`存储）
+#### MariaDB索引（`分类`、`专栏`、`标签`、`评论`、`子评论`存储）
 ```sql
-create table category
+create table `category`
 (
     id            bigint unsigned auto_increment
         primary key,
@@ -92,7 +93,7 @@ create table category
     extra         text                  default '' comment '附加内容',
     score         bigint       not null default 0 comment '排序权值',
     attr          int          not null default 0 comment '属性',
-    type          int          not null default 0 comment '分类',
+    type          int          not null default 0 comment '类型',
     status        int          not null default 1 comment '状态（1-正常、0-删除）',
     version       bigint       not null default 0 comment '版本号（乐观锁）',
     create_time   bigint       not null default 0 comment '创建时间',
@@ -100,7 +101,27 @@ create table category
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-create table tag
+create table `column`
+(
+  id            bigint unsigned auto_increment
+    primary key,
+  app_id        varchar(63)  not null comment '应用id',
+  column_id     varchar(63)  not null comment '专栏id',
+  author_id     varchar(63)  not null comment '作者id',
+  column_name   varchar(127) not null default '' comment '专栏名称',
+  detail        text                  default '' comment '详情',
+  extra         text                  default '' comment '附加内容',
+  score         bigint       not null default 0 comment '排序权值',
+  attr          int          not null default 0 comment '属性',
+  type          int          not null default 0 comment '类型',
+  status        int          not null default 1 comment '状态（1-正常、0-删除）',
+  version       bigint       not null default 0 comment '版本号（乐观锁）',
+  create_time   bigint       not null default 0 comment '创建时间',
+  update_time   bigint       not null default 0 comment '更新时间'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+create table `tag`
 (
     id          bigint unsigned auto_increment
         primary key,
@@ -114,7 +135,7 @@ create table tag
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-create table comment
+create table `comment`
 (
     id              bigint unsigned auto_increment
         primary key,
@@ -129,7 +150,7 @@ create table comment
     share_num       bigint      not null default 0 comment '转发数',
     sub_comment_num bigint      not null default 0 comment '子评论数',
     attr            int         not null default 0 comment '属性',
-    type            int         not null default 0 comment '分类',
+    type            int         not null default 0 comment '类型',
     status          int         not null default 1 comment '状态（1-正常、0-删除）',
     version         bigint      not null default 0 comment '版本号（乐观锁）',
     create_time     bigint      not null default 0 comment '创建时间',
@@ -137,7 +158,7 @@ create table comment
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-create table sub_comment
+create table `sub_comment`
 (
     id             bigint unsigned auto_increment
         primary key,
@@ -153,7 +174,7 @@ create table sub_comment
     love_num       bigint      not null default 0 comment '收藏数',
     share_num      bigint      not null default 0 comment '转发数',
     attr           int         not null default 0 comment '属性',
-    type           int         not null default 0 comment '分类',
+    type           int         not null default 0 comment '类型',
     status         int         not null default 1 comment '状态（1-正常、0-删除）',
     version        bigint      not null default 0 comment '版本号（乐观锁）',
     create_time    bigint      not null default 0 comment '创建时间',
