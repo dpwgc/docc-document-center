@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("com.dpwgc.document.center.infrastructure.dal")
 
 // Mybatis-plus Mapper扫描，infrastructure.dal.document是ES数据源，不用扫描
+@MapperScan("com.dpwgc.document.center.infrastructure.dal.column.mapper")
 @MapperScan("com.dpwgc.document.center.infrastructure.dal.category.mapper")
 @MapperScan("com.dpwgc.document.center.infrastructure.dal.tag.mapper")
 @MapperScan("com.dpwgc.document.center.infrastructure.dal.comment.mapper")
