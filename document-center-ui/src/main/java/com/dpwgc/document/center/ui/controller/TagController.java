@@ -2,7 +2,6 @@ package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.tag.TagCommandService;
 import com.dpwgc.document.center.app.query.tag.TagQueryService;
-import com.dpwgc.document.center.infrastructure.util.FieldCheckUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.tag.TagDTO;
@@ -36,13 +35,6 @@ public class TagController {
     @ApiOperation(value = "后台修改标签")
     @PostMapping("/updateTag")
     public ResultDTO<Boolean> updateTag(@RequestBody @Validated UpdateTagCommand updateTagCommand, BindingResult bindingResult) {
-
-        // 参数校验
-        String checkRes = FieldCheckUtil.check(bindingResult);
-        if (checkRes != null) {
-            return ResultDTO.getFailureResult(checkRes);
-        }
-
         return ResultDTO.getSuccessResult(tagCommandService.updateTag(updateTagCommand));
     }
 
@@ -54,8 +46,6 @@ public class TagController {
     @ApiOperation(value = "获取在指定时间区间内活跃的标签列表")
     @GetMapping("/listTag")
     public ResultDTO<PageBase<List<TagDTO>>> listTag(@ModelAttribute TagQuery tagQuery) {
-        //pageIndex格式转换
-        tagQuery.pageIndexConvert();
         return ResultDTO.getSuccessResult(tagQueryService.listTag(tagQuery));
     }
 }

@@ -2,7 +2,6 @@ package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.document.DocumentCommandService;
 import com.dpwgc.document.center.app.query.document.DocumentQueryService;
-import com.dpwgc.document.center.infrastructure.util.FieldCheckUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
@@ -38,13 +37,6 @@ public class DocumentController {
     @ApiOperation(value = "新建文档")
     @PostMapping("/createDocument")
     public ResultDTO<String> createDocument(@RequestBody @Validated CreateDocumentCommand createDocumentCommand, BindingResult bindingResult) throws IOException {
-
-        // 参数校验
-        String checkRes = FieldCheckUtil.check(bindingResult);
-        if (checkRes != null) {
-            return ResultDTO.getFailureResult(checkRes);
-        }
-
         return ResultDTO.getSuccessResult(documentCommandService.createDocument(createDocumentCommand));
     }
 
@@ -54,13 +46,6 @@ public class DocumentController {
     @ApiOperation(value = "更新文档（匹配ES主键id）")
     @PostMapping("/updateDocument")
     public ResultDTO<Boolean> updateDocument(@RequestBody @Validated UpdateDocumentCommand updateDocumentCommand, BindingResult bindingResult) throws IOException {
-
-        // 参数校验
-        String checkRes = FieldCheckUtil.check(bindingResult);
-        if (checkRes != null) {
-            return ResultDTO.getFailureResult(checkRes);
-        }
-
         return ResultDTO.getSuccessResult(documentCommandService.updateDocument(updateDocumentCommand));
     }
 

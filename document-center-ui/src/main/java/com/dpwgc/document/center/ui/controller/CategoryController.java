@@ -2,7 +2,6 @@ package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.category.CategoryCommandService;
 import com.dpwgc.document.center.app.query.category.CategoryQueryService;
-import com.dpwgc.document.center.infrastructure.util.FieldCheckUtil;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.category.*;
 import io.swagger.annotations.Api;
@@ -31,26 +30,12 @@ public class CategoryController {
     @ApiOperation(value = "创建分类")
     @PostMapping("/createCategory")
     public ResultDTO<String> createCategory(@RequestBody @Validated CreateCategoryCommand createCategoryCommand, BindingResult bindingResult) {
-
-        // 参数校验
-        String checkRes = FieldCheckUtil.check(bindingResult);
-        if (checkRes != null) {
-            return ResultDTO.getFailureResult(checkRes);
-        }
-
         return ResultDTO.getSuccessResult(categoryCommandService.createCategory(createCategoryCommand));
     }
 
     @ApiOperation(value = "更新分类信息")
     @PostMapping("/updateCategory")
     public ResultDTO<Boolean> updateCategory(@RequestBody @Validated UpdateCategoryCommand updateCategoryCommand, BindingResult bindingResult) {
-
-        // 参数校验
-        String checkRes = FieldCheckUtil.check(bindingResult);
-        if (checkRes != null) {
-            return ResultDTO.getFailureResult(checkRes);
-        }
-
         return ResultDTO.getSuccessResult(categoryCommandService.updateCategory(updateCategoryCommand));
     }
 

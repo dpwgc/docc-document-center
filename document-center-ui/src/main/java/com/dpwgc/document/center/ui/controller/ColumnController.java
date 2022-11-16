@@ -2,7 +2,6 @@ package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.column.ColumnCommandService;
 import com.dpwgc.document.center.app.query.column.ColumnQueryService;
-import com.dpwgc.document.center.infrastructure.util.FieldCheckUtil;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
 import com.dpwgc.document.center.sdk.model.column.ColumnQuery;
 import com.dpwgc.document.center.sdk.model.column.CreateColumnCommand;
@@ -35,39 +34,18 @@ public class ColumnController {
     @ApiOperation(value = "创建专栏")
     @PostMapping("/createColumn")
     public ResultDTO<String> createColumn(@RequestBody @Validated CreateColumnCommand createColumnCommand, BindingResult bindingResult) {
-
-        // 参数校验
-        String checkRes = FieldCheckUtil.check(bindingResult);
-        if (checkRes != null) {
-            return ResultDTO.getFailureResult(checkRes);
-        }
-
         return ResultDTO.getSuccessResult(null);
     }
 
     @ApiOperation(value = "更新专栏信息")
     @PostMapping("/updateColumn")
     public ResultDTO<Boolean> updateColumn(@RequestBody @Validated UpdateColumnCommand updateColumnCommand, BindingResult bindingResult) {
-
-        // 参数校验
-        String checkRes = FieldCheckUtil.check(bindingResult);
-        if (checkRes != null) {
-            return ResultDTO.getFailureResult(checkRes);
-        }
-
         return ResultDTO.getSuccessResult(null);
     }
 
     @ApiOperation(value = "查询专栏")
     @PostMapping("/queryColumn")
     public ResultDTO<String> queryColumn(@RequestBody @Validated ColumnQuery columnQuery, BindingResult bindingResult) {
-
-        // 参数校验
-        String checkRes = FieldCheckUtil.check(bindingResult);
-        if (checkRes != null) {
-            return ResultDTO.getFailureResult(checkRes);
-        }
-
         return ResultDTO.getSuccessResult(null);
     }
 }

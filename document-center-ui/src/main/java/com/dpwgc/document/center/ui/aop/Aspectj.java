@@ -52,6 +52,12 @@ public class Aspectj {
             return ResultDTO.getFailureResult("权限不足，无法访问").setCode(440);
         }
 
+        //请求参数校验
+        Object resultCheck = ApiGrab.resultCheckFail(joinPoint);
+        if(resultCheck != null) {
+            return resultCheck;
+        }
+
         //uri获取
         String uri = request.getRequestURI();
 
@@ -68,7 +74,13 @@ public class Aspectj {
                     //处理的方法类型
                     .httpMethod(request.getMethod())
                     //耗时
-                    .timeCost(System.currentTimeMillis() - startTime).build();
+                    .timeCost(System.currentTimeMillis() - startTime)
+                    //请求参数
+                    .req(JsonUtil.toJson(ApiGrab.getRequest(joinPoint)))
+                    //响应参数
+                    .resp(JsonUtil.toJson(result))
+                    //构建
+                    .build();
             LogUtil.info(String.format("[%s] %s", request.getMethod(), uri), JsonUtil.toJson(apiLog), uri);
 
             //返回

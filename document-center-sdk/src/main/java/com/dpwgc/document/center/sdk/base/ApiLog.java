@@ -19,6 +19,12 @@ public class ApiLog {
     // 类方法
     private String classMethod;
 
+    //请求参数
+    private String req;
+
+    //响应参数
+    private String resp;
+
     // 接口耗时
     private Long timeCost;
 }
