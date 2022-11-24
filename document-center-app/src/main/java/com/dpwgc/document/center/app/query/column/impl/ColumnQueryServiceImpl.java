@@ -35,6 +35,9 @@ public class ColumnQueryServiceImpl implements ColumnQueryService {
         }
         queryWrapper.eq("status", Status.NORMAL);
 
+        if (StringUtil.notEmpty(columnQuery.getColumnId())) {
+            queryWrapper.eq("column_id",columnQuery.getColumnId());
+        }
         if (StringUtil.notEmpty(columnQuery.getAuthorId())) {
             queryWrapper.eq("author_id",columnQuery.getAuthorId());
         }
