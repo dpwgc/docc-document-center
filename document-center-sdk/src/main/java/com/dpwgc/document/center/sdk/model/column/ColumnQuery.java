@@ -37,4 +37,9 @@ public class ColumnQuery extends QueryBase {
      * 专栏类型（自定义，例：1-官方专栏，0-普通专栏）
      */
     private Integer type;
+
+    /**
+     * 是否显示专栏详情
+     */
+    private Boolean showDetail = false;
 }

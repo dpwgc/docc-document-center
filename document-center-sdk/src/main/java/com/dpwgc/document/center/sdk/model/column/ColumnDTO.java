@@ -28,6 +28,16 @@ public class ColumnDTO {
     private String columnName;
 
     /**
+     * 专栏详情
+     */
+    private String detail;
+
+    /**
+     * 专栏附加内容（自定义）
+     */
+    private String extra;
+
+    /**
      * 专栏推荐分值（自由分配，返回分类列表时将按此字段对分类进行排序）
      */
     private Long score;

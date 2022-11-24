@@ -48,9 +48,9 @@ public class ColumnController {
     }
 
     @ApiOperation(value = "根据专栏id查询专栏详情")
-    @GetMapping("/queryDetailByColumnId")
-    public ResultDTO<ColumnDetailDTO> queryDetailByColumnId(@ApiParam(value = "应用id") String appId,
-                                                            @ApiParam(value = "专栏id") String columnId) {
-        return ResultDTO.getSuccessResult(columnQueryService.queryDetailByColumnId(appId, columnId));
+    @GetMapping("/queryColumnByColumnId")
+    public ResultDTO<ColumnDTO> queryDetailByColumnId(@ApiParam(value = "应用id") String appId,
+                                                      @ApiParam(value = "专栏id") String columnId) {
+        return ResultDTO.getSuccessResult(columnQueryService.queryColumnByColumnId(appId, columnId));
     }
 }

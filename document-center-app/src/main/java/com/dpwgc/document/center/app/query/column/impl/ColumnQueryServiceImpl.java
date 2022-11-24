@@ -10,7 +10,6 @@ import com.dpwgc.document.center.infrastructure.util.StringUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.column.ColumnDTO;
-import com.dpwgc.document.center.sdk.model.column.ColumnDetailDTO;
 import com.dpwgc.document.center.sdk.model.column.ColumnQuery;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +23,13 @@ public class ColumnQueryServiceImpl implements ColumnQueryService {
     @Resource
     ColumnMapper columnMapper;
 
-    public ColumnDetailDTO queryDetailByColumnId(String appId, String columnId) {
+    public ColumnDTO queryColumnByColumnId(String appId, String columnId) {
+
         QueryWrapper<ColumnPO> queryWrapper = new QueryWrapper<>();
-
-        //要查询的字段
-        queryWrapper.select("category_id","column_id","author_id","column_name","detail","extra","score","attr","type","create_time","update_time");
-
         queryWrapper.eq("app_id",appId);
         queryWrapper.eq("column_id",columnId);
 
-        return ColumnAssembler.INSTANCE.assembleColumnDetailDTO(columnMapper.selectOne(queryWrapper));
+        return ColumnAssembler.INSTANCE.assembleColumnDTO(columnMapper.selectOne(queryWrapper));
     }
 
     public PageBase<List<ColumnDTO>> queryColumn(ColumnQuery columnQuery) {
@@ -44,8 +40,10 @@ public class ColumnQueryServiceImpl implements ColumnQueryService {
 
         QueryWrapper<ColumnPO> queryWrapper = new QueryWrapper<>();
 
-        //要查询的字段
-        queryWrapper.select("category_id","column_id","author_id","column_name","score","attr","type","create_time","update_time");
+        //如果不显示专栏详情
+        if (columnQuery.getShowDetail() == null || !columnQuery.getShowDetail()) {
+            queryWrapper.select("category_id","column_id","author_id","column_name","extra","score","attr","type","create_time","update_time");
+        }
 
         queryWrapper.eq("app_id",columnQuery.getAppId());
         queryWrapper.eq("status", Status.NORMAL);
