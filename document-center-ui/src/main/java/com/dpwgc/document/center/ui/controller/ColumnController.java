@@ -4,12 +4,10 @@ import com.dpwgc.document.center.app.command.column.ColumnCommandService;
 import com.dpwgc.document.center.app.query.column.ColumnQueryService;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
-import com.dpwgc.document.center.sdk.model.column.ColumnDTO;
-import com.dpwgc.document.center.sdk.model.column.ColumnQuery;
-import com.dpwgc.document.center.sdk.model.column.CreateColumnCommand;
-import com.dpwgc.document.center.sdk.model.column.UpdateColumnCommand;
+import com.dpwgc.document.center.sdk.model.column.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +45,12 @@ public class ColumnController {
     @GetMapping("/queryColumn")
     public ResultDTO<PageBase<List<ColumnDTO>>> queryColumn(@ModelAttribute ColumnQuery columnQuery) {
         return ResultDTO.getSuccessResult(columnQueryService.queryColumn(columnQuery));
+    }
+
+    @ApiOperation(value = "根据专栏id查询专栏详情")
+    @GetMapping("/queryDetailByColumnId")
+    public ResultDTO<ColumnDetailDTO> queryDetailByColumnId(@ApiParam(value = "应用id") String appId,
+                                                            @ApiParam(value = "专栏id") String columnId) {
+        return ResultDTO.getSuccessResult(columnQueryService.queryDetailByColumnId(appId, columnId));
     }
 }

@@ -10,6 +10,7 @@ import com.dpwgc.document.center.infrastructure.util.StringUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.column.ColumnDTO;
+import com.dpwgc.document.center.sdk.model.column.ColumnDetailDTO;
 import com.dpwgc.document.center.sdk.model.column.ColumnQuery;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +24,28 @@ public class ColumnQueryServiceImpl implements ColumnQueryService {
     @Resource
     ColumnMapper columnMapper;
 
+    public ColumnDetailDTO queryDetailByColumnId(String appId, String columnId) {
+        QueryWrapper<ColumnPO> queryWrapper = new QueryWrapper<>();
+
+        //要查询的字段
+        queryWrapper.select("column_id","author_id","column_name","detail","extra","score","attr","type","create_time","update_time");
+
+        queryWrapper.eq("app_id",appId);
+        queryWrapper.eq("column_id",columnId);
+
+        return ColumnAssembler.INSTANCE.assembleColumnDetailDTO(columnMapper.selectOne(queryWrapper));
+    }
+
     public PageBase<List<ColumnDTO>> queryColumn(ColumnQuery columnQuery) {
+
         PageBase<List<ColumnDTO>> pageBase = new PageBase<>();
 
         Page<ColumnPO> page = new Page<>(columnQuery.getPageIndex(), columnQuery.getPageSize());
 
         QueryWrapper<ColumnPO> queryWrapper = new QueryWrapper<>();
+
+        //要查询的字段
+        queryWrapper.select("column_id","author_id","column_name","score","attr","type","create_time","update_time");
 
         if (StringUtil.notEmpty(columnQuery.getAppId())) {
             queryWrapper.eq("app_id",columnQuery.getAppId());
