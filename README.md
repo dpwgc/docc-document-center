@@ -8,8 +8,9 @@
 * 文档管理与检索
 * 评论管理与展示
 * 标签统计与查询
+* 专栏管理与展示
 * 分类树的构建与展示
-##### 对外提供`文档管理、文档多条件组合检索、评论管理、评论查询、标签统计与查询、树型分类结构生成、分类查询`等操作接口，可供博客应用、文库应用、公告应用等需要依靠文档检索功能的前台系统快速接入使用。
+##### 对外提供`文档管理、文档多条件组合检索、评论管理、评论查询、标签统计与查询、专栏管理与查询、树型分类结构生成、分类查询`等操作接口，可供博客应用、文库应用、公告应用等需要依靠文档检索功能的前台系统快速接入使用。
 （注：所有更新操作均采用乐观锁机制，更新失败重试次数可在配置文件里设置）
 
 ![ddd](./img/ddoc.png)
@@ -29,6 +30,7 @@
   * category `分类模块`
   * tag `标签模块`
   * comment `评论模块`
+  * column `专栏模块`
 
 #### 垂直分层
 * sdk `sdk：提供表示层所需的传输对象`
@@ -106,6 +108,7 @@ create table `column`
   id            bigint unsigned auto_increment
     primary key,
   app_id        varchar(63)  not null comment '应用id',
+  category_id   varchar(63)  not null comment '分类id',
   column_id     varchar(63)  not null comment '专栏id',
   author_id     varchar(63)  not null comment '作者id',
   column_name   varchar(127) not null default '' comment '专栏名称',
