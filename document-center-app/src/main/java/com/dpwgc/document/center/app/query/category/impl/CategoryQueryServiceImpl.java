@@ -8,7 +8,6 @@ import com.dpwgc.document.center.infrastructure.dal.category.mapper.CategoryMapp
 import com.dpwgc.document.center.infrastructure.util.StringUtil;
 import com.dpwgc.document.center.sdk.base.Status;
 import com.dpwgc.document.center.sdk.model.category.CategoryDTO;
-import com.dpwgc.document.center.sdk.model.category.CategoryDetailDTO;
 import com.dpwgc.document.center.sdk.model.category.CategoryTreeDTO;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -114,7 +113,7 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
      * @return CategoryDTO
      */
     @Override
-    public CategoryDetailDTO queryCategoryByCategoryId(String appId, String categoryId) {
+    public CategoryDTO queryCategoryByCategoryId(String appId, String categoryId) {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
 
@@ -123,6 +122,6 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
         queryWrapper.eq("status", Status.NORMAL);
 
         CategoryPO categoryPO = categoryMapper.selectOne(queryWrapper);
-        return CategoryAssembler.INSTANCE.assembleCategoryDetailDTO(categoryPO);
+        return CategoryAssembler.INSTANCE.assembleCategoryDTO(categoryPO);
     }
 }

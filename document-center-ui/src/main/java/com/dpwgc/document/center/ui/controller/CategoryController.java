@@ -56,7 +56,7 @@ public class CategoryController {
 
     @ApiOperation(value = "根据分类id获取分类")
     @GetMapping("/queryCategoryByCategoryId")
-    public ResultDTO<CategoryDetailDTO> queryCategoryByCategoryId(@ApiParam(value = "应用id") String appId,
+    public ResultDTO<CategoryDTO> queryCategoryByCategoryId(@ApiParam(value = "应用id") String appId,
                                                                   @ApiParam(value = "分类id") String categoryId) {
         return ResultDTO.getSuccessResult(categoryQueryService.queryCategoryByCategoryId(appId, categoryId));
     }
