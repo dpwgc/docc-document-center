@@ -28,7 +28,7 @@ public class ColumnQueryServiceImpl implements ColumnQueryService {
         QueryWrapper<ColumnPO> queryWrapper = new QueryWrapper<>();
 
         //要查询的字段
-        queryWrapper.select("column_id","author_id","column_name","detail","extra","score","attr","type","create_time","update_time");
+        queryWrapper.select("category_id","column_id","author_id","column_name","detail","extra","score","attr","type","create_time","update_time");
 
         queryWrapper.eq("app_id",appId);
         queryWrapper.eq("column_id",columnId);
@@ -45,13 +45,14 @@ public class ColumnQueryServiceImpl implements ColumnQueryService {
         QueryWrapper<ColumnPO> queryWrapper = new QueryWrapper<>();
 
         //要查询的字段
-        queryWrapper.select("column_id","author_id","column_name","score","attr","type","create_time","update_time");
+        queryWrapper.select("category_id","column_id","author_id","column_name","score","attr","type","create_time","update_time");
 
-        if (StringUtil.notEmpty(columnQuery.getAppId())) {
-            queryWrapper.eq("app_id",columnQuery.getAppId());
-        }
+        queryWrapper.eq("app_id",columnQuery.getAppId());
         queryWrapper.eq("status", Status.NORMAL);
 
+        if (StringUtil.notEmpty(columnQuery.getCategoryId())) {
+            queryWrapper.eq("category_id",columnQuery.getCategoryId());
+        }
         if (StringUtil.notEmpty(columnQuery.getAuthorId())) {
             queryWrapper.eq("author_id",columnQuery.getAuthorId());
         }

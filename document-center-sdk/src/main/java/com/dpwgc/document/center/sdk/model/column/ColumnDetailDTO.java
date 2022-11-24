@@ -13,6 +13,11 @@ public class ColumnDetailDTO {
     private String columnId;
 
     /**
+     * 分类id
+     */
+    private String categoryId;
+
+    /**
      * 作者/发布者id
      */
     private String authorId;

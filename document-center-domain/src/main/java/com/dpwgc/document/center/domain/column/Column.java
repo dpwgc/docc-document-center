@@ -18,6 +18,11 @@ public class Column {
     private String appId;
 
     /**
+     * 所属分类id
+     */
+    private String categoryId;
+
+    /**
      * 专栏id
      */
     private String columnId;
@@ -72,11 +77,12 @@ public class Column {
      */
     private Long updateTime;
 
-    protected Column create(String appId,String columnId,String authorId,String columnName,String detail,String extra,Long score,Integer attr,Integer type) {
+    protected Column create(String appId,String categoryId,String columnId,String authorId,String columnName,String detail,String extra,Long score,Integer attr,Integer type) {
 
         this.status = 1;
 
         this.appId = appId;
+        this.categoryId = categoryId;
         this.columnId = columnId;
         this.authorId = authorId;
         this.columnName = columnName;

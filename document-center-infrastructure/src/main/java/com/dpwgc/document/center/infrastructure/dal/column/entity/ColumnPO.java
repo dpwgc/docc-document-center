@@ -24,6 +24,11 @@ public class ColumnPO {
     private String appId;
 
     /**
+     * 所属分类id
+     */
+    private String categoryId;
+
+    /**
      * 专栏id
      */
     private String columnId;

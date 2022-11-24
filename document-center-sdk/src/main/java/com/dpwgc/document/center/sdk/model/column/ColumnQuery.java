@@ -14,6 +14,11 @@ public class ColumnQuery extends QueryBase {
     private String appId;
 
     /**
+     * 分类id
+     */
+    private String categoryId;
+
+    /**
      * 作者/发布者id
      */
     private String authorId;

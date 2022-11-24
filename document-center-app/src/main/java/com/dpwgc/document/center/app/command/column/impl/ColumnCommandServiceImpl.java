@@ -25,6 +25,7 @@ public class ColumnCommandServiceImpl implements ColumnCommandService {
         ColumnFactory columnFactory = new ColumnFactory();
         Column column = columnFactory.create(
                 createColumnCommand.getAppId(),
+                createColumnCommand.getCategoryId(),
                 idGenUtil.nextIdString(),
                 createColumnCommand.getAuthorId(),
                 createColumnCommand.getColumnName(),
