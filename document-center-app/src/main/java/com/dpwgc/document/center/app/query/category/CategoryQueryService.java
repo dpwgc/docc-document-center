@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CategoryQueryService {
 
-    List<CategoryTreeDTO> getCategoryTreeByAppId(String appId, Boolean showDetail);
+    List<CategoryTreeDTO> buildCategoryTreeByAppId(String appId, Boolean showDetail);
 
     List<CategoryDTO> queryCategoryByParentId(String appId, String parentId, Boolean showDetail);
 

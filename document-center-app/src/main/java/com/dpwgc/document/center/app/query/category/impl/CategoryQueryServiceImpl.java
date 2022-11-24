@@ -22,7 +22,7 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
     @Resource
     CategoryMapper categoryMapper;
 
-    public List<CategoryTreeDTO> getCategoryTreeByAppId(String appId, Boolean showDetail) {
+    public List<CategoryTreeDTO> buildCategoryTreeByAppId(String appId, Boolean showDetail) {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
 

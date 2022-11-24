@@ -39,11 +39,11 @@ public class CategoryController {
         return ResultDTO.getSuccessResult(categoryCommandService.updateCategory(updateCategoryCommand));
     }
 
-    @ApiOperation(value = "获取分类树")
-    @GetMapping("/getCategoryTreeByAppId")
-    public ResultDTO<List<CategoryTreeDTO>> getCategoryTreeByAppId(@ApiParam(value = "应用id") String appId,
+    @ApiOperation(value = "构建完整的分类树")
+    @GetMapping("/buildCategoryTreeByAppId")
+    public ResultDTO<List<CategoryTreeDTO>> buildCategoryTreeByAppId(@ApiParam(value = "应用id") String appId,
                                                                    @ApiParam(value = "是否显示分类详情") Boolean showDetail) {
-        return ResultDTO.getSuccessResult(categoryQueryService.getCategoryTreeByAppId(appId, showDetail));
+        return ResultDTO.getSuccessResult(categoryQueryService.buildCategoryTreeByAppId(appId, showDetail));
     }
 
     @ApiOperation(value = "根据父类id获取分类列表")
