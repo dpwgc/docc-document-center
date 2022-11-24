@@ -6,6 +6,16 @@ server:
     context-path: /docc
 
 spring:
+
+  graphql:
+    path: /graphql
+    schema:
+      printer:
+        enabled: true
+
+    graphiql:
+      enabled: true
+
   mvc:
     # 兼容Swagger3
     pathmatch:
