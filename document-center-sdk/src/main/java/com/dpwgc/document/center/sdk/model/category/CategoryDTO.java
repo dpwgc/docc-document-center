@@ -29,6 +29,18 @@ public class CategoryDTO {
     private String categoryName;
 
     /**
+     * 分类详情
+     */
+    @ApiModelProperty(value = "分类详情")
+    private String detail;
+
+    /**
+     * 分类附加内容（自定义）
+     */
+    @ApiModelProperty(value = "分类附加内容（自定义）")
+    private String extra;
+
+    /**
      * 分类推荐分值（自由分配，返回分类列表时将按此字段对分类进行排序）
      */
     @ApiModelProperty(value = "分类推荐分值（自由分配，返回分类列表时将按此字段对分类进行排序）")

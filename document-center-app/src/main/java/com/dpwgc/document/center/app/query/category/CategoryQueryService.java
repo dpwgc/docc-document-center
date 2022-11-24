@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface CategoryQueryService {
 
-    List<CategoryTreeDTO> getCategoryTreeByAppId(String appId);
+    List<CategoryTreeDTO> getCategoryTreeByAppId(String appId, Boolean showDetail);
 
-    List<CategoryDTO> queryCategoryByParentId(String appId, String parentId);
+    List<CategoryDTO> queryCategoryByParentId(String appId, String parentId, Boolean showDetail);
 
-    CategoryDetailDTO queryDetailByCategoryId(String appId, String categoryId);
+    CategoryDetailDTO queryCategoryByCategoryId(String appId, String categoryId);
 }

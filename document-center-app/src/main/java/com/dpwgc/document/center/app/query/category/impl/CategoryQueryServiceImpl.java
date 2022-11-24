@@ -23,12 +23,14 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
     @Resource
     CategoryMapper categoryMapper;
 
-    public List<CategoryTreeDTO> getCategoryTreeByAppId(String appId) {
+    public List<CategoryTreeDTO> getCategoryTreeByAppId(String appId, Boolean showDetail) {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
 
-        //要查询的字段
-        queryWrapper.select("category_id","parent_id","category_name","score","create_time","update_time");
+        //如果不显示分类详情
+        if (showDetail == null || !showDetail) {
+            queryWrapper.select("category_id","parent_id","category_name","extra","score","create_time","update_time");
+        }
 
         if (StringUtil.notEmpty(appId)) {
             queryWrapper.eq("app_id",appId);
@@ -44,12 +46,14 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
         return categoryListToTree(categoryTreeDTOS);
     }
 
-    public List<CategoryDTO> queryCategoryByParentId(String appId, String parentId) {
+    public List<CategoryDTO> queryCategoryByParentId(String appId, String parentId, Boolean showDetail) {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
 
-        //要查询的字段
-        queryWrapper.select("category_id","parent_id","category_name","score","create_time","update_time");
+        //如果不显示分类详情
+        if (showDetail == null || !showDetail) {
+            queryWrapper.select("category_id","parent_id","category_name","extra","score","create_time","update_time");
+        }
 
         queryWrapper.eq("app_id",appId);
         queryWrapper.eq("parent_id",parentId);
@@ -110,7 +114,7 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
      * @return CategoryDTO
      */
     @Override
-    public CategoryDetailDTO queryDetailByCategoryId(String appId, String categoryId) {
+    public CategoryDetailDTO queryCategoryByCategoryId(String appId, String categoryId) {
 
         QueryWrapper<CategoryPO> queryWrapper = new QueryWrapper<>();
 

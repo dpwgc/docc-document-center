@@ -41,21 +41,23 @@ public class CategoryController {
 
     @ApiOperation(value = "获取分类树")
     @GetMapping("/getCategoryTreeByAppId")
-    public ResultDTO<List<CategoryTreeDTO>> getCategoryTreeByAppId(@ApiParam(value = "应用id") String appId) {
-        return ResultDTO.getSuccessResult(categoryQueryService.getCategoryTreeByAppId(appId));
+    public ResultDTO<List<CategoryTreeDTO>> getCategoryTreeByAppId(@ApiParam(value = "应用id") String appId,
+                                                                   @ApiParam(value = "是否显示分类详情") Boolean showDetail) {
+        return ResultDTO.getSuccessResult(categoryQueryService.getCategoryTreeByAppId(appId, showDetail));
     }
 
     @ApiOperation(value = "根据父类id获取分类列表")
     @GetMapping("/queryCategoryByParentId")
     public ResultDTO<List<CategoryDTO>> queryCategoryByParentId(@ApiParam(value = "应用id") String appId,
-                                                                @ApiParam(value = "父类id") String parentId) {
-        return ResultDTO.getSuccessResult(categoryQueryService.queryCategoryByParentId(appId, parentId));
+                                                                @ApiParam(value = "父类id") String parentId,
+                                                                @ApiParam(value = "是否显示分类详情") Boolean showDetail) {
+        return ResultDTO.getSuccessResult(categoryQueryService.queryCategoryByParentId(appId, parentId, showDetail));
     }
 
-    @ApiOperation(value = "根据分类id获取分类详情")
-    @GetMapping("/queryDetailByCategoryId")
-    public ResultDTO<CategoryDetailDTO> queryDetailByCategoryId(@ApiParam(value = "应用id") String appId,
-                                                                @ApiParam(value = "分类id") String categoryId) {
-        return ResultDTO.getSuccessResult(categoryQueryService.queryDetailByCategoryId(appId, categoryId));
+    @ApiOperation(value = "根据分类id获取分类")
+    @GetMapping("/queryCategoryByCategoryId")
+    public ResultDTO<CategoryDetailDTO> queryCategoryByCategoryId(@ApiParam(value = "应用id") String appId,
+                                                                  @ApiParam(value = "分类id") String categoryId) {
+        return ResultDTO.getSuccessResult(categoryQueryService.queryCategoryByCategoryId(appId, categoryId));
     }
 }
