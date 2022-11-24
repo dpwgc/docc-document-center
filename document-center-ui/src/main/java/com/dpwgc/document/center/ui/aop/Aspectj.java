@@ -88,7 +88,7 @@ public class Aspectj {
 
         } catch (Exception e) {
             LogUtil.error(String.format("%s.%s", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName()), ExceptionUtil.GetStackTrace(e),uri);
-            return ResultDTO.getFailureResult(e.getMessage());
+            return ResultDTO.getFailureResult(e.getMessage()).setError(e.getMessage());
         }
     }
 }
