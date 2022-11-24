@@ -12,10 +12,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
@@ -47,11 +43,6 @@ public class Aspectj {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = Objects.requireNonNull(attributes).getRequest();
 
-        //权限校验
-        if(!ApiAuth.check(request.getHeader("Access-Token"))){
-            return ResultDTO.getFailureResult("权限不足，无法访问").setCode(440);
-        }
-
         //请求参数校验
         Object resultCheck = ApiGrab.resultCheckFail(joinPoint);
         if(resultCheck != null) {
@@ -67,19 +58,12 @@ public class Aspectj {
 
             //接口请求日志
             ApiLog apiLog = ApiLog.builder()
-                    //请求路径
                     .url(request.getRequestURL().toString())
-                    //处理的类
                     .classMethod(String.format("%s.%s", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName()))
-                    //处理的方法类型
                     .httpMethod(request.getMethod())
-                    //耗时
                     .timeCost(System.currentTimeMillis() - startTime)
-                    //请求参数
                     .req(JsonUtil.toJson(ApiGrab.getRequest(joinPoint)))
-                    //响应参数
                     .resp(JsonUtil.toJson(result))
-                    //构建
                     .build();
             LogUtil.info(String.format("[%s] %s", request.getMethod(), uri), JsonUtil.toJson(apiLog), uri);
 
