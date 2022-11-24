@@ -1,8 +1,8 @@
 package com.dpwgc.document.center.app.query.document;
 
 import com.dpwgc.document.center.sdk.base.PageBase;
-import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
-import com.dpwgc.document.center.sdk.model.document.AggregationsDTO;
+import com.dpwgc.document.center.sdk.model.document.AggregationQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationDTO;
 import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 import com.dpwgc.document.center.sdk.model.document.DocumentDTO;
 
@@ -33,6 +33,6 @@ public interface DocumentQueryService {
     /**
      * 文档数据聚合统计
      */
-    AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery) throws IOException;
+    AggregationDTO aggregationDocument(AggregationQuery aggregationQuery) throws IOException;
 
 }

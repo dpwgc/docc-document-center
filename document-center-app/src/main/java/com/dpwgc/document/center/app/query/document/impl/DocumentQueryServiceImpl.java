@@ -5,8 +5,8 @@ import com.dpwgc.document.center.app.query.document.DocumentQueryService;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.dal.document.mapper.DocumentMapper;
 import com.dpwgc.document.center.sdk.base.PageBase;
-import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
-import com.dpwgc.document.center.sdk.model.document.AggregationsDTO;
+import com.dpwgc.document.center.sdk.model.document.AggregationQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationDTO;
 import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 import com.dpwgc.document.center.sdk.model.document.DocumentDTO;
 import org.springframework.stereotype.Service;
@@ -67,7 +67,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @return DocumentAggregationsDTO
      */
     @Override
-    public AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery) throws IOException {
-        return documentMapper.aggregationsDocument(aggregationsQuery);
+    public AggregationDTO aggregationDocument(AggregationQuery aggregationQuery) throws IOException {
+        return documentMapper.aggregationDocument(aggregationQuery);
     }
 }

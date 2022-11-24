@@ -13,7 +13,7 @@ import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.util.JsonUtil;
 import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.Status;
-import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationQuery;
 import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -290,54 +290,54 @@ public class ESClient {
     /**
      * 文档数据聚合统计
      */
-    public Map<String, Aggregate> aggregationsDocument(String indexName, AggregationsQuery aggregationsQuery) throws IOException {
+    public Map<String, Aggregate> aggregationDocument(String indexName, AggregationQuery aggregationQuery) throws IOException {
         //
         BoolQuery.Builder bool = new BoolQuery.Builder();
-        if (isEnable(aggregationsQuery.getAppId())) {
+        if (isEnable(aggregationQuery.getAppId())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("app_id")
-                            .query(aggregationsQuery.getAppId())
+                            .query(aggregationQuery.getAppId())
                     )
             );
         }
-        if (isEnable(aggregationsQuery.getCategoryId())) {
+        if (isEnable(aggregationQuery.getCategoryId())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("category_id")
-                            .query(aggregationsQuery.getCategoryId())
+                            .query(aggregationQuery.getCategoryId())
                     )
             );
         }
-        if (isEnable(aggregationsQuery.getColumnId())) {
+        if (isEnable(aggregationQuery.getColumnId())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("column_id")
-                            .query(aggregationsQuery.getColumnId())
+                            .query(aggregationQuery.getColumnId())
                     )
             );
         }
-        if (isEnable(aggregationsQuery.getAuthorId())) {
+        if (isEnable(aggregationQuery.getAuthorId())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("author_id")
-                            .query(aggregationsQuery.getAuthorId())
+                            .query(aggregationQuery.getAuthorId())
                     )
             );
         }
-        if (isEnable(aggregationsQuery.getType())) {
+        if (isEnable(aggregationQuery.getType())) {
             bool.must(must -> must
                     .match(match -> match
                             .field("type")
-                            .query(aggregationsQuery.getType())
+                            .query(aggregationQuery.getType())
                     )
             );
         }
-        if (isEnable(aggregationsQuery.getTag())) {
+        if (isEnable(aggregationQuery.getTag())) {
             bool.must(must -> must
                     .fuzzy(fuzzy -> fuzzy
                             .field("tags")
-                            .value(aggregationsQuery.getTag())
+                            .value(aggregationQuery.getTag())
                             .fuzziness("0")
                     )
             );

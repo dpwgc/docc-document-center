@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @ApiModel(value = "文档数据聚合统计-接口参数")
-public class AggregationsQuery {
+public class AggregationQuery {
 
     @ApiModelProperty(value = "应用id")
     private String appId;

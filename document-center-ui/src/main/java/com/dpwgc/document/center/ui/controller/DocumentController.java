@@ -16,7 +16,6 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 文档相关接口
@@ -92,7 +91,7 @@ public class DocumentController {
      */
     @ApiOperation(value = "文档数据聚合统计")
     @GetMapping("/aggregationsDocument")
-    public ResultDTO<AggregationsDTO> aggregationsDocument(@ModelAttribute AggregationsQuery aggregationsQuery) throws IOException {
-        return ResultDTO.getSuccessResult(documentQueryService.aggregationsDocument(aggregationsQuery));
+    public ResultDTO<AggregationDTO> aggregationDocument(@ModelAttribute AggregationQuery aggregationQuery) throws IOException {
+        return ResultDTO.getSuccessResult(documentQueryService.aggregationDocument(aggregationQuery));
     }
 }

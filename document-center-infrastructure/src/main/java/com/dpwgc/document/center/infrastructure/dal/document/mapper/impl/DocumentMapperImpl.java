@@ -1,14 +1,14 @@
 package com.dpwgc.document.center.infrastructure.dal.document.mapper.impl;
 
 import co.elastic.clients.elasticsearch.core.search.Hit;
-import com.dpwgc.document.center.infrastructure.assembler.AggregationsMapToObjectAssembler;
+import com.dpwgc.document.center.infrastructure.assembler.AggregationMapToObjectAssembler;
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.infrastructure.assembler.HitToDocumentPOAssembler;
 import com.dpwgc.document.center.infrastructure.component.ESClient;
 import com.dpwgc.document.center.infrastructure.dal.document.mapper.DocumentMapper;
 import com.dpwgc.document.center.sdk.base.PageBase;
-import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
-import com.dpwgc.document.center.sdk.model.document.AggregationsDTO;
+import com.dpwgc.document.center.sdk.model.document.AggregationQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationDTO;
 import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class DocumentMapperImpl implements DocumentMapper {
     HitToDocumentPOAssembler hitToDocumentPOAssembler;
 
     @Resource
-    AggregationsMapToObjectAssembler aggregationsMapToObjectAssembler;
+    AggregationMapToObjectAssembler aggregationMapToObjectAssembler;
 
     @Value("${elasticsearch.indexName}")
     private String indexName;
@@ -64,7 +64,7 @@ public class DocumentMapperImpl implements DocumentMapper {
      * @return DocumentAggregationsDTO
      */
     @Override
-    public AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery) throws IOException {
-        return aggregationsMapToObjectAssembler.assemblerAggregations(esClient.aggregationsDocument(indexName, aggregationsQuery));
+    public AggregationDTO aggregationDocument(AggregationQuery aggregationQuery) throws IOException {
+        return aggregationMapToObjectAssembler.assemblerAggregation(esClient.aggregationDocument(indexName, aggregationQuery));
     }
 }

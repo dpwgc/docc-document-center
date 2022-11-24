@@ -2,8 +2,8 @@ package com.dpwgc.document.center.infrastructure.dal.document.mapper;
 
 import com.dpwgc.document.center.infrastructure.dal.document.entity.DocumentPO;
 import com.dpwgc.document.center.sdk.base.PageBase;
-import com.dpwgc.document.center.sdk.model.document.AggregationsQuery;
-import com.dpwgc.document.center.sdk.model.document.AggregationsDTO;
+import com.dpwgc.document.center.sdk.model.document.AggregationQuery;
+import com.dpwgc.document.center.sdk.model.document.AggregationDTO;
 import com.dpwgc.document.center.sdk.model.document.DocumentQuery;
 
 import java.io.IOException;
@@ -27,5 +27,5 @@ public interface DocumentMapper {
      * 文档数据聚合统计
      * @return DocumentAggregationsDTO
      */
-    AggregationsDTO aggregationsDocument(AggregationsQuery aggregationsQuery) throws IOException;
+    AggregationDTO aggregationDocument(AggregationQuery aggregationQuery) throws IOException;
 }
