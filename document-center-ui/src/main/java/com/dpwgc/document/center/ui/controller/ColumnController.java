@@ -34,13 +34,13 @@ public class ColumnController {
     @ApiOperation(value = "创建专栏")
     @PostMapping("/createColumn")
     public ResultDTO<String> createColumn(@RequestBody @Validated CreateColumnCommand createColumnCommand, BindingResult bindingResult) {
-        return ResultDTO.getSuccessResult(null);
+        return ResultDTO.getSuccessResult(columnCommandService.createColumn(createColumnCommand));
     }
 
     @ApiOperation(value = "更新专栏信息")
     @PostMapping("/updateColumn")
     public ResultDTO<Boolean> updateColumn(@RequestBody @Validated UpdateColumnCommand updateColumnCommand, BindingResult bindingResult) {
-        return ResultDTO.getSuccessResult(null);
+        return ResultDTO.getSuccessResult(columnCommandService.updateColumn(updateColumnCommand));
     }
 
     @ApiOperation(value = "查询专栏")
