@@ -23,6 +23,7 @@ create table `column`
     id            bigint unsigned auto_increment
         primary key,
     app_id        varchar(63)  not null comment '应用id',
+    category_id   varchar(63)  not null comment '分类id',
     column_id     varchar(63)  not null comment '专栏id',
     author_id     varchar(63)  not null comment '作者id',
     column_name   varchar(127) not null default '' comment '专栏名称',
