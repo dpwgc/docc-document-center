@@ -29,7 +29,7 @@ public class TagQueryServiceImpl implements TagQueryService {
      * @return List<TagDTO>
      */
     @Override
-    public PageBase<List<TagDTO>> listTag(TagQuery tagQuery) {
+    public PageBase<List<TagDTO>> queryTag(TagQuery tagQuery) {
 
         PageBase<List<TagDTO>> pageBase = new PageBase<>();
 

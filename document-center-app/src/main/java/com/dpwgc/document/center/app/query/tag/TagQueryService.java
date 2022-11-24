@@ -13,5 +13,5 @@ public interface TagQueryService {
      * @param tagQuery 检索条件
      * @return List<TagDTO>
      */
-    PageBase<List<TagDTO>> listTag(TagQuery tagQuery);
+    PageBase<List<TagDTO>> queryTag(TagQuery tagQuery);
 }

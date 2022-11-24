@@ -44,8 +44,8 @@ public class TagController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "获取在指定时间区间内活跃的标签列表")
-    @GetMapping("/listTag")
-    public ResultDTO<PageBase<List<TagDTO>>> listTag(@ModelAttribute TagQuery tagQuery) {
-        return ResultDTO.getSuccessResult(tagQueryService.listTag(tagQuery));
+    @GetMapping("/queryTag")
+    public ResultDTO<PageBase<List<TagDTO>>> queryTag(@ModelAttribute TagQuery tagQuery) {
+        return ResultDTO.getSuccessResult(tagQueryService.queryTag(tagQuery));
     }
 }
