@@ -2,7 +2,9 @@ package com.dpwgc.document.center.ui.controller;
 
 import com.dpwgc.document.center.app.command.column.ColumnCommandService;
 import com.dpwgc.document.center.app.query.column.ColumnQueryService;
+import com.dpwgc.document.center.sdk.base.PageBase;
 import com.dpwgc.document.center.sdk.base.ResultDTO;
+import com.dpwgc.document.center.sdk.model.column.ColumnDTO;
 import com.dpwgc.document.center.sdk.model.column.ColumnQuery;
 import com.dpwgc.document.center.sdk.model.column.CreateColumnCommand;
 import com.dpwgc.document.center.sdk.model.column.UpdateColumnCommand;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 文档专栏相关接口
@@ -45,7 +48,7 @@ public class ColumnController {
 
     @ApiOperation(value = "查询专栏")
     @PostMapping("/queryColumn")
-    public ResultDTO<String> queryColumn(@RequestBody @Validated ColumnQuery columnQuery, BindingResult bindingResult) {
-        return ResultDTO.getSuccessResult(null);
+    public ResultDTO<PageBase<List<ColumnDTO>>> queryColumn(@RequestBody @Validated ColumnQuery columnQuery, BindingResult bindingResult) {
+        return ResultDTO.getSuccessResult(columnQueryService.queryColumn(columnQuery));
     }
 }
