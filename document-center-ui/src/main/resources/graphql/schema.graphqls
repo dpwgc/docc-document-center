@@ -1,0 +1,17 @@
+type Query {
+    searchDocument(
+        appId: String
+        categoryId: String
+        columnId: String
+        authorId: String
+        type: Int
+        filter: Int
+        attr: Int
+        tag: String
+        keyword: String
+        authLevel: Int
+        startUpdateTime: Int
+        endUpdateTime: Int
+        showContent: Boolean
+    ): DocumentResult
+}

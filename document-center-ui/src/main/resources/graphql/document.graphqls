@@ -1,0 +1,36 @@
+type Document {
+    id: String
+    categoryId: String
+    columnId: [String]
+    authorId: [String]
+    documentId: String
+    title: String
+    content: String
+    tag: [String]
+    remarks: String
+    extra: String
+    summary: String
+    authLevel: Int
+    score: Int
+    filter: [Int]
+    attr: [Int]
+    loveNum: Int
+    likeNum: Int
+    readNum: Int
+    shareNum: Int
+    commentNum: Int
+    type: Int
+    createTime: Int
+    updateTime: Int
+}
+
+type DocumentPage {
+    total: Int
+    list: [Document]
+}
+
+type DocumentResult {
+    code: Int
+    msg: String
+    data: DocumentPage
+}

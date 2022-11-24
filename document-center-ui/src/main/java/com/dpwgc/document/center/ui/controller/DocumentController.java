@@ -9,6 +9,8 @@ import com.dpwgc.document.center.sdk.model.document.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +38,7 @@ public class DocumentController {
      */
     @ApiOperation(value = "新建文档")
     @PostMapping("/createDocument")
+    @MutationMapping
     public ResultDTO<String> createDocument(@RequestBody @Validated CreateDocumentCommand createDocumentCommand, BindingResult bindingResult) throws IOException {
         return ResultDTO.getSuccessResult(documentCommandService.createDocument(createDocumentCommand));
     }
@@ -45,6 +48,7 @@ public class DocumentController {
      */
     @ApiOperation(value = "更新文档（匹配ES主键id）")
     @PostMapping("/updateDocument")
+    @MutationMapping
     public ResultDTO<Boolean> updateDocument(@RequestBody @Validated UpdateDocumentCommand updateDocumentCommand, BindingResult bindingResult) throws IOException {
         return ResultDTO.getSuccessResult(documentCommandService.updateDocument(updateDocumentCommand));
     }
@@ -57,6 +61,7 @@ public class DocumentController {
      */
     @ApiOperation(value = "根据ES主键id查询文档")
     @GetMapping("/queryDocumentByESId")
+    @QueryMapping
     ResultDTO<DocumentDTO> queryDocumentByESId(@ApiParam(value = "ES主键id") String id) throws IOException {
         return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByESId(id));
     }
@@ -69,6 +74,7 @@ public class DocumentController {
      */
     @ApiOperation(value = "根据ES主键id集合查询文档（逗号间隔：xxx,xxx,xxx）")
     @GetMapping("/queryDocumentByESIdList")
+    @QueryMapping
     ResultDTO<List<DocumentDTO>> queryDocumentByESIdList(@ApiParam(value = "ES主键id集合") String idList) throws IOException {
         return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByESIdList(Arrays.asList(idList.split(","))));
     }
@@ -79,6 +85,7 @@ public class DocumentController {
      */
     @ApiOperation(value = "文档检索")
     @GetMapping("/searchDocument")
+    @QueryMapping
     public ResultDTO<PageBase<List<DocumentDTO>>> searchDocument(@ModelAttribute DocumentQuery documentQuery) throws IOException {
         //pageIndex格式转换
         documentQuery.pageIndexConvert();
@@ -91,6 +98,7 @@ public class DocumentController {
      */
     @ApiOperation(value = "文档数据聚合统计")
     @GetMapping("/aggregationsDocument")
+    @QueryMapping
     public ResultDTO<AggregationDTO> aggregationDocument(@ModelAttribute AggregationQuery aggregationQuery) throws IOException {
         return ResultDTO.getSuccessResult(documentQueryService.aggregationDocument(aggregationQuery));
     }

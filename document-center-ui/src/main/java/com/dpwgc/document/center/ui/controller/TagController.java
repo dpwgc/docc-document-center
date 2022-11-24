@@ -9,6 +9,8 @@ import com.dpwgc.document.center.sdk.model.tag.TagQuery;
 import com.dpwgc.document.center.sdk.model.tag.UpdateTagCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,7 @@ public class TagController {
      */
     @ApiOperation(value = "后台修改标签")
     @PostMapping("/updateTag")
+    @MutationMapping
     public ResultDTO<Boolean> updateTag(@RequestBody @Validated UpdateTagCommand updateTagCommand, BindingResult bindingResult) {
         return ResultDTO.getSuccessResult(tagCommandService.updateTag(updateTagCommand));
     }
@@ -45,6 +48,7 @@ public class TagController {
      */
     @ApiOperation(value = "获取在指定时间区间内活跃的标签列表")
     @GetMapping("/queryTag")
+    @QueryMapping
     public ResultDTO<PageBase<List<TagDTO>>> queryTag(@ModelAttribute TagQuery tagQuery) {
         return ResultDTO.getSuccessResult(tagQueryService.queryTag(tagQuery));
     }
