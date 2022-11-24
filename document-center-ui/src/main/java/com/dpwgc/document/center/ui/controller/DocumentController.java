@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,13 +65,13 @@ public class DocumentController {
     /**
      * 根据ES主键id集合查询文档
      * （可以用这接口来查询用户的收藏文档列表）
-     * @param idList ES主键id集合
+     * @param idList ES主键id集合（逗号间隔：xxx,xxx,xxx）
      * @return ResultDTO<Object>
      */
-    @ApiOperation(value = "根据ES主键id集合查询文档")
+    @ApiOperation(value = "根据ES主键id集合查询文档（逗号间隔：xxx,xxx,xxx）")
     @GetMapping("/queryDocumentByIdList")
-    ResultDTO<List<DocumentDTO>> queryDocumentByIdList(@ApiParam(value = "ES主键id集合") List<String> idList) throws IOException {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByIdList(idList));
+    ResultDTO<List<DocumentDTO>> queryDocumentByIdList(@ApiParam(value = "ES主键id集合") String idList) throws IOException {
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByIdList(Arrays.asList(idList.split(","))));
     }
 
     /**
