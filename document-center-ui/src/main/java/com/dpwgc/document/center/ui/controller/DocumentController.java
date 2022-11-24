@@ -56,9 +56,9 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据ES主键id查询文档")
-    @GetMapping("/queryDocumentById")
-    ResultDTO<DocumentDTO> queryDocumentById(@ApiParam(value = "ES主键id") String id) throws IOException {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentById(id));
+    @GetMapping("/queryDocumentByESId")
+    ResultDTO<DocumentDTO> queryDocumentByESId(@ApiParam(value = "ES主键id") String id) throws IOException {
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByESId(id));
     }
 
     /**
@@ -68,9 +68,9 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "根据ES主键id集合查询文档（逗号间隔：xxx,xxx,xxx）")
-    @GetMapping("/queryDocumentByIdList")
-    ResultDTO<List<DocumentDTO>> queryDocumentByIdList(@ApiParam(value = "ES主键id集合") String idList) throws IOException {
-        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByIdList(Arrays.asList(idList.split(","))));
+    @GetMapping("/queryDocumentByESIdList")
+    ResultDTO<List<DocumentDTO>> queryDocumentByESIdList(@ApiParam(value = "ES主键id集合") String idList) throws IOException {
+        return ResultDTO.getSuccessResult(documentQueryService.queryDocumentByESIdList(Arrays.asList(idList.split(","))));
     }
 
     /**

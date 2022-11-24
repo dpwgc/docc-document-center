@@ -28,8 +28,8 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * List<DocumentDTO>
      */
     @Override
-    public DocumentDTO queryDocumentById(String id) throws IOException {
-        DocumentPO documentPO = documentMapper.queryDocumentById(id);
+    public DocumentDTO queryDocumentByESId(String id) throws IOException {
+        DocumentPO documentPO = documentMapper.queryDocumentByESId(id);
         return DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO);
     }
 
@@ -39,10 +39,10 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * List<DocumentDTO>
      */
     @Override
-    public List<DocumentDTO> queryDocumentByIdList(List<String> idList) throws IOException {
+    public List<DocumentDTO> queryDocumentByESIdList(List<String> idList) throws IOException {
         List<DocumentDTO> documentDTOList = new ArrayList<>();
         for (String id : idList) {
-            DocumentPO documentPO = documentMapper.queryDocumentById(id);
+            DocumentPO documentPO = documentMapper.queryDocumentByESId(id);
             documentDTOList.add(DocumentAssembler.INSTANCE.assembleDocumentDTO(documentPO));
         }
         return documentDTOList;

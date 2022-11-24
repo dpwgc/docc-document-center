@@ -107,7 +107,7 @@ public class ESClient {
      * @param id        主键id
      * @return List<Hit < Object>>
      */
-    public List<Hit<Object>> searchDocumentById(String indexName, String id) throws IOException {
+    public List<Hit<Object>> searchDocumentByESId(String indexName, String id) throws IOException {
 
         SearchResponse<Object> search = client.search(s -> s
                         .index(indexName)

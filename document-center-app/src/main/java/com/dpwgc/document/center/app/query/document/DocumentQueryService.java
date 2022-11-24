@@ -16,14 +16,14 @@ public interface DocumentQueryService {
      * @param id ES主键id
      * @return DocumentDTO
      */
-    DocumentDTO queryDocumentById(String id) throws IOException;
+    DocumentDTO queryDocumentByESId(String id) throws IOException;
 
     /**
      * 根据ES主键id集合查询文档
      * @param idList ES主键id集合
      * @return List<DocumentDTO>
      */
-    List<DocumentDTO> queryDocumentByIdList(List<String> idList) throws IOException;
+    List<DocumentDTO> queryDocumentByESIdList(List<String> idList) throws IOException;
 
     /**
      * 文档检索

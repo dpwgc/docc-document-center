@@ -13,7 +13,7 @@ public interface DocumentMapper {
 
     String insertDocument(DocumentPO documentPO) throws IOException;
 
-    DocumentPO queryDocumentById(String id) throws IOException;
+    DocumentPO queryDocumentByESId(String id) throws IOException;
 
     Boolean updateDocument(DocumentPO documentPO) throws IOException;
 

@@ -37,8 +37,8 @@ public class DocumentMapperImpl implements DocumentMapper {
     }
 
     @Override
-    public DocumentPO queryDocumentById(String id) throws IOException {
-        List<Hit<Object>> list = esClient.searchDocumentById(indexName,id);
+    public DocumentPO queryDocumentByESId(String id) throws IOException {
+        List<Hit<Object>> list = esClient.searchDocumentByESId(indexName,id);
         if (list == null || list.size() == 0) {
             return null;
         }
