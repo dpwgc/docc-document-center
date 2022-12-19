@@ -115,6 +115,7 @@ create table `column`
   detail        text                  default '' comment '详情',
   extra         text                  default '' comment '附加内容',
   score         bigint       not null default 0 comment '排序权值',
+  document_num  bigint       not null default 0 comment '该专栏下的文档数量',
   attr          int          not null default 0 comment '属性',
   type          int          not null default 0 comment '类型',
   status        int          not null default 1 comment '状态（1-正常、0-删除）',

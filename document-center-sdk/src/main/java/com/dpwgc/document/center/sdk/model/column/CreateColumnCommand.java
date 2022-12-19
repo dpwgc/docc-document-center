@@ -38,9 +38,14 @@ public class CreateColumnCommand {
     private String extra;
 
     /**
-     * 专栏推荐分值（自由分配，返回分类列表时将按此字段对分类进行排序）
+     * 专栏推荐分值（自由分配，返回分类列表时可按此字段对分类进行排序）
      */
     private Long score;
+
+    /**
+     * 专栏下的文档总数（返回分类列表时可按此字段对分类进行排序）
+     */
+    private Long documentNum;
 
     /**
      * 专栏属性（自定义，例：1-热门专栏、0-普通专栏）
