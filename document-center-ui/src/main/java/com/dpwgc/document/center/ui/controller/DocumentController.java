@@ -97,7 +97,7 @@ public class DocumentController {
      * @return ResultDTO<Object>
      */
     @ApiOperation(value = "文档数据聚合统计")
-    @GetMapping("/aggregationsDocument")
+    @GetMapping("/aggregationDocument")
     @QueryMapping
     public ResultDTO<AggregationDTO> aggregationDocument(@ModelAttribute AggregationQuery aggregationQuery) throws IOException {
         return ResultDTO.getSuccessResult(documentQueryService.aggregationDocument(aggregationQuery));

@@ -46,18 +46,15 @@ public class CategoryController {
     @ApiOperation(value = "构建完整的分类树")
     @GetMapping("/buildCategoryTreeByAppId")
     @QueryMapping
-    public ResultDTO<List<CategoryTreeDTO>> buildCategoryTreeByAppId(@ApiParam(value = "应用id") String appId,
-                                                                   @ApiParam(value = "是否显示分类详情") Boolean showDetail) {
-        return ResultDTO.getSuccessResult(categoryQueryService.buildCategoryTreeByAppId(appId, showDetail));
+    public ResultDTO<List<CategoryTreeDTO>> buildCategoryTreeByAppId(@ModelAttribute CategoryTreeQuery categoryTreeQuery) {
+        return ResultDTO.getSuccessResult(categoryQueryService.buildCategoryTreeByAppId(categoryTreeQuery.getAppId(), categoryTreeQuery.getShowDetail()));
     }
 
     @ApiOperation(value = "根据父类id获取分类列表")
     @GetMapping("/queryCategoryByParentId")
     @QueryMapping
-    public ResultDTO<List<CategoryDTO>> queryCategoryByParentId(@ApiParam(value = "应用id") String appId,
-                                                                @ApiParam(value = "父类id") String parentId,
-                                                                @ApiParam(value = "是否显示分类详情") Boolean showDetail) {
-        return ResultDTO.getSuccessResult(categoryQueryService.queryCategoryByParentId(appId, parentId, showDetail));
+    public ResultDTO<List<CategoryDTO>> queryCategoryByParentId(@ModelAttribute CategoryListQuery categoryListQuery) {
+        return ResultDTO.getSuccessResult(categoryQueryService.queryCategoryByParentId(categoryListQuery.getAppId(), categoryListQuery.getParentId(), categoryListQuery.getShowDetail()));
     }
 
     @ApiOperation(value = "根据分类id获取分类")
