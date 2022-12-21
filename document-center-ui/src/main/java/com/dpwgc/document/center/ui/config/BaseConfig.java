@@ -46,7 +46,6 @@ public class BaseConfig implements InitializingBean {
      */
     @Override
     public void afterPropertiesSet() {
-
         System.out.println("\n==================== configuration ====================" +
                 "\n<application> [name]: "+applicationName +
                 "\n<datasource> [url]: "+datasourceUrl +
@@ -54,6 +53,7 @@ public class BaseConfig implements InitializingBean {
                 "\n<cluster> [datacenter_id]: "+datacenterId+"    [worker_id]: "+workerId +
                 "\n<monitor> [url]: http://localhost:"+serverPort+contextPath+"/monitor.html" +
                 "\n<swagger api doc> [url]: http://localhost:"+serverPort+contextPath+"/doc.html" +
+                "\n<graphiql page> [url]: http://localhost:"+serverPort+contextPath+"/graphiql" +
                 "\n==================== configuration ====================\n");
 
         //ES索引创建
